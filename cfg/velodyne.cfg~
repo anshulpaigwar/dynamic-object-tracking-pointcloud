@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+PACKAGE = "dynamic_obstacle_tracking"
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+
+
+gen.add("ENABLE_OCCLUSION_DETECTION",				bool_t,		0, "Enable occlusion detection (shadows no detected as dynamic obstacles)", True)
+gen.add("PASS_X_MIN",				double_t,	0, "Passthrough", 0.0, -100.0, 0.0)
+gen.add("PASS_X_MAX",				double_t,	0, "Passthrough", 20.0, 0.0, 100.0)
+gen.add("PASS_Y_MIN",				double_t,	0, "Passthrough", -15.0, -100.0, 0.0)
+gen.add("PASS_Y_MAX",				double_t,	0, "Passthrough", 15.0,   0.0, 100.0)
+gen.add("PASS_Z_MIN",				double_t,	0, "Passthrough", -0.3, -4.0, 4.0)
+gen.add("PASS_Z_MAX",				double_t,	0, "Passthrough", 4.0,  0.0, 10.0)
+gen.add("OCTREE_WINDOW",			int_t,		0, "octree spatial change comparison", 5,     1, 10)
+gen.add("OCTREE_RESOLUTION",			double_t,	0, "octree leaf node size", 0.4, 0.0, 3.0)
+gen.add("SEG_CLUSTER_TOLERANCE",		double_t,	0, "Eucledian segmentation cluster tolerance", 1.5, 0.0, 3.0)
+gen.add("SEG_MIN_CLUSTER_SIZE",			int_t,		0, "Eucledian segmentation minimum cluster size", 50, 0, 200)
+gen.add("SEG_MAX_CLUSTER_SIZE",			int_t,		0, "Eucledian segmentation maximum cluster size", 2500, 0, 10000)
+
+exit(gen.generate(PACKAGE, "dynamic_obstacle_tracking", "velodyne"))

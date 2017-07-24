@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+PACKAGE = "datmo"
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+
+gen.add("VOXEL_LEAF_SIZE",			double_t,	0, "Voxel leaf size", 0.15, 0, 0.5)
+gen.add("ENABLE_SOR",				bool_t,		0, "Enable Statistical outlier removal", True)
+gen.add("SOR_MEAN_K",				int_t,		0, "number of neighbors to analyze for each point in SOR", 20, 0, 150)
+gen.add("SOR_STD_DEV_MUL_THRESH",	double_t,	0, "distance in multiples of std dev", 0, 1.0, 4.0)
+gen.add("PASS_X_MIN",				double_t,	0, "Passthrough", 0.0, -10.0, 0.0)
+gen.add("PASS_X_MAX",				double_t,	0, "Passthrough", 10.0, -10.0, 10.0)
+gen.add("PASS_Y_MIN",				double_t,	0, "Passthrough", -6.0, -10.0, 0.0)
+gen.add("PASS_Y_MAX",				double_t,	0, "Passthrough", 6.0, -10.0, 10.0)
+gen.add("PASS_Z_MIN",				double_t,	0, "Passthrough", 0.2, -10.0, 0.0)
+gen.add("PASS_Z_MAX",				double_t,	0, "Passthrough", 4.0, -10.0, 10.0)
+gen.add("OCTREE_WINDOW",			int_t,		0, "octree spatial change comparison", 15, 0, 100)
+gen.add("OCTREE_RESOLUTION",			double_t,	0, "octree leaf node size", 0.5, 0.0, 3.0)
+gen.add("SEG_CLUSTER_TOLERANCE",		double_t,	0, "Eucledian segmentation cluster tolerance", 0.5, 0.0, 3.0)
+gen.add("SEG_MIN_CLUSTER_SIZE",			int_t,		0, "Eucledian segmentation minimum cluster size", 20, 0, 200)
+gen.add("SEG_MAX_CLUSTER_SIZE",			int_t,		0, "Eucledian segmentation maximum cluster size", 2500, 0, 10000)
+
+exit(gen.generate(PACKAGE, "datmo", "PclParams"))

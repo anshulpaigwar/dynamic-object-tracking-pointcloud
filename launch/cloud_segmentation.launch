@@ -1,0 +1,24 @@
+<!-- This launch file does following F**king things:
+
+1. Open a rosbag file from the specified location and Remap the topic /zoe/velodyne_points to /bakwas
+2. Start triclops_stereo_pcl_bag_filters node. It takes image_raw and calibration file and generates pointcloud /zoe/bumblebee_points
+3. remap topic "/zoe/bumblebee_points" to="/zoe/velodyne_points"
+4. publish a static tf for bumblebee
+
+-->
+
+<launch>
+
+<!-- <node pkg="rosbag" type="play" name="player" output="screen" args=" /home/anshul/logs/bumblebee/filtered_covered.bag /zoe/velodyne_points:=/bakwas"/> -->
+
+<!--/home/anshul/logs/bumblebee/2016_Jun_16-14_06_34.bag filtered.bag 1.395467 -1.67 -0.30 1.35 -->
+
+<node pkg="tf" type="static_transform_publisher" name="VLP16_tf_broadcaster" args="0 0 2 0 0.3488 0.034 /vehicle /velodyne 100" />
+
+<node pkg="datmo" type="cloud_segmentation_node" name="cloud_segmentation_node" output="screen">
+<param name="octree_window" type="int" value="5"/>
+</node>
+
+
+<!--<node pkg="tf" type="static_transform_publisher" name="Odom_broadcaster" args="0 0 0 0 0 0 /base_link /odom_tf 100" />-->
+</launch>
