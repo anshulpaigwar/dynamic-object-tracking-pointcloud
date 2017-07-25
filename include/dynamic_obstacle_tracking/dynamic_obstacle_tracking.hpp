@@ -29,6 +29,11 @@
 #include <pcl/filters/passthrough.h>
 #include <pcl/registration/icp.h>
 //#include <pcl/filters/voxel_grid.h>
+//#
+#include <pcl/filters/voxel_grid.h>
+#include <pcl/filters/approximate_voxel_grid.h>
+#include <pcl/filters/statistical_outlier_removal.h>
+
 #include <pcl/features/normal_3d.h>
 #include <pcl/kdtree/kdtree.h>
 #include <pcl/segmentation/extract_clusters.h>
@@ -101,10 +106,14 @@ struct Float3{
 	    Eigen::Affine3d odom_transform_matrix;
 	    Eigen::Affine3f icp_transform_matrix;
 
-	    //pcl::PointCloud<pcl::PointXYZ>:: Ptr cloud_filter;
-	    bool first_time;
-	    int counter;
 
+
+	    int counter;
+	    //pcl::PointCloud<pcl::PointXYZ>:: Ptr cloud_filter;
+	    bool ENABLE_ICP;
+        bool ENABLE_GROUND_REMOVAL;
+        bool ENABLE_VOXELISE;
+        bool ENABLE_OCCLUSION_DETECTION;
 
         float VOXEL_LEAF_SIZE;
         //Statistical outlier parameters
@@ -128,7 +137,7 @@ struct Float3{
         int SEG_MIN_CLUSTER_SIZE;
         int SEG_MAX_CLUSTER_SIZE;
 
-        bool ENABLE_OCCLUSION_DETECTION;
+
 
 
 
@@ -140,23 +149,35 @@ struct Float3{
 	    void cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg);
 
 
-        //void dynamic_reconfigure_cb(datmo::datmoConfig &config, uint32_t level);
-	    //void odom_cb (const nav_msgs::Odometry odom_msg);
-	    void cloud_transform (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud);
-	    //void integrateOdom (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud);
-	    //void integrateOdom (std::vector<Float3>& last_centroids);
+
+	    void cloud_transform (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud_in, const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out);
 
 
+	    void cloud_filter (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_in, const string field, float min, float max);
 
-	    void cloud_filter (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_f, const string field, float min, float max);
-	    void Ransac_plane (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_f, pcl::ModelCoefficients::Ptr& coefficients);
+        void Voxel_filter ( const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_in,
+                            const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out,
+                            float VOXEL_LEAF_SIZE);
+
+        void SOR_filter (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_in,
+                         const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out,
+                         float SOR_MEAN_K,
+                         float SOR_STD_DEV_MUL_THRESH );
+
+        void Ransac_plane (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_in, const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out);
 	    //void euclideancluster (const pcl::PointCloud<pcl::PointXYZ>::Ptr& obj_cloud, const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& cluster_cloud, std::vector<Float3> centroids);
-	    void euclideancluster (const pcl::PointCloud<pcl::PointXYZ>::Ptr& obj_cloud);
 
+        void euclideancluster  (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud,
+                                float SEG_CLUSTER_TOLERANCE,
+                                int SEG_MIN_CLUSTER_SIZE,
+                                int SEG_MAX_CLUSTER_SIZE);
 
-	    void mark_cluster(pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_cluster, std::string ns ,int id, float r, float g, float b);
-	    void integrateOdom_ICP (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& obj_cloud, const pcl::PointCloud<pcl::PointXYZ>::Ptr& prev_obj_cloud );
-	    void integrateOdom ( pcl::PointCloud<pcl::PointXYZ> &last_centroids);
+        void detect_spatial_change (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_now,
+                                    const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_to_compare,
+                                    const pcl::PointCloud<pcl::PointXYZ>::Ptr& dynamic_cloud,
+                                    const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& occuluded_cloud,
+                                    float OCTREE_RESOLUTION,
+                                    bool ENABLE_OCCLUSION_DETECTION);
         /**
          * [is_in_bounding_area description]
          * @param  coord [description]
@@ -165,9 +186,17 @@ struct Float3{
          */
         bool is_in_bounding_area(const pcl::PointCloud<pcl::PointXYZ>::Ptr& coord, pcl::PointXYZRGB pt );
 
+        
+	    void mark_cluster(pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud_cluster, std::string ns ,int id, float r, float g, float b);
+	    void integrateOdom_ICP (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& obj_cloud, const pcl::PointCloud<pcl::PointXYZ>::Ptr& prev_obj_cloud );
+	    void integrateOdom ( pcl::PointCloud<pcl::PointXYZ> &last_centroids);
 
 
+        //void integrateOdom (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud);
+	    //void integrateOdom (std::vector<Float3>& last_centroids);
+        //void dynamic_reconfigure_cb(datmo::datmoConfig &config, uint32_t level);
+	    //void odom_cb (const nav_msgs::Odometry odom_msg);
     };
 
 }
-//#endif // __CLOUD_SEGMENTATION_HPP__
+//#endif // __DYNAMIC_OBSTACLE_TRACKING_HPP__

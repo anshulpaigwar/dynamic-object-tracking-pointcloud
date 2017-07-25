@@ -62,6 +62,10 @@ using namespace datmo;
         SEG_MIN_CLUSTER_SIZE = 50;
         SEG_MAX_CLUSTER_SIZE = 2500;
 
+        ENABLE_ICP = false;
+        ENABLE_GROUND_REMOVAL  = true;
+        ENABLE_VOXELISE = false;
+        ENABLE_SOR = false;
         ENABLE_OCCLUSION_DETECTION  = true;
 
         cb_type = boost::bind(&Sensor::dynamic_reconfigure_cb, this, _1, _2);

@@ -147,8 +147,8 @@ add_library(dynamic_obstacle_tracking src/dynamic_obstacle_tracking.cpp)
 add_dependencies(dynamic_obstacle_tracking ${PROJECT_NAME}_gencfg)
 target_link_libraries(dynamic_obstacle_tracking ${catkin_LIBRARIES})
 
-add_executable(dynamic_obstacle_tracking_node src/dynamic_obstacle_tracking_node.cpp )
-target_link_libraries(dynamic_obstacle_tracking_node dynamic_obstacle_tracking ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+add_executable(velodyne_node src/velodyne_node.cpp )
+target_link_libraries(velodyne_node dynamic_obstacle_tracking ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
 
 ## Declare a C++ executable

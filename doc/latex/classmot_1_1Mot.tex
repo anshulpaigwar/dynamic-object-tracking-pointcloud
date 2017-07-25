@@ -1,0 +1,221 @@
+\hypertarget{classmot_1_1Mot}{}\section{mot.\+Mot Class Reference}
+\label{classmot_1_1Mot}\index{mot.\+Mot@{mot.\+Mot}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{classmot_1_1Mot_a63d1ea755e2c380d5d8830862874b56a}{\+\_\+\+\_\+init\+\_\+\+\_\+} (self)
+\item 
+def \hyperlink{classmot_1_1Mot_a2f570a81beec7c5a9aedb86f586e4278}{centroid\+\_\+callback} (self, ros\+\_\+data)
+\item 
+def \hyperlink{classmot_1_1Mot_a146dfd7ffe29a4099dccc3cc1051e631}{do\+\_\+assignment} (self)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmot_1_1Mot_a618159389311b0b4fab2ef8b478ea2df}{tracker\+\_\+list\+\_\+pub}
+\item 
+\hyperlink{classmot_1_1Mot_a806b7698802e61046a4fce8890f5c52b}{centoid\+\_\+sub}
+\item 
+\hyperlink{classmot_1_1Mot_a9b710d92b9f34ffeea025df93cb2bb80}{distance\+\_\+threshold}
+\item 
+\hyperlink{classmot_1_1Mot_ac9045d15685595e5c9c0d73a07096fd5}{youth\+\_\+threshold}
+\item 
+\hyperlink{classmot_1_1Mot_a4f4718be93ace6f22b7e505e50ba4422}{strikes\+\_\+threshold}
+\item 
+\hyperlink{classmot_1_1Mot_a09b9273b0c9ac16aca96e09a9a8286ee}{new\+Data\+Available}
+\item 
+\hyperlink{classmot_1_1Mot_a5d3db20cb3944a6b4206b2c2cabb8c25}{listener}
+\item 
+\hyperlink{classmot_1_1Mot_ac1213e59910aae6fed426abb8debee7e}{transformer}
+\item 
+\hyperlink{classmot_1_1Mot_a5224b869eed96f5fb233eb19b7a5dee2}{trans\+\_\+matrix}
+\item 
+\hyperlink{classmot_1_1Mot_a0454aadfd7e1cfba0ac43bbd57052758}{latest\+\_\+header}
+\item 
+\hyperlink{classmot_1_1Mot_a7a40f92ea70acf4200484294185a8759}{latest\+\_\+objects}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classmot_1_1Mot_afa88ed1870c8848b4368fe59d12c9f7f}{marker} = Marker()
+\item 
+\hyperlink{classmot_1_1Mot_adddddf34ffd1d5e93a4ab67a79416531}{frame\+\_\+id}
+\item 
+\hyperlink{classmot_1_1Mot_a0918530a3a23816411d3e02de7b58b05}{ns}
+\item 
+\hyperlink{classmot_1_1Mot_a1c8fd1b60dab0f8df2dff9e9b66996db}{type}
+\item 
+\hyperlink{classmot_1_1Mot_a9e252c1dac6a069e958f24ec5d2ece06}{action}
+\item 
+\hyperlink{classmot_1_1Mot_a58647c038e9ef54cc10eb37be08d340c}{x}
+\item 
+\hyperlink{classmot_1_1Mot_a80b2443ae75a50bf00d568decfaf3068}{y}
+\item 
+\hyperlink{classmot_1_1Mot_a5c825a78182ddd5d999a5f873cc54191}{z}
+\item 
+\hyperlink{classmot_1_1Mot_a792c086f8f01b7974e53dda4d88dd27d}{w}
+\item 
+\hyperlink{classmot_1_1Mot_a1a1a1c16afbcb4552e857568acf9ed11}{tracked\+\_\+objects}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}Multi object tracker class\end{DoxyVerb}
+ 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmot_1_1Mot_a63d1ea755e2c380d5d8830862874b56a}\label{classmot_1_1Mot_a63d1ea755e2c380d5d8830862874b56a}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}}
+\index{\+\_\+\+\_\+init\+\_\+\+\_\+@{\+\_\+\+\_\+init\+\_\+\+\_\+}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{\+\_\+\+\_\+init\+\_\+\+\_\+()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def mot.\+Mot.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmot_1_1Mot_a2f570a81beec7c5a9aedb86f586e4278}\label{classmot_1_1Mot_a2f570a81beec7c5a9aedb86f586e4278}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!centroid\+\_\+callback@{centroid\+\_\+callback}}
+\index{centroid\+\_\+callback@{centroid\+\_\+callback}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{centroid\+\_\+callback()}{centroid\_callback()}}
+{\footnotesize\ttfamily def mot.\+Mot.\+centroid\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ros\+\_\+data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a146dfd7ffe29a4099dccc3cc1051e631}\label{classmot_1_1Mot_a146dfd7ffe29a4099dccc3cc1051e631}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!do\+\_\+assignment@{do\+\_\+assignment}}
+\index{do\+\_\+assignment@{do\+\_\+assignment}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{do\+\_\+assignment()}{do\_assignment()}}
+{\footnotesize\ttfamily def mot.\+Mot.\+do\+\_\+assignment (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classmot_1_1Mot_a9e252c1dac6a069e958f24ec5d2ece06}\label{classmot_1_1Mot_a9e252c1dac6a069e958f24ec5d2ece06}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!action@{action}}
+\index{action@{action}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{action}{action}}
+{\footnotesize\ttfamily mot.\+Mot.\+action\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a806b7698802e61046a4fce8890f5c52b}\label{classmot_1_1Mot_a806b7698802e61046a4fce8890f5c52b}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!centoid\+\_\+sub@{centoid\+\_\+sub}}
+\index{centoid\+\_\+sub@{centoid\+\_\+sub}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{centoid\+\_\+sub}{centoid\_sub}}
+{\footnotesize\ttfamily mot.\+Mot.\+centoid\+\_\+sub}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a9b710d92b9f34ffeea025df93cb2bb80}\label{classmot_1_1Mot_a9b710d92b9f34ffeea025df93cb2bb80}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!distance\+\_\+threshold@{distance\+\_\+threshold}}
+\index{distance\+\_\+threshold@{distance\+\_\+threshold}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{distance\+\_\+threshold}{distance\_threshold}}
+{\footnotesize\ttfamily mot.\+Mot.\+distance\+\_\+threshold}
+
+\mbox{\Hypertarget{classmot_1_1Mot_adddddf34ffd1d5e93a4ab67a79416531}\label{classmot_1_1Mot_adddddf34ffd1d5e93a4ab67a79416531}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!frame\+\_\+id@{frame\+\_\+id}}
+\index{frame\+\_\+id@{frame\+\_\+id}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{frame\+\_\+id}{frame\_id}}
+{\footnotesize\ttfamily mot.\+Mot.\+frame\+\_\+id\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a0454aadfd7e1cfba0ac43bbd57052758}\label{classmot_1_1Mot_a0454aadfd7e1cfba0ac43bbd57052758}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!latest\+\_\+header@{latest\+\_\+header}}
+\index{latest\+\_\+header@{latest\+\_\+header}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{latest\+\_\+header}{latest\_header}}
+{\footnotesize\ttfamily mot.\+Mot.\+latest\+\_\+header}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a7a40f92ea70acf4200484294185a8759}\label{classmot_1_1Mot_a7a40f92ea70acf4200484294185a8759}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!latest\+\_\+objects@{latest\+\_\+objects}}
+\index{latest\+\_\+objects@{latest\+\_\+objects}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{latest\+\_\+objects}{latest\_objects}}
+{\footnotesize\ttfamily mot.\+Mot.\+latest\+\_\+objects}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a5d3db20cb3944a6b4206b2c2cabb8c25}\label{classmot_1_1Mot_a5d3db20cb3944a6b4206b2c2cabb8c25}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!listener@{listener}}
+\index{listener@{listener}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{listener}{listener}}
+{\footnotesize\ttfamily mot.\+Mot.\+listener}
+
+\mbox{\Hypertarget{classmot_1_1Mot_afa88ed1870c8848b4368fe59d12c9f7f}\label{classmot_1_1Mot_afa88ed1870c8848b4368fe59d12c9f7f}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!marker@{marker}}
+\index{marker@{marker}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{marker}{marker}}
+{\footnotesize\ttfamily mot.\+Mot.\+marker = Marker()\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a09b9273b0c9ac16aca96e09a9a8286ee}\label{classmot_1_1Mot_a09b9273b0c9ac16aca96e09a9a8286ee}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!new\+Data\+Available@{new\+Data\+Available}}
+\index{new\+Data\+Available@{new\+Data\+Available}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{new\+Data\+Available}{newDataAvailable}}
+{\footnotesize\ttfamily mot.\+Mot.\+new\+Data\+Available}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a0918530a3a23816411d3e02de7b58b05}\label{classmot_1_1Mot_a0918530a3a23816411d3e02de7b58b05}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!ns@{ns}}
+\index{ns@{ns}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{ns}{ns}}
+{\footnotesize\ttfamily mot.\+Mot.\+ns\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a4f4718be93ace6f22b7e505e50ba4422}\label{classmot_1_1Mot_a4f4718be93ace6f22b7e505e50ba4422}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!strikes\+\_\+threshold@{strikes\+\_\+threshold}}
+\index{strikes\+\_\+threshold@{strikes\+\_\+threshold}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{strikes\+\_\+threshold}{strikes\_threshold}}
+{\footnotesize\ttfamily mot.\+Mot.\+strikes\+\_\+threshold}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a1a1a1c16afbcb4552e857568acf9ed11}\label{classmot_1_1Mot_a1a1a1c16afbcb4552e857568acf9ed11}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!tracked\+\_\+objects@{tracked\+\_\+objects}}
+\index{tracked\+\_\+objects@{tracked\+\_\+objects}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{tracked\+\_\+objects}{tracked\_objects}}
+{\footnotesize\ttfamily mot.\+Mot.\+tracked\+\_\+objects\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a618159389311b0b4fab2ef8b478ea2df}\label{classmot_1_1Mot_a618159389311b0b4fab2ef8b478ea2df}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!tracker\+\_\+list\+\_\+pub@{tracker\+\_\+list\+\_\+pub}}
+\index{tracker\+\_\+list\+\_\+pub@{tracker\+\_\+list\+\_\+pub}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{tracker\+\_\+list\+\_\+pub}{tracker\_list\_pub}}
+{\footnotesize\ttfamily mot.\+Mot.\+tracker\+\_\+list\+\_\+pub}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a5224b869eed96f5fb233eb19b7a5dee2}\label{classmot_1_1Mot_a5224b869eed96f5fb233eb19b7a5dee2}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!trans\+\_\+matrix@{trans\+\_\+matrix}}
+\index{trans\+\_\+matrix@{trans\+\_\+matrix}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{trans\+\_\+matrix}{trans\_matrix}}
+{\footnotesize\ttfamily mot.\+Mot.\+trans\+\_\+matrix}
+
+\mbox{\Hypertarget{classmot_1_1Mot_ac1213e59910aae6fed426abb8debee7e}\label{classmot_1_1Mot_ac1213e59910aae6fed426abb8debee7e}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!transformer@{transformer}}
+\index{transformer@{transformer}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{transformer}{transformer}}
+{\footnotesize\ttfamily mot.\+Mot.\+transformer}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a1c8fd1b60dab0f8df2dff9e9b66996db}\label{classmot_1_1Mot_a1c8fd1b60dab0f8df2dff9e9b66996db}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!type@{type}}
+\index{type@{type}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily mot.\+Mot.\+type\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a792c086f8f01b7974e53dda4d88dd27d}\label{classmot_1_1Mot_a792c086f8f01b7974e53dda4d88dd27d}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!w@{w}}
+\index{w@{w}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{w}{w}}
+{\footnotesize\ttfamily mot.\+Mot.\+w\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a58647c038e9ef54cc10eb37be08d340c}\label{classmot_1_1Mot_a58647c038e9ef54cc10eb37be08d340c}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!x@{x}}
+\index{x@{x}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily mot.\+Mot.\+x\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a80b2443ae75a50bf00d568decfaf3068}\label{classmot_1_1Mot_a80b2443ae75a50bf00d568decfaf3068}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!y@{y}}
+\index{y@{y}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily mot.\+Mot.\+y\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{classmot_1_1Mot_ac9045d15685595e5c9c0d73a07096fd5}\label{classmot_1_1Mot_ac9045d15685595e5c9c0d73a07096fd5}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!youth\+\_\+threshold@{youth\+\_\+threshold}}
+\index{youth\+\_\+threshold@{youth\+\_\+threshold}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{youth\+\_\+threshold}{youth\_threshold}}
+{\footnotesize\ttfamily mot.\+Mot.\+youth\+\_\+threshold}
+
+\mbox{\Hypertarget{classmot_1_1Mot_a5c825a78182ddd5d999a5f873cc54191}\label{classmot_1_1Mot_a5c825a78182ddd5d999a5f873cc54191}} 
+\index{mot\+::\+Mot@{mot\+::\+Mot}!z@{z}}
+\index{z@{z}!mot\+::\+Mot@{mot\+::\+Mot}}
+\subsubsection{\texorpdfstring{z}{z}}
+{\footnotesize\ttfamily mot.\+Mot.\+z\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+scripts/\hyperlink{mot_8py}{mot.\+py}\end{DoxyCompactItemize}

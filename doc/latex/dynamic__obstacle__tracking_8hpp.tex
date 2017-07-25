@@ -1,0 +1,74 @@
+\hypertarget{dynamic__obstacle__tracking_8hpp}{}\section{include/dynamic\+\_\+obstacle\+\_\+tracking/dynamic\+\_\+obstacle\+\_\+tracking.hpp File Reference}
+\label{dynamic__obstacle__tracking_8hpp}\index{include/dynamic\+\_\+obstacle\+\_\+tracking/dynamic\+\_\+obstacle\+\_\+tracking.\+hpp@{include/dynamic\+\_\+obstacle\+\_\+tracking/dynamic\+\_\+obstacle\+\_\+tracking.\+hpp}}
+{\ttfamily \#include $<$ros/ros.\+h$>$}\newline
+{\ttfamily \#include $<$visualization\+\_\+msgs/\+Marker.\+h$>$}\newline
+{\ttfamily \#include $<$visualization\+\_\+msgs/\+Marker\+Array.\+h$>$}\newline
+{\ttfamily \#include $<$sensor\+\_\+msgs/\+Point\+Cloud2.\+h$>$}\newline
+{\ttfamily \#include $<$nav\+\_\+msgs/\+Odometry.\+h$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Pose\+Array.\+h$>$}\newline
+{\ttfamily \#include $<$geometry\+\_\+msgs/\+Pose.\+h$>$}\newline
+{\ttfamily \#include $<$dynamic\+\_\+reconfigure/server.\+h$>$}\newline
+{\ttfamily \#include $<$pcl\+\_\+conversions/pcl\+\_\+conversions.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/point\+\_\+cloud.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/point\+\_\+types.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/common/transforms.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/common/common.\+h$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Dense$>$}\newline
+{\ttfamily \#include $<$Eigen/\+Geometry$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$tf/\+Linear\+Math/\+Matrix3x3.\+h$>$}\newline
+{\ttfamily \#include $<$tf/transform\+\_\+datatypes.\+h$>$}\newline
+{\ttfamily \#include $<$tf/transform\+\_\+listener.\+h$>$}\newline
+{\ttfamily \#include $<$tf/transform\+\_\+broadcaster.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}tf\+\_\+conversions/tf\+\_\+eigen.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$pcl/filters/passthrough.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/registration/icp.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/filters/voxel\+\_\+grid.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/filters/approximate\+\_\+voxel\+\_\+grid.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/filters/statistical\+\_\+outlier\+\_\+removal.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/features/normal\+\_\+3d.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/kdtree/kdtree.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/segmentation/extract\+\_\+clusters.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/octree/octree\+\_\+impl.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/octree/octree.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/octree/octree\+\_\+pointcloud\+\_\+adjacency.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/sample\+\_\+consensus/method\+\_\+types.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/sample\+\_\+consensus/model\+\_\+types.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/segmentation/sac\+\_\+segmentation.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/\+Model\+Coefficients.\+h$>$}\newline
+{\ttfamily \#include $<$pcl/filters/extract\+\_\+indices.\+h$>$}\newline
+{\ttfamily \#include $<$ctime$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structdatmo_1_1Float3}{datmo\+::\+Float3}
+\item 
+class \hyperlink{classdatmo_1_1cloud__segmentation}{datmo\+::cloud\+\_\+segmentation}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacedatmo}{datmo}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{dynamic__obstacle__tracking_8hpp_a598a3330b3c21701223ee0ca14316eca}{PI}~3.\+14159265
+\item 
+\#define \hyperlink{dynamic__obstacle__tracking_8hpp_ad41630f833e920c1ffa34722f45a8e77}{S\+QR}(a)~((a)$\ast$(a))
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{dynamic__obstacle__tracking_8hpp_a598a3330b3c21701223ee0ca14316eca}\label{dynamic__obstacle__tracking_8hpp_a598a3330b3c21701223ee0ca14316eca}} 
+\index{dynamic\+\_\+obstacle\+\_\+tracking.\+hpp@{dynamic\+\_\+obstacle\+\_\+tracking.\+hpp}!PI@{PI}}
+\index{PI@{PI}!dynamic\+\_\+obstacle\+\_\+tracking.\+hpp@{dynamic\+\_\+obstacle\+\_\+tracking.\+hpp}}
+\subsubsection{\texorpdfstring{PI}{PI}}
+{\footnotesize\ttfamily \#define PI~3.\+14159265}
+
+\mbox{\Hypertarget{dynamic__obstacle__tracking_8hpp_ad41630f833e920c1ffa34722f45a8e77}\label{dynamic__obstacle__tracking_8hpp_ad41630f833e920c1ffa34722f45a8e77}} 
+\index{dynamic\+\_\+obstacle\+\_\+tracking.\+hpp@{dynamic\+\_\+obstacle\+\_\+tracking.\+hpp}!S\+QR@{S\+QR}}
+\index{S\+QR@{S\+QR}!dynamic\+\_\+obstacle\+\_\+tracking.\+hpp@{dynamic\+\_\+obstacle\+\_\+tracking.\+hpp}}
+\subsubsection{\texorpdfstring{S\+QR}{SQR}}
+{\footnotesize\ttfamily \#define S\+QR(\begin{DoxyParamCaption}\item[{}]{a }\end{DoxyParamCaption})~((a)$\ast$(a))}
+

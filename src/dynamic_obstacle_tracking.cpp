@@ -33,11 +33,11 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
     //std::cout <<octree_window <<"," <<xmin <<","<<xmax <<","<<ymin <<","<<ymax <<'\n';
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ> ());
     pcl::PointCloud<pcl::PointXYZ>::Ptr obj_cloud (new pcl::PointCloud<pcl::PointXYZ> ());
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr dynamic_cluster_cloud (new pcl::PointCloud<pcl::PointXYZRGB> ());
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr filtered_dynamic_cloud (new pcl::PointCloud<pcl::PointXYZRGB> ());
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr occuluded_cloud (new pcl::PointCloud<pcl::PointXYZRGB> ());
     pcl::PointCloud<pcl::PointXYZRGB>::Ptr new_discovered_cloud (new pcl::PointCloud<pcl::PointXYZRGB> ());
     //pcl::PointCloud<pcl::PointXYZ>::Ptr dynamic_cloud (new pcl::PointCloud<pcl::PointXYZ> ());
-    pcl::PointCloud<pcl::PointXYZ>::Ptr filtered_dynamic_cloud (new pcl::PointCloud<pcl::PointXYZ> ());
+    pcl::PointCloud<pcl::PointXYZ>::Ptr dynamic_cloud (new pcl::PointCloud<pcl::PointXYZ> ());
 
     //std::vector<Float3> centroids;
     pcl::PointCloud<pcl::PointXYZ> centroids;
@@ -48,7 +48,7 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
     pcl::fromROSMsg (*cloud_msg, *cloud);
 
     // transform the point clould
-    cloud_transform(cloud);
+    cloud_transform(cloud, cloud_transformed);
 
     // filter the cloud to specific dimensions in x y and z directions
     cloud_filter(cloud_transformed,"y",PASS_Y_MIN,PASS_Y_MAX);
@@ -69,86 +69,35 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 
 
 
+    if(ENABLE_VOXELISE){
+        Voxel_filter(cloud_transformed, cloud_transformed, VOXEL_LEAF_SIZE);
+    }
 
 
 
 
-
-
-
-
-
-
-
-
+    if(ENABLE_SOR){
+        SOR_filter(cloud_transformed, obj_cloud, SOR_MEAN_K, SOR_STD_DEV_MUL_THRESH);
+        //ROS_INFO_STREAM("Time After SOR: " << (ros::Time::now().toSec()- start_time));
+    }
 
 
 
     // ...........................Ground plane extraction using Ransac_plane fitting................................//
 
 
-    // coefficients for ground plane
-    pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
-    Ransac_plane(cloud_transformed,coefficients); // we try to fit a ransac plane to data point and get the coefficients of plane.
-
-
-    //here we classify points that belong to ground and non ground
-    //cloud_classified.clear()
-
-    float dist; /// distance from ransac plane
-    float normaliser;
-    normaliser = sqrt(pow(coefficients->values[0],2) + pow(coefficients->values[1],2) + pow(coefficients->values[2],2));
-
-
-    for(int i = 0; i<cloud_transformed->size(); i++ ){
-        // point.x = cloud_transformed->points[i].x;
-        // point.y = cloud_transformed->points[i].y;
-        // point.z = cloud_transformed->points[i].z;
-
-
-        pt.x = cloud_transformed->points[i].x;
-        pt.y = cloud_transformed->points[i].y;
-        pt.z = cloud_transformed->points[i].z;
-        //dist of point from plane
-        dist = abs((coefficients->values[0] * pt.x + coefficients->values[1] * pt.y + coefficients->values[2] * pt.z +coefficients->values[3])/(float)normaliser);
-
-        // all points below zero height are considered to be ground in our case which is wrong but works for our case
-        // as we assume that there are no slopes in indoor warehouse enviornment
-
-        if (dist>0.2 && pt.z > 0){
-            // point.r = 0;
-            // point.g = 0;
-            // point.b = 255;
-            obj_cloud->push_back(pt); // obj_cloud contains only objects (static and dynamic both)
-        }
-
-        // uncomment to visualise ground plane segmentation
-        // else{
-        //     point.r = 0;
-        //     point.g = 255;
-        //     point.b = 0;
-        // }
-            //cloud_classified.push_back(point);
+    if(ENABLE_GROUND_REMOVAL){
+        Ransac_plane(cloud_transformed,obj_cloud); // we try to fit a ransac plane to data point and get the coefficients of plane.
+        //ROS_INFO_STREAM("Time After Voxelgrid: " << (ros::Time::now().toSec()- start_time));
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // euclideanclustering just to remove outliers i.e very small group of obstacles
-    euclideancluster(obj_cloud);
+    euclideancluster(obj_cloud, SEG_CLUSTER_TOLERANCE, SEG_MIN_CLUSTER_SIZE, SEG_MAX_CLUSTER_SIZE);
+
+
+
 
 
      //find the current transfom wrt world frame (/odom)
@@ -187,8 +136,6 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
             // std::cout << "relative _transform" << '\n';
             // cout<< odom_transform_matrix.matrix() <<endl;
 
-
-
             //transform previous times object cloud to the current frame of reference
             pcl::transformPointCloud (*prev_obj_cloud, *prev_obj_cloud, odom_transform_matrix);
             // find the new bounding_area polygon coordinates
@@ -196,9 +143,9 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 
 
 
-
-            //integrateOdom_ICP(obj_cloud, prev_obj_cloud);
-
+            //if(ENABLE_ICP){
+                //integrateOdom_ICP(obj_cloud, prev_obj_cloud);
+            //}
 
 
 
@@ -207,94 +154,21 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
             br.sendTransform(tf::StampedTransform(twist2, ros::Time::now(), "/latest_centroids", "/prev_centroids"));
 
 
-            // concept to understand is for spatial change detection we are comparing current pointcloud with maybe
-            // 4-5 timestep previous pointcloud but this is happening at every time we get new data (10hz)so centroids are
-            // are being published at every time step so for kalman filter we only need transform current and last time step
-
-
-
-
-
 
 
 
 
 
             //........................................Spatial change detection......................................................//
+            // concept to understand is for spatial change detection we are comparing current pointcloud with maybe
+            // 4-5 timestep previous pointcloud but this is happening at every time we get new data (10hz)so centroids are
+            // are being published at every time step so for kalman filter we only need transform current and last time step
 
-            // Octree resolution - side length of octree voxels
-            //float resolution = 0.4f;
-
-            // Instantiate octree-based point cloud change detection class
-            pcl::octree::OctreePointCloudChangeDetector<pcl::PointXYZ> octree (OCTREE_RESOLUTION);
-
-
-
-            // Add points from cloudA to octree
-            octree.setInputCloud (prev_obj_cloud); //compare the current pointcloud octree with pointcloud octree_window times ago
-            octree.addPointsFromInputCloud ();
-
-            // Switch octree buffers: This resets octree but keeps previous tree structure in memory.
-            octree.switchBuffers ();
-
-            // Add points from currentcloud to octree
-            octree.setInputCloud (obj_cloud);
-            octree.addPointsFromInputCloud ();
-
-            std::vector<int> newPointIdxVector;
-
-            // Get vector of point indices from octree voxels which did not exist in previous buffer
-            octree.getPointIndicesFromNewVoxels (newPointIdxVector);
+            detect_spatial_change(obj_cloud, prev_obj_cloud, dynamic_cloud, occuluded_cloud, OCTREE_RESOLUTION, ENABLE_OCCLUSION_DETECTION  );
 
 
 
 
-            //....................Check if the new dectected points(dynamic points) were occuluded in in previous time step.............//
-
-            // resolution = 0.2f;
-
-            if(ENABLE_OCCLUSION_DETECTION){
-
-                // Instantiate octree-based point cloud adjacency class
-                pcl::octree::OctreePointCloudAdjacency<pcl::PointXYZ> octree_a (OCTREE_RESOLUTION);
-
-                // Add points from prev cloud to octree
-                octree_a.setInputCloud (prev_obj_cloud);
-                octree_a.addPointsFromInputCloud ();
-
-                // check if dynamic points were occuluded
-
-                for (size_t i = 0; i < newPointIdxVector.size (); ++i){
-
-                    pt = obj_cloud->points[newPointIdxVector[i]];
-                    //filtered_dynamic_cloud->push_back(pt);
-                    if (pt.y < 0.8 && pt.y > -0.8){
-                        filtered_dynamic_cloud->push_back(pt);
-                    }
-                    else if(!(octree_a.testForOcclusion(pt))){
-                        filtered_dynamic_cloud->push_back(pt);
-                    }
-                    else{
-                        point.x = pt.x;
-                        point.y = pt.y;
-                        point.z = pt.z;
-                        point.r = 0;
-                        point.g = 255;
-                        point.b = 0;
-                        occuluded_cloud->push_back(point);
-                    }
-                }
-
-            }
-
-            else{
-
-                for (size_t i = 0; i < newPointIdxVector.size (); ++i){
-
-                    pt = obj_cloud->points[newPointIdxVector[i]];
-                    filtered_dynamic_cloud->push_back(pt);
-                }
-            }
 
 
 
@@ -306,7 +180,7 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 
             // Creating the KdTree object for the search method of the extraction
             pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
-            tree->setInputCloud (filtered_dynamic_cloud);
+            tree->setInputCloud (dynamic_cloud);
             //pcl::PointXYZRGB point;
 
             // Float3 cg;
@@ -318,7 +192,7 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
             ec.setMinClusterSize (SEG_MIN_CLUSTER_SIZE);
             ec.setMaxClusterSize (SEG_MAX_CLUSTER_SIZE);
             ec.setSearchMethod (tree);
-            ec.setInputCloud (filtered_dynamic_cloud);
+            ec.setInputCloud (dynamic_cloud);
             ec.extract (cluster_indices);
 
             int num_clusters = cluster_indices.size();
@@ -330,9 +204,9 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
                 Eigen::Vector4f centroid;
         	    for (std::vector<int>::const_iterator pit = it->indices.begin (); pit != it->indices.end (); ++pit){
 
-            		point.x = filtered_dynamic_cloud->points[*pit].x ;
-            		point.y = filtered_dynamic_cloud->points[*pit].y ;
-            		point.z = filtered_dynamic_cloud->points[*pit].z ;
+            		point.x = dynamic_cloud->points[*pit].x ;
+            		point.y = dynamic_cloud->points[*pit].y ;
+            		point.z = dynamic_cloud->points[*pit].z ;
 
                     // check if the dynamic points that detected actualy lie inside the bounding area means it is not in newly found area
                     if (is_in_bounding_area(bounding_area_coord,point)){
@@ -359,17 +233,15 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
                 cg.z = centroid[2];
                 centroids.push_back(cg);
 
-
-
         	    //cluster->header.frame_id = "/Sensor1";
         	    //mark_cluster(cluster, "dynamic", index, 0.f, 255, 0.f);
-        	    *dynamic_cluster_cloud += *cluster;
+        	    *filtered_dynamic_cloud += *cluster;
 
             }
 
 
-        // this is for visualistaion
-        *dynamic_cluster_cloud += *occuluded_cloud + *new_discovered_cloud;
+            // this is for visualistaion
+            *filtered_dynamic_cloud += *occuluded_cloud + *new_discovered_cloud;
 
 
 
@@ -379,12 +251,8 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
             sensor_msgs::PointCloud2 output;
             sensor_msgs::PointCloud2 output_2;
             pcl::toROSMsg(*cloud_transformed, output);
-            pcl::toROSMsg(*dynamic_cluster_cloud, output_2);
+            pcl::toROSMsg(*filtered_dynamic_cloud, output_2);
 
-            //pcl::toROSMsg(*dynamic_cluster_cloud, output_2);
-            //pcl::toROSMsg(*obj_cloud, output);
-            //pcl::toROSMsg(*prev_obj_cloud, output_2);
-            //pcl::toROSMsg(cloud_classified, output);
             output.header.frame_id = "/Sensor1";
             output_2.header.frame_id = "/Sensor1";
 
@@ -416,34 +284,34 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 
 
 
-            // while (marker_pub.getNumSubscribers() < 1)
-            // {
-            //   if (!ros::ok())
-            //   {
-            //     //return 0;
-            //   }
-            //   ROS_WARN_ONCE("Please create a subscriber to the marker");
-            //   sleep(1);
-            // }
+        // while (marker_pub.getNumSubscribers() < 1)
+        // {
+        //   if (!ros::ok())
+        //   {
+        //     //return 0;
+        //   }
+        //   ROS_WARN_ONCE("Please create a subscriber to the marker");
+        //   sleep(1);
+        // }
 
 
-            // marker_pub.publish(marker_array);
-            // marker_array.markers.clear();
+        // marker_pub.publish(marker_array);
+        // marker_array.markers.clear();
 
 
 
-            // if(obj_poses.poses.size() > 0)
-            // {
-            //   block_pose_pub_.publish(obj_poses);
-            //   ROS_INFO_STREAM("Found " << obj_poses.poses.size() << " blocks this iteration");
-            // }
-            // else
-            // {
-            //   ROS_INFO("Couldn't find any blocks this iteration!");
-            // }
+        // if(obj_poses.poses.size() > 0)
+        // {
+        //   block_pose_pub_.publish(obj_poses);
+        //   ROS_INFO_STREAM("Found " << obj_poses.poses.size() << " blocks this iteration");
+        // }
+        // else
+        // {
+        //   ROS_INFO("Couldn't find any blocks this iteration!");
+        // }
 
 
-            //first_time = false;
+        //first_time = false;
 
 
 
@@ -481,11 +349,7 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 //....................Function definations.........................//
 
 
-/**
- * transforms the pointcloud from sensor frame to baselink
- * @param cloud [description]
- */
-void cloud_segmentation::cloud_transform (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud){
+void cloud_segmentation::cloud_transform (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud_in, const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out){
 
     tf::StampedTransform TF;
     try{
@@ -504,7 +368,7 @@ void cloud_segmentation::cloud_transform (const pcl::PointCloud<pcl::PointXYZ>::
 
     //cout<< transform_matrix.matrix() <<endl;
 
-    pcl::transformPointCloud(*cloud, *cloud_transformed,transform_matrix);
+    pcl::transformPointCloud(*cloud_in, *cloud_out,transform_matrix);
 
 }
 
@@ -513,15 +377,16 @@ void cloud_segmentation::cloud_transform (const pcl::PointCloud<pcl::PointXYZ>::
 
 
 
-void cloud_segmentation::cloud_filter (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_f, const string field, float min, float max){
+
+void cloud_segmentation::cloud_filter (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_in, const string field, float min, float max){
 
     // Create the filtering object
     pcl::PassThrough<pcl::PointXYZ> pass;
-    pass.setInputCloud (cloud_f);
+    pass.setInputCloud (cloud_in);
     pass.setFilterFieldName (field);
     pass.setFilterLimits (min, max);
     //pass.setFilterLimitsNegative (true);
-    pass.filter (*cloud_f);
+    pass.filter (*cloud_in);
 
 }
 
@@ -530,22 +395,25 @@ void cloud_segmentation::cloud_filter (const pcl::PointCloud<pcl::PointXYZ>::Ptr
 
 
 
-void cloud_segmentation::euclideancluster (const pcl::PointCloud<pcl::PointXYZ>::Ptr& obj_cloud){
+void cloud_segmentation::euclideancluster  (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud,
+                                            float SEG_CLUSTER_TOLERANCE,
+                                            int SEG_MIN_CLUSTER_SIZE,
+                                            int SEG_MAX_CLUSTER_SIZE){
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr cluster (new pcl::PointCloud<pcl::PointXYZ> ());
     // Creating the KdTree object for the search method of the extraction
     pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
-    tree->setInputCloud (obj_cloud);
+    tree->setInputCloud (cloud);
     pcl::PointXYZ point;
 
 
     std::vector<pcl::PointIndices> cluster_indices;
     pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
-    ec.setClusterTolerance (0.4); // 2cm
-    ec.setMinClusterSize (20);
-    ec.setMaxClusterSize (4000);
+    ec.setClusterTolerance (SEG_CLUSTER_TOLERANCE); // 2cm
+    ec.setMinClusterSize (SEG_MIN_CLUSTER_SIZE);
+    ec.setMaxClusterSize (SEG_MAX_CLUSTER_SIZE);
     ec.setSearchMethod (tree);
-    ec.setInputCloud (obj_cloud);
+    ec.setInputCloud (cloud);
     ec.extract (cluster_indices);
 
     int num_clusters = cluster_indices.size();
@@ -557,39 +425,71 @@ void cloud_segmentation::euclideancluster (const pcl::PointCloud<pcl::PointXYZ>:
     {
     	for (std::vector<int>::const_iterator pit = it->indices.begin (); pit != it->indices.end (); ++pit){
 
-    	    point.x = obj_cloud->points[*pit].x ;
-    	    point.y = obj_cloud->points[*pit].y ;
-    	    point.z = obj_cloud->points[*pit].z ;
+    	    point.x = cloud->points[*pit].x ;
+    	    point.y = cloud->points[*pit].y ;
+    	    point.z = cloud->points[*pit].z ;
     	    cluster->push_back(point);
     	}
     }
 
-    *obj_cloud = *cluster;
+    *cloud = *cluster;
 }
 
 
 
 
+void cloud_segmentation::Voxel_filter ( const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_in,
+                                        const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out,
+                                        float VOXEL_LEAF_SIZE){
+
+    //removing NaN values and converting organized cloud to unorganized
+    std::vector<int> nan_filter_indices;
+    pcl::removeNaNFromPointCloud(*cloud_in, *cloud_out, nan_filter_indices);
+
+    // Perform the Voxelization filtering
+    pcl::ApproximateVoxelGrid<pcl::PointXYZ> vog;
+    vog.setInputCloud (cloud_out);
+    vog.setLeafSize (VOXEL_LEAF_SIZE,VOXEL_LEAF_SIZE,VOXEL_LEAF_SIZE);
+    vog.filter (*cloud_out);
+
+}
+
+
+void cloud_segmentation::SOR_filter (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_in,
+                                     const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out,
+                                     float SOR_MEAN_K,
+                                     float SOR_STD_DEV_MUL_THRESH ){
+
+    // Applying the statistical outlier removal filter
+    pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
+    sor.setInputCloud (cloud_in);
+    sor.setMeanK (SOR_MEAN_K);
+    sor.setStddevMulThresh (SOR_STD_DEV_MUL_THRESH);
+    sor.filter (*cloud_out);
+
+}
 
 
 
+void cloud_segmentation::Ransac_plane (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_in, const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out){
 
-
-void cloud_segmentation::Ransac_plane (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_f, pcl::ModelCoefficients::Ptr& coefficients){
+    // coefficients for ground plane
+    pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_p (new pcl::PointCloud<pcl::PointXYZ> ());
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_p2 (new pcl::PointCloud<pcl::PointXYZ> ());
+    pcl::PointXYZ pt;
 
     // std::cout << "ransac1" << '\n';
 
     // filter the cloud again to just encorporate ground mostly
-    for(int i = 0; i<cloud_f->size(); i++ ){
-    	if(cloud_f->points[i].y < 15
-    	&& cloud_f->points[i].y > -15
-    	&& cloud_f->points[i].x < 30
-    	&& cloud_f->points[i].x > 0
-    	&& cloud_f->points[i].z < 0.5){
-    	    cloud_p->push_back(cloud_f->points[i]);
+    for(int i = 0; i<cloud_in->size(); i++ ){
+    	if(cloud_in->points[i].y < 15
+    	&& cloud_in->points[i].y > -15
+    	&& cloud_in->points[i].x < 30
+    	&& cloud_in->points[i].x > 0
+    	&& cloud_in->points[i].z < 0.5){
+    	    cloud_p->push_back(cloud_in->points[i]);
     	}
     }
 
@@ -625,7 +525,130 @@ void cloud_segmentation::Ransac_plane (const pcl::PointCloud<pcl::PointXYZ>::Ptr
     }
 
 
+    //here we classify points that belong to ground and non ground
+    //cloud_classified.clear()
+
+    float dist; /// distance from ransac plane
+    float normaliser;
+    normaliser = sqrt(pow(coefficients->values[0],2) + pow(coefficients->values[1],2) + pow(coefficients->values[2],2));
+
+
+    for(int i = 0; i<cloud_in->size(); i++ ){
+
+        pt.x = cloud_in->points[i].x;
+        pt.y = cloud_in->points[i].y;
+        pt.z = cloud_in->points[i].z;
+        //dist of point from plane
+        dist = abs((coefficients->values[0] * pt.x + coefficients->values[1] * pt.y + coefficients->values[2] * pt.z +coefficients->values[3])/(float)normaliser);
+
+        // all points below zero height are considered to be ground in our case which is wrong but works for our case
+        // as we assume that there are no slopes in indoor warehouse enviornment
+
+        if (dist>0.2 && pt.z > 0){
+
+            cloud_out->push_back(pt); // obj_cloud contains only objects (static and dynamic both)
+        }
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+void cloud_segmentation::detect_spatial_change (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_now,
+                                                const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_to_compare,
+                                                const pcl::PointCloud<pcl::PointXYZ>::Ptr& dynamic_cloud,
+                                                const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& occuluded_cloud,
+                                                float OCTREE_RESOLUTION,
+                                                bool ENABLE_OCCLUSION_DETECTION){
+
+    // Octree resolution - side length of octree voxels
+    //float resolution = 0.4f;
+
+
+    pcl::PointXYZRGB point;
+    pcl::PointXYZ pt;
+
+    // Instantiate octree-based point cloud change detection class
+    pcl::octree::OctreePointCloudChangeDetector<pcl::PointXYZ> octree (OCTREE_RESOLUTION);
+
+    // Add points from cloudA to octree
+    octree.setInputCloud (cloud_to_compare); //compare the current pointcloud octree with pointcloud octree_window times ago
+    octree.addPointsFromInputCloud ();
+
+    // Switch octree buffers: This resets octree but keeps previous tree structure in memory.
+    octree.switchBuffers ();
+
+    // Add points from currentcloud to octree
+    octree.setInputCloud (cloud_now);
+    octree.addPointsFromInputCloud ();
+
+    std::vector<int> newPointIdxVector;
+
+    // Get vector of point indices from octree voxels which did not exist in previous buffer
+    octree.getPointIndicesFromNewVoxels (newPointIdxVector);
+
+
+
+
+    //....................Check if the new dectected points(dynamic points) were occuluded in in previous time step.............//
+
+    // resolution = 0.2f;
+
+    if(ENABLE_OCCLUSION_DETECTION){
+
+        // Instantiate octree-based point cloud adjacency class
+        pcl::octree::OctreePointCloudAdjacency<pcl::PointXYZ> octree_a (OCTREE_RESOLUTION);
+
+        // Add points from prev cloud to octreeobj_cloud
+        octree_a.setInputCloud (cloud_to_compare);
+        octree_a.addPointsFromInputCloud ();
+
+        // check if dynamic points were occuluded
+
+        for (size_t i = 0; i < newPointIdxVector.size (); ++i){
+
+            pt = cloud_now->points[newPointIdxVector[i]];
+            //filtered_dynamic_cloud->push_back(pt);
+            if (pt.y < 0.8 && pt.y > -0.8){
+                dynamic_cloud->push_back(pt);
+            }
+            else if(!(octree_a.testForOcclusion(pt))){
+                dynamic_cloud->push_back(pt);
+            }
+            else{
+                point.x = pt.x;
+                point.y = pt.y;
+                point.z = pt.z;
+                point.r = 0;
+                point.g = 255;
+                point.b = 0;
+                occuluded_cloud->push_back(point);
+            }
+        }
+
+    }
+
+    else{
+
+        for (size_t i = 0; i < newPointIdxVector.size (); ++i){
+
+            pt = cloud_now->points[newPointIdxVector[i]];
+            dynamic_cloud->push_back(pt);
+        }
+    }
+
+}
+
+
 
 
 

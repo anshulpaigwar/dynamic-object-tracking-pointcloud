@@ -1,0 +1,495 @@
+\hypertarget{classdatmo_1_1cloud__segmentation}{}\section{datmo\+:\+:cloud\+\_\+segmentation Class Reference}
+\label{classdatmo_1_1cloud__segmentation}\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+
+
+{\ttfamily \#include $<$dynamic\+\_\+obstacle\+\_\+tracking.\+hpp$>$}
+
+Inheritance diagram for datmo\+:\+:cloud\+\_\+segmentation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classdatmo_1_1cloud__segmentation}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classdatmo_1_1cloud__segmentation_a7624176c1ff33d2fa3930bf9eef89c19}{cloud\+\_\+segmentation} ()
+\item 
+\hyperlink{classdatmo_1_1cloud__segmentation_a493c03c6c372488ed9b507b296af2ed4}{$\sim$cloud\+\_\+segmentation} ()
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_a9ad8d99df49f5b55a920d477c4dcc0ef}{init} (ros\+::\+Node\+Handle \&nh, ros\+::\+Node\+Handle \&private\+\_\+nh)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+ros\+::\+Publisher \hyperlink{classdatmo_1_1cloud__segmentation_a01955e35ed0d12b9da4d4d9afb1007e3}{pub}
+\item 
+ros\+::\+Publisher \hyperlink{classdatmo_1_1cloud__segmentation_a0e1bf18752add68fc2df89e212750d91}{pub\+\_\+2}
+\item 
+ros\+::\+Publisher \hyperlink{classdatmo_1_1cloud__segmentation_ad9e1760efffadbd3e46ed2f9eeb6b017}{marker\+\_\+pub}
+\item 
+ros\+::\+Publisher \hyperlink{classdatmo_1_1cloud__segmentation_a287579b3989262f060341ebca1ed53b2}{centroids\+\_\+pub}
+\item 
+ros\+::\+Subscriber \hyperlink{classdatmo_1_1cloud__segmentation_a72e340852b66e150cb7f0e25214b7439}{sub}
+\item 
+visualization\+\_\+msgs\+::\+Marker\+Array \hyperlink{classdatmo_1_1cloud__segmentation_ab5f26252358065a0341ffd790c68334e}{marker\+\_\+array}
+\item 
+nav\+\_\+msgs\+::\+Odometry \hyperlink{classdatmo_1_1cloud__segmentation_a2d267feed8b54b1eb2dffb9aed780082}{odom}
+\item 
+tf\+::\+Transform\+Listener \hyperlink{classdatmo_1_1cloud__segmentation_abf9b807df25f63ea330b165a9f2e4be1}{listener}
+\item 
+tf\+::\+Transform\+Broadcaster \hyperlink{classdatmo_1_1cloud__segmentation_aa2712034cbe68df4d19b0fcf87f9b465}{br}
+\item 
+tf\+::\+Stamped\+Transform \hyperlink{classdatmo_1_1cloud__segmentation_a89069ad666b67686b58c6072a9cd84e7}{prev\+\_\+transform}
+\item 
+tf\+::\+Stamped\+Transform \hyperlink{classdatmo_1_1cloud__segmentation_aeccad720664cddc17f8cfd9db29c1dad}{current\+\_\+transform}
+\item 
+tf\+::\+Stamped\+Transform \hyperlink{classdatmo_1_1cloud__segmentation_a2401065698d70527fff7a9d1bb491630}{last\+\_\+transform}
+\item 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \hyperlink{classdatmo_1_1cloud__segmentation_a00e99233257fe5a28a039eef13dbc65b}{cloud\+\_\+transformed}
+\item 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \hyperlink{classdatmo_1_1cloud__segmentation_aa1ea3bcb86aff4916200ff899a4198c4}{prev\+\_\+obj\+\_\+cloud}
+\item 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$ \hyperlink{classdatmo_1_1cloud__segmentation_a42f9f6610cf798f8ac26c0c5500ccf02}{cloud\+\_\+classified}
+\item 
+vector$<$ tf\+::\+Stamped\+Transform $>$ \hyperlink{classdatmo_1_1cloud__segmentation_a24a81e37b2eff06482f65b09e39af9e4}{source\+Transforms}
+\item 
+vector$<$ pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr, Eigen\+::aligned\+\_\+allocator$<$ pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr $>$ $>$ \hyperlink{classdatmo_1_1cloud__segmentation_abcf359aaf4f17128e961473692d9c473}{source\+Clouds}
+\item 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$ \hyperlink{classdatmo_1_1cloud__segmentation_a576b87bb01fef0d14ba862f08ca8e2ba}{last\+\_\+centroids}
+\item 
+Eigen\+::\+Affine3d \hyperlink{classdatmo_1_1cloud__segmentation_a9f47c2e7cba42121779e2772a052f58b}{odom\+\_\+transform\+\_\+matrix}
+\item 
+Eigen\+::\+Affine3f \hyperlink{classdatmo_1_1cloud__segmentation_ac7762960a72df80afdf8bedd59335ddc}{icp\+\_\+transform\+\_\+matrix}
+\item 
+int \hyperlink{classdatmo_1_1cloud__segmentation_a56499171fe846acfb2a73a5134261a91}{counter}
+\item 
+bool \hyperlink{classdatmo_1_1cloud__segmentation_a71c4d63aacea33f4c1b172e1ff723163}{E\+N\+A\+B\+L\+E\+\_\+\+I\+CP}
+\item 
+bool \hyperlink{classdatmo_1_1cloud__segmentation_a03474f362047eb23fbcc53e5ce943148}{E\+N\+A\+B\+L\+E\+\_\+\+G\+R\+O\+U\+N\+D\+\_\+\+R\+E\+M\+O\+V\+AL}
+\item 
+bool \hyperlink{classdatmo_1_1cloud__segmentation_aa3af9f5d3b0072cba61c14cff25965cb}{E\+N\+A\+B\+L\+E\+\_\+\+V\+O\+X\+E\+L\+I\+SE}
+\item 
+bool \hyperlink{classdatmo_1_1cloud__segmentation_a5f7ffa75c60af605cc914de7296cddb1}{E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON}
+\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_af6f1f8553f2a18176ae84b78ddea07c9}{V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE}
+\item 
+bool \hyperlink{classdatmo_1_1cloud__segmentation_ae54c11225658974ed8a37a03815aab0e}{E\+N\+A\+B\+L\+E\+\_\+\+S\+OR}
+\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_abb5b1262c14e68886e01e0230c530b07}{S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K}
+\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_ae1c32b9f5741dd7d212f2745f8784de0}{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH}
+\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_a503bba212f9c15b767d512771b1559c2}{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+IN}
+\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_a12f8209c6640d67c23cac18b2d8b7964}{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+AX}
+\begin{DoxyCompactList}\small\item\em maximum value of x \end{DoxyCompactList}\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_af95645fb925c485f397321d6e07c4574}{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN}
+\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_abacc76df1e25e42d25c1822c2637fa00}{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX}
+\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_acb71ade7e486ad1cafe15c441903f3e0}{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN}
+\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_a05b70936af05654abb9b1924ab593d08}{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX}
+\item 
+int \hyperlink{classdatmo_1_1cloud__segmentation_ada1c6bd7f69249c5317cbe95969498e4}{O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW}
+\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_aba086f9f8e05f18c02c042c057854a06}{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}
+\item 
+float \hyperlink{classdatmo_1_1cloud__segmentation_af33add7f3b00fac5be10ffd87eae057f}{S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE}
+\item 
+int \hyperlink{classdatmo_1_1cloud__segmentation_acf7cfcaf0ab08a2afffcc2b47048bc81}{S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}
+\item 
+int \hyperlink{classdatmo_1_1cloud__segmentation_ab2959ad226faeaab4910f42ba91d37cb}{S\+E\+G\+\_\+\+M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_a9fb8b8321055b7798ce62d1cd9416642}{cloud\+\_\+cb} (const sensor\+\_\+msgs\+::\+Point\+Cloud2\+Const\+Ptr \&cloud\+\_\+msg)
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_a3e3bd9d1b4a99da4bcd81ebac95f83fe}{cloud\+\_\+transform} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Const\+Ptr \&cloud\+\_\+in, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+out)
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_afa29d45018811393b160e64b1f972289}{cloud\+\_\+filter} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+in, const string field, float min, float max)
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_acb0e7e196b28d7d62fe73d7437e629dc}{Voxel\+\_\+filter} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+in, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+out, float \hyperlink{classdatmo_1_1cloud__segmentation_af6f1f8553f2a18176ae84b78ddea07c9}{V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE})
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_a169ebef33c020301b83261ee2d3f49df}{S\+O\+R\+\_\+filter} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+in, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+out, float \hyperlink{classdatmo_1_1cloud__segmentation_abb5b1262c14e68886e01e0230c530b07}{S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K}, float \hyperlink{classdatmo_1_1cloud__segmentation_ae1c32b9f5741dd7d212f2745f8784de0}{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH})
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_a168514d0652e6ada8a371604470b98ed}{Ransac\+\_\+plane} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+in, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+out)
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_a7506a589048c71ab56a49d6470591ef1}{euclideancluster} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud, float \hyperlink{classdatmo_1_1cloud__segmentation_af33add7f3b00fac5be10ffd87eae057f}{S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE}, int \hyperlink{classdatmo_1_1cloud__segmentation_acf7cfcaf0ab08a2afffcc2b47048bc81}{S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}, int \hyperlink{classdatmo_1_1cloud__segmentation_ab2959ad226faeaab4910f42ba91d37cb}{S\+E\+G\+\_\+\+M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE})
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_a6dcd90f46e590756a42aafd290443fcf}{detect\+\_\+spatial\+\_\+change} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+now, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+to\+\_\+compare, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&dynamic\+\_\+cloud, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr \&occuluded\+\_\+cloud, float \hyperlink{classdatmo_1_1cloud__segmentation_aba086f9f8e05f18c02c042c057854a06}{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}, bool \hyperlink{classdatmo_1_1cloud__segmentation_a5f7ffa75c60af605cc914de7296cddb1}{E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON})
+\item 
+bool \hyperlink{classdatmo_1_1cloud__segmentation_a5bcf85ac924671c64840ac2087877a5f}{is\+\_\+in\+\_\+bounding\+\_\+area} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&coord, pcl\+::\+Point\+X\+Y\+Z\+R\+GB pt)
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_a77ecff192bbc43fd3182acb675d43350}{mark\+\_\+cluster} (pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr cloud\+\_\+cluster, std\+::string ns, int id, float r, float g, float b)
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_a44ccd6481ff32f6325121df0873a5d0d}{integrate\+Odom\+\_\+\+I\+CP} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Const\+Ptr \&obj\+\_\+cloud, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&\hyperlink{classdatmo_1_1cloud__segmentation_aa1ea3bcb86aff4916200ff899a4198c4}{prev\+\_\+obj\+\_\+cloud})
+\item 
+void \hyperlink{classdatmo_1_1cloud__segmentation_a40bcbb38bad5059c86e845e84ac113d0}{integrate\+Odom} (pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$ \&\hyperlink{classdatmo_1_1cloud__segmentation_a576b87bb01fef0d14ba862f08ca8e2ba}{last\+\_\+centroids})
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a7624176c1ff33d2fa3930bf9eef89c19}\label{classdatmo_1_1cloud__segmentation_a7624176c1ff33d2fa3930bf9eef89c19}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!cloud\+\_\+segmentation@{cloud\+\_\+segmentation}}
+\index{cloud\+\_\+segmentation@{cloud\+\_\+segmentation}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{cloud\+\_\+segmentation()}{cloud\_segmentation()}}
+{\footnotesize\ttfamily cloud\+\_\+segmentation\+::cloud\+\_\+segmentation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a493c03c6c372488ed9b507b296af2ed4}\label{classdatmo_1_1cloud__segmentation_a493c03c6c372488ed9b507b296af2ed4}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!````~cloud\+\_\+segmentation@{$\sim$cloud\+\_\+segmentation}}
+\index{````~cloud\+\_\+segmentation@{$\sim$cloud\+\_\+segmentation}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{$\sim$cloud\+\_\+segmentation()}{~cloud\_segmentation()}}
+{\footnotesize\ttfamily cloud\+\_\+segmentation\+::$\sim$cloud\+\_\+segmentation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a9fb8b8321055b7798ce62d1cd9416642}\label{classdatmo_1_1cloud__segmentation_a9fb8b8321055b7798ce62d1cd9416642}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!cloud\+\_\+cb@{cloud\+\_\+cb}}
+\index{cloud\+\_\+cb@{cloud\+\_\+cb}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{cloud\+\_\+cb()}{cloud\_cb()}}
+{\footnotesize\ttfamily void cloud\+\_\+segmentation\+::cloud\+\_\+cb (\begin{DoxyParamCaption}\item[{const sensor\+\_\+msgs\+::\+Point\+Cloud2\+Const\+Ptr \&}]{cloud\+\_\+msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+Callback function get called every time a new point cloud is recieved 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cloud\+\_\+msg} & constant pointer to sensor\+\_\+msgs Point\+Cloud2 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_afa29d45018811393b160e64b1f972289}\label{classdatmo_1_1cloud__segmentation_afa29d45018811393b160e64b1f972289}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!cloud\+\_\+filter@{cloud\+\_\+filter}}
+\index{cloud\+\_\+filter@{cloud\+\_\+filter}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{cloud\+\_\+filter()}{cloud\_filter()}}
+{\footnotesize\ttfamily void cloud\+\_\+segmentation\+::cloud\+\_\+filter (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+in,  }\item[{const string}]{field,  }\item[{float}]{min,  }\item[{float}]{max }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a3e3bd9d1b4a99da4bcd81ebac95f83fe}\label{classdatmo_1_1cloud__segmentation_a3e3bd9d1b4a99da4bcd81ebac95f83fe}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!cloud\+\_\+transform@{cloud\+\_\+transform}}
+\index{cloud\+\_\+transform@{cloud\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{cloud\+\_\+transform()}{cloud\_transform()}}
+{\footnotesize\ttfamily void cloud\+\_\+segmentation\+::cloud\+\_\+transform (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Const\+Ptr \&}]{cloud\+\_\+in,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a6dcd90f46e590756a42aafd290443fcf}\label{classdatmo_1_1cloud__segmentation_a6dcd90f46e590756a42aafd290443fcf}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!detect\+\_\+spatial\+\_\+change@{detect\+\_\+spatial\+\_\+change}}
+\index{detect\+\_\+spatial\+\_\+change@{detect\+\_\+spatial\+\_\+change}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{detect\+\_\+spatial\+\_\+change()}{detect\_spatial\_change()}}
+{\footnotesize\ttfamily void cloud\+\_\+segmentation\+::detect\+\_\+spatial\+\_\+change (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+now,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+to\+\_\+compare,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{dynamic\+\_\+cloud,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr \&}]{occuluded\+\_\+cloud,  }\item[{float}]{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON,  }\item[{bool}]{E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a7506a589048c71ab56a49d6470591ef1}\label{classdatmo_1_1cloud__segmentation_a7506a589048c71ab56a49d6470591ef1}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!euclideancluster@{euclideancluster}}
+\index{euclideancluster@{euclideancluster}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{euclideancluster()}{euclideancluster()}}
+{\footnotesize\ttfamily void cloud\+\_\+segmentation\+::euclideancluster (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud,  }\item[{float}]{S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE,  }\item[{int}]{S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE,  }\item[{int}]{S\+E\+G\+\_\+\+M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a9ad8d99df49f5b55a920d477c4dcc0ef}\label{classdatmo_1_1cloud__segmentation_a9ad8d99df49f5b55a920d477c4dcc0ef}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!init@{init}}
+\index{init@{init}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void cloud\+\_\+segmentation\+::init (\begin{DoxyParamCaption}\item[{ros\+::\+Node\+Handle \&}]{nh,  }\item[{ros\+::\+Node\+Handle \&}]{private\+\_\+nh }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a40bcbb38bad5059c86e845e84ac113d0}\label{classdatmo_1_1cloud__segmentation_a40bcbb38bad5059c86e845e84ac113d0}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!integrate\+Odom@{integrate\+Odom}}
+\index{integrate\+Odom@{integrate\+Odom}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{integrate\+Odom()}{integrateOdom()}}
+{\footnotesize\ttfamily void datmo\+::cloud\+\_\+segmentation\+::integrate\+Odom (\begin{DoxyParamCaption}\item[{pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$ \&}]{last\+\_\+centroids }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a44ccd6481ff32f6325121df0873a5d0d}\label{classdatmo_1_1cloud__segmentation_a44ccd6481ff32f6325121df0873a5d0d}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!integrate\+Odom\+\_\+\+I\+CP@{integrate\+Odom\+\_\+\+I\+CP}}
+\index{integrate\+Odom\+\_\+\+I\+CP@{integrate\+Odom\+\_\+\+I\+CP}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{integrate\+Odom\+\_\+\+I\+C\+P()}{integrateOdom\_ICP()}}
+{\footnotesize\ttfamily void datmo\+::cloud\+\_\+segmentation\+::integrate\+Odom\+\_\+\+I\+CP (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Const\+Ptr \&}]{obj\+\_\+cloud,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{prev\+\_\+obj\+\_\+cloud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a5bcf85ac924671c64840ac2087877a5f}\label{classdatmo_1_1cloud__segmentation_a5bcf85ac924671c64840ac2087877a5f}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!is\+\_\+in\+\_\+bounding\+\_\+area@{is\+\_\+in\+\_\+bounding\+\_\+area}}
+\index{is\+\_\+in\+\_\+bounding\+\_\+area@{is\+\_\+in\+\_\+bounding\+\_\+area}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{is\+\_\+in\+\_\+bounding\+\_\+area()}{is\_in\_bounding\_area()}}
+{\footnotesize\ttfamily bool cloud\+\_\+segmentation\+::is\+\_\+in\+\_\+bounding\+\_\+area (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{coord,  }\item[{pcl\+::\+Point\+X\+Y\+Z\+R\+GB}]{pt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{[}is\+\_\+in\+\_\+bounding\+\_\+area description\mbox{]} 
+\begin{DoxyParams}{Parameters}
+{\em coord} & \mbox{[}description\mbox{]} \\
+\hline
+{\em pt} & \mbox{[}description\mbox{]} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}description\mbox{]} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a77ecff192bbc43fd3182acb675d43350}\label{classdatmo_1_1cloud__segmentation_a77ecff192bbc43fd3182acb675d43350}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!mark\+\_\+cluster@{mark\+\_\+cluster}}
+\index{mark\+\_\+cluster@{mark\+\_\+cluster}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{mark\+\_\+cluster()}{mark\_cluster()}}
+{\footnotesize\ttfamily void datmo\+::cloud\+\_\+segmentation\+::mark\+\_\+cluster (\begin{DoxyParamCaption}\item[{pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr}]{cloud\+\_\+cluster,  }\item[{std\+::string}]{ns,  }\item[{int}]{id,  }\item[{float}]{r,  }\item[{float}]{g,  }\item[{float}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a168514d0652e6ada8a371604470b98ed}\label{classdatmo_1_1cloud__segmentation_a168514d0652e6ada8a371604470b98ed}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!Ransac\+\_\+plane@{Ransac\+\_\+plane}}
+\index{Ransac\+\_\+plane@{Ransac\+\_\+plane}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{Ransac\+\_\+plane()}{Ransac\_plane()}}
+{\footnotesize\ttfamily void cloud\+\_\+segmentation\+::\+Ransac\+\_\+plane (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+in,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+distance from ransac plane \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a169ebef33c020301b83261ee2d3f49df}\label{classdatmo_1_1cloud__segmentation_a169ebef33c020301b83261ee2d3f49df}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!S\+O\+R\+\_\+filter@{S\+O\+R\+\_\+filter}}
+\index{S\+O\+R\+\_\+filter@{S\+O\+R\+\_\+filter}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{S\+O\+R\+\_\+filter()}{SOR\_filter()}}
+{\footnotesize\ttfamily void cloud\+\_\+segmentation\+::\+S\+O\+R\+\_\+filter (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+in,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+out,  }\item[{float}]{S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K,  }\item[{float}]{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_acb0e7e196b28d7d62fe73d7437e629dc}\label{classdatmo_1_1cloud__segmentation_acb0e7e196b28d7d62fe73d7437e629dc}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!Voxel\+\_\+filter@{Voxel\+\_\+filter}}
+\index{Voxel\+\_\+filter@{Voxel\+\_\+filter}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{Voxel\+\_\+filter()}{Voxel\_filter()}}
+{\footnotesize\ttfamily void cloud\+\_\+segmentation\+::\+Voxel\+\_\+filter (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+in,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+out,  }\item[{float}]{V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_aa2712034cbe68df4d19b0fcf87f9b465}\label{classdatmo_1_1cloud__segmentation_aa2712034cbe68df4d19b0fcf87f9b465}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!br@{br}}
+\index{br@{br}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{br}{br}}
+{\footnotesize\ttfamily tf\+::\+Transform\+Broadcaster datmo\+::cloud\+\_\+segmentation\+::br\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a287579b3989262f060341ebca1ed53b2}\label{classdatmo_1_1cloud__segmentation_a287579b3989262f060341ebca1ed53b2}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!centroids\+\_\+pub@{centroids\+\_\+pub}}
+\index{centroids\+\_\+pub@{centroids\+\_\+pub}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{centroids\+\_\+pub}{centroids\_pub}}
+{\footnotesize\ttfamily ros\+::\+Publisher datmo\+::cloud\+\_\+segmentation\+::centroids\+\_\+pub\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a42f9f6610cf798f8ac26c0c5500ccf02}\label{classdatmo_1_1cloud__segmentation_a42f9f6610cf798f8ac26c0c5500ccf02}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!cloud\+\_\+classified@{cloud\+\_\+classified}}
+\index{cloud\+\_\+classified@{cloud\+\_\+classified}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{cloud\+\_\+classified}{cloud\_classified}}
+{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+Y\+Z\+R\+GB$>$ datmo\+::cloud\+\_\+segmentation\+::cloud\+\_\+classified\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a00e99233257fe5a28a039eef13dbc65b}\label{classdatmo_1_1cloud__segmentation_a00e99233257fe5a28a039eef13dbc65b}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!cloud\+\_\+transformed@{cloud\+\_\+transformed}}
+\index{cloud\+\_\+transformed@{cloud\+\_\+transformed}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{cloud\+\_\+transformed}{cloud\_transformed}}
+{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+YZ$>$\+:: Ptr datmo\+::cloud\+\_\+segmentation\+::cloud\+\_\+transformed\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a56499171fe846acfb2a73a5134261a91}\label{classdatmo_1_1cloud__segmentation_a56499171fe846acfb2a73a5134261a91}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!counter@{counter}}
+\index{counter@{counter}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{counter}{counter}}
+{\footnotesize\ttfamily int datmo\+::cloud\+\_\+segmentation\+::counter\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_aeccad720664cddc17f8cfd9db29c1dad}\label{classdatmo_1_1cloud__segmentation_aeccad720664cddc17f8cfd9db29c1dad}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!current\+\_\+transform@{current\+\_\+transform}}
+\index{current\+\_\+transform@{current\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{current\+\_\+transform}{current\_transform}}
+{\footnotesize\ttfamily tf\+::\+Stamped\+Transform datmo\+::cloud\+\_\+segmentation\+::current\+\_\+transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a03474f362047eb23fbcc53e5ce943148}\label{classdatmo_1_1cloud__segmentation_a03474f362047eb23fbcc53e5ce943148}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!E\+N\+A\+B\+L\+E\+\_\+\+G\+R\+O\+U\+N\+D\+\_\+\+R\+E\+M\+O\+V\+AL@{E\+N\+A\+B\+L\+E\+\_\+\+G\+R\+O\+U\+N\+D\+\_\+\+R\+E\+M\+O\+V\+AL}}
+\index{E\+N\+A\+B\+L\+E\+\_\+\+G\+R\+O\+U\+N\+D\+\_\+\+R\+E\+M\+O\+V\+AL@{E\+N\+A\+B\+L\+E\+\_\+\+G\+R\+O\+U\+N\+D\+\_\+\+R\+E\+M\+O\+V\+AL}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{E\+N\+A\+B\+L\+E\+\_\+\+G\+R\+O\+U\+N\+D\+\_\+\+R\+E\+M\+O\+V\+AL}{ENABLE\_GROUND\_REMOVAL}}
+{\footnotesize\ttfamily bool datmo\+::cloud\+\_\+segmentation\+::\+E\+N\+A\+B\+L\+E\+\_\+\+G\+R\+O\+U\+N\+D\+\_\+\+R\+E\+M\+O\+V\+AL\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a71c4d63aacea33f4c1b172e1ff723163}\label{classdatmo_1_1cloud__segmentation_a71c4d63aacea33f4c1b172e1ff723163}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!E\+N\+A\+B\+L\+E\+\_\+\+I\+CP@{E\+N\+A\+B\+L\+E\+\_\+\+I\+CP}}
+\index{E\+N\+A\+B\+L\+E\+\_\+\+I\+CP@{E\+N\+A\+B\+L\+E\+\_\+\+I\+CP}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{E\+N\+A\+B\+L\+E\+\_\+\+I\+CP}{ENABLE\_ICP}}
+{\footnotesize\ttfamily bool datmo\+::cloud\+\_\+segmentation\+::\+E\+N\+A\+B\+L\+E\+\_\+\+I\+CP\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a5f7ffa75c60af605cc914de7296cddb1}\label{classdatmo_1_1cloud__segmentation_a5f7ffa75c60af605cc914de7296cddb1}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON@{E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON}}
+\index{E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON@{E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON}{ENABLE\_OCCLUSION\_DETECTION}}
+{\footnotesize\ttfamily bool datmo\+::cloud\+\_\+segmentation\+::\+E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ae54c11225658974ed8a37a03815aab0e}\label{classdatmo_1_1cloud__segmentation_ae54c11225658974ed8a37a03815aab0e}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!E\+N\+A\+B\+L\+E\+\_\+\+S\+OR@{E\+N\+A\+B\+L\+E\+\_\+\+S\+OR}}
+\index{E\+N\+A\+B\+L\+E\+\_\+\+S\+OR@{E\+N\+A\+B\+L\+E\+\_\+\+S\+OR}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{E\+N\+A\+B\+L\+E\+\_\+\+S\+OR}{ENABLE\_SOR}}
+{\footnotesize\ttfamily bool datmo\+::cloud\+\_\+segmentation\+::\+E\+N\+A\+B\+L\+E\+\_\+\+S\+OR\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_aa3af9f5d3b0072cba61c14cff25965cb}\label{classdatmo_1_1cloud__segmentation_aa3af9f5d3b0072cba61c14cff25965cb}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!E\+N\+A\+B\+L\+E\+\_\+\+V\+O\+X\+E\+L\+I\+SE@{E\+N\+A\+B\+L\+E\+\_\+\+V\+O\+X\+E\+L\+I\+SE}}
+\index{E\+N\+A\+B\+L\+E\+\_\+\+V\+O\+X\+E\+L\+I\+SE@{E\+N\+A\+B\+L\+E\+\_\+\+V\+O\+X\+E\+L\+I\+SE}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{E\+N\+A\+B\+L\+E\+\_\+\+V\+O\+X\+E\+L\+I\+SE}{ENABLE\_VOXELISE}}
+{\footnotesize\ttfamily bool datmo\+::cloud\+\_\+segmentation\+::\+E\+N\+A\+B\+L\+E\+\_\+\+V\+O\+X\+E\+L\+I\+SE\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ac7762960a72df80afdf8bedd59335ddc}\label{classdatmo_1_1cloud__segmentation_ac7762960a72df80afdf8bedd59335ddc}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!icp\+\_\+transform\+\_\+matrix@{icp\+\_\+transform\+\_\+matrix}}
+\index{icp\+\_\+transform\+\_\+matrix@{icp\+\_\+transform\+\_\+matrix}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{icp\+\_\+transform\+\_\+matrix}{icp\_transform\_matrix}}
+{\footnotesize\ttfamily Eigen\+::\+Affine3f datmo\+::cloud\+\_\+segmentation\+::icp\+\_\+transform\+\_\+matrix\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a576b87bb01fef0d14ba862f08ca8e2ba}\label{classdatmo_1_1cloud__segmentation_a576b87bb01fef0d14ba862f08ca8e2ba}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!last\+\_\+centroids@{last\+\_\+centroids}}
+\index{last\+\_\+centroids@{last\+\_\+centroids}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{last\+\_\+centroids}{last\_centroids}}
+{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+YZ$>$ datmo\+::cloud\+\_\+segmentation\+::last\+\_\+centroids\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a2401065698d70527fff7a9d1bb491630}\label{classdatmo_1_1cloud__segmentation_a2401065698d70527fff7a9d1bb491630}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!last\+\_\+transform@{last\+\_\+transform}}
+\index{last\+\_\+transform@{last\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{last\+\_\+transform}{last\_transform}}
+{\footnotesize\ttfamily tf\+::\+Stamped\+Transform datmo\+::cloud\+\_\+segmentation\+::last\+\_\+transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abf9b807df25f63ea330b165a9f2e4be1}\label{classdatmo_1_1cloud__segmentation_abf9b807df25f63ea330b165a9f2e4be1}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!listener@{listener}}
+\index{listener@{listener}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{listener}{listener}}
+{\footnotesize\ttfamily tf\+::\+Transform\+Listener datmo\+::cloud\+\_\+segmentation\+::listener\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ab5f26252358065a0341ffd790c68334e}\label{classdatmo_1_1cloud__segmentation_ab5f26252358065a0341ffd790c68334e}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!marker\+\_\+array@{marker\+\_\+array}}
+\index{marker\+\_\+array@{marker\+\_\+array}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{marker\+\_\+array}{marker\_array}}
+{\footnotesize\ttfamily visualization\+\_\+msgs\+::\+Marker\+Array datmo\+::cloud\+\_\+segmentation\+::marker\+\_\+array\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ad9e1760efffadbd3e46ed2f9eeb6b017}\label{classdatmo_1_1cloud__segmentation_ad9e1760efffadbd3e46ed2f9eeb6b017}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!marker\+\_\+pub@{marker\+\_\+pub}}
+\index{marker\+\_\+pub@{marker\+\_\+pub}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{marker\+\_\+pub}{marker\_pub}}
+{\footnotesize\ttfamily ros\+::\+Publisher datmo\+::cloud\+\_\+segmentation\+::marker\+\_\+pub\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_aba086f9f8e05f18c02c042c057854a06}\label{classdatmo_1_1cloud__segmentation_aba086f9f8e05f18c02c042c057854a06}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON@{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}}
+\index{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON@{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}{OCTREE\_RESOLUTION}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ada1c6bd7f69249c5317cbe95969498e4}\label{classdatmo_1_1cloud__segmentation_ada1c6bd7f69249c5317cbe95969498e4}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW@{O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW}}
+\index{O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW@{O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW}{OCTREE\_WINDOW}}
+{\footnotesize\ttfamily int datmo\+::cloud\+\_\+segmentation\+::\+O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a2d267feed8b54b1eb2dffb9aed780082}\label{classdatmo_1_1cloud__segmentation_a2d267feed8b54b1eb2dffb9aed780082}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!odom@{odom}}
+\index{odom@{odom}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{odom}{odom}}
+{\footnotesize\ttfamily nav\+\_\+msgs\+::\+Odometry datmo\+::cloud\+\_\+segmentation\+::odom\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a9f47c2e7cba42121779e2772a052f58b}\label{classdatmo_1_1cloud__segmentation_a9f47c2e7cba42121779e2772a052f58b}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!odom\+\_\+transform\+\_\+matrix@{odom\+\_\+transform\+\_\+matrix}}
+\index{odom\+\_\+transform\+\_\+matrix@{odom\+\_\+transform\+\_\+matrix}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{odom\+\_\+transform\+\_\+matrix}{odom\_transform\_matrix}}
+{\footnotesize\ttfamily Eigen\+::\+Affine3d datmo\+::cloud\+\_\+segmentation\+::odom\+\_\+transform\+\_\+matrix\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a12f8209c6640d67c23cac18b2d8b7964}\label{classdatmo_1_1cloud__segmentation_a12f8209c6640d67c23cac18b2d8b7964}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+AX@{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+AX}}
+\index{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+AX@{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+AX}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+AX}{PASS\_X\_MAX}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+AX\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+maximum value of x 
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a503bba212f9c15b767d512771b1559c2}\label{classdatmo_1_1cloud__segmentation_a503bba212f9c15b767d512771b1559c2}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+IN@{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+IN}}
+\index{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+IN@{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+IN}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+IN}{PASS\_X\_MIN}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+IN\hspace{0.3cm}{\ttfamily [protected]}}
+
+minimum value of x \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abacc76df1e25e42d25c1822c2637fa00}\label{classdatmo_1_1cloud__segmentation_abacc76df1e25e42d25c1822c2637fa00}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX@{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX}}
+\index{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX@{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX}{PASS\_Y\_MAX}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_af95645fb925c485f397321d6e07c4574}\label{classdatmo_1_1cloud__segmentation_af95645fb925c485f397321d6e07c4574}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN@{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN}}
+\index{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN@{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN}{PASS\_Y\_MIN}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a05b70936af05654abb9b1924ab593d08}\label{classdatmo_1_1cloud__segmentation_a05b70936af05654abb9b1924ab593d08}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX@{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX}}
+\index{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX@{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX}{PASS\_Z\_MAX}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_acb71ade7e486ad1cafe15c441903f3e0}\label{classdatmo_1_1cloud__segmentation_acb71ade7e486ad1cafe15c441903f3e0}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN@{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN}}
+\index{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN@{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN}{PASS\_Z\_MIN}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_aa1ea3bcb86aff4916200ff899a4198c4}\label{classdatmo_1_1cloud__segmentation_aa1ea3bcb86aff4916200ff899a4198c4}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!prev\+\_\+obj\+\_\+cloud@{prev\+\_\+obj\+\_\+cloud}}
+\index{prev\+\_\+obj\+\_\+cloud@{prev\+\_\+obj\+\_\+cloud}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{prev\+\_\+obj\+\_\+cloud}{prev\_obj\_cloud}}
+{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+YZ$>$\+:: Ptr datmo\+::cloud\+\_\+segmentation\+::prev\+\_\+obj\+\_\+cloud\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a89069ad666b67686b58c6072a9cd84e7}\label{classdatmo_1_1cloud__segmentation_a89069ad666b67686b58c6072a9cd84e7}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!prev\+\_\+transform@{prev\+\_\+transform}}
+\index{prev\+\_\+transform@{prev\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{prev\+\_\+transform}{prev\_transform}}
+{\footnotesize\ttfamily tf\+::\+Stamped\+Transform datmo\+::cloud\+\_\+segmentation\+::prev\+\_\+transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a01955e35ed0d12b9da4d4d9afb1007e3}\label{classdatmo_1_1cloud__segmentation_a01955e35ed0d12b9da4d4d9afb1007e3}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!pub@{pub}}
+\index{pub@{pub}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{pub}{pub}}
+{\footnotesize\ttfamily ros\+::\+Publisher datmo\+::cloud\+\_\+segmentation\+::pub\hspace{0.3cm}{\ttfamily [protected]}}
+
+publish point cloud after transforming it to base\+\_\+link \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a0e1bf18752add68fc2df89e212750d91}\label{classdatmo_1_1cloud__segmentation_a0e1bf18752add68fc2df89e212750d91}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!pub\+\_\+2@{pub\+\_\+2}}
+\index{pub\+\_\+2@{pub\+\_\+2}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{pub\+\_\+2}{pub\_2}}
+{\footnotesize\ttfamily ros\+::\+Publisher datmo\+::cloud\+\_\+segmentation\+::pub\+\_\+2\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_af33add7f3b00fac5be10ffd87eae057f}\label{classdatmo_1_1cloud__segmentation_af33add7f3b00fac5be10ffd87eae057f}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE@{S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE}}
+\index{S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE@{S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE}{SEG\_CLUSTER\_TOLERANCE}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ab2959ad226faeaab4910f42ba91d37cb}\label{classdatmo_1_1cloud__segmentation_ab2959ad226faeaab4910f42ba91d37cb}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!S\+E\+G\+\_\+\+M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE@{S\+E\+G\+\_\+\+M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{S\+E\+G\+\_\+\+M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE@{S\+E\+G\+\_\+\+M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{S\+E\+G\+\_\+\+M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}{SEG\_MAX\_CLUSTER\_SIZE}}
+{\footnotesize\ttfamily int datmo\+::cloud\+\_\+segmentation\+::\+S\+E\+G\+\_\+\+M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_acf7cfcaf0ab08a2afffcc2b47048bc81}\label{classdatmo_1_1cloud__segmentation_acf7cfcaf0ab08a2afffcc2b47048bc81}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE@{S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}}
+\index{S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE@{S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}{SEG\_MIN\_CLUSTER\_SIZE}}
+{\footnotesize\ttfamily int datmo\+::cloud\+\_\+segmentation\+::\+S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abb5b1262c14e68886e01e0230c530b07}\label{classdatmo_1_1cloud__segmentation_abb5b1262c14e68886e01e0230c530b07}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K@{S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K}}
+\index{S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K@{S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K}{SOR\_MEAN\_K}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ae1c32b9f5741dd7d212f2745f8784de0}\label{classdatmo_1_1cloud__segmentation_ae1c32b9f5741dd7d212f2745f8784de0}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH@{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH}}
+\index{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH@{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH}{SOR\_STD\_DEV\_MUL\_THRESH}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abcf359aaf4f17128e961473692d9c473}\label{classdatmo_1_1cloud__segmentation_abcf359aaf4f17128e961473692d9c473}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!source\+Clouds@{source\+Clouds}}
+\index{source\+Clouds@{source\+Clouds}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{source\+Clouds}{sourceClouds}}
+{\footnotesize\ttfamily vector$<$ pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+YZ$>$\+::Ptr, Eigen\+::aligned\+\_\+allocator $<$pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+YZ$>$\+::Ptr $>$ $>$ datmo\+::cloud\+\_\+segmentation\+::source\+Clouds\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a24a81e37b2eff06482f65b09e39af9e4}\label{classdatmo_1_1cloud__segmentation_a24a81e37b2eff06482f65b09e39af9e4}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!source\+Transforms@{source\+Transforms}}
+\index{source\+Transforms@{source\+Transforms}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{source\+Transforms}{sourceTransforms}}
+{\footnotesize\ttfamily vector$<$tf\+::\+Stamped\+Transform$>$ datmo\+::cloud\+\_\+segmentation\+::source\+Transforms\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a72e340852b66e150cb7f0e25214b7439}\label{classdatmo_1_1cloud__segmentation_a72e340852b66e150cb7f0e25214b7439}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!sub@{sub}}
+\index{sub@{sub}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{sub}{sub}}
+{\footnotesize\ttfamily ros\+::\+Subscriber datmo\+::cloud\+\_\+segmentation\+::sub\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_af6f1f8553f2a18176ae84b78ddea07c9}\label{classdatmo_1_1cloud__segmentation_af6f1f8553f2a18176ae84b78ddea07c9}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE@{V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE}}
+\index{V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE@{V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE}{VOXEL\_LEAF\_SIZE}}
+{\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/dynamic\+\_\+obstacle\+\_\+tracking/\hyperlink{dynamic__obstacle__tracking_8hpp}{dynamic\+\_\+obstacle\+\_\+tracking.\+hpp}\item 
+src/\hyperlink{dynamic__obstacle__tracking_8cpp}{dynamic\+\_\+obstacle\+\_\+tracking.\+cpp}\end{DoxyCompactItemize}

@@ -51,7 +51,7 @@ using namespace datmo;
     }
 
     void Sensor::init(ros::NodeHandle &nh, ros::NodeHandle &private_nh){
-
+        ENABLE_VOXELISE = true;
         VOXEL_LEAF_SIZE = 0.15;
         //Statistical outlier parameters
         ENABLE_SOR = true;
@@ -71,6 +71,9 @@ using namespace datmo;
         SEG_CLUSTER_TOLERANCE = 0.5;
         SEG_MIN_CLUSTER_SIZE = 40;
         SEG_MAX_CLUSTER_SIZE = 2500;
+
+        ENABLE_ICP = false;
+        ENABLE_GROUND_REMOVAL  = false;
 
         ENABLE_OCCLUSION_DETECTION  = true;
 
