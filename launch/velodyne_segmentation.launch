@@ -15,9 +15,20 @@
 
 <!-- <node pkg="tf" type="static_transform_publisher" name="VLP16_tf_broadcaster" args="0 0 2 0 0.3488 0.034 /vehicle /velodyne 100" /> -->
 
-<node pkg="datmo" type="cloud_segmentation_node" name="cloud_segmentation_node" output="screen" />
-<node pkg="datmo" type="mot.py" name="mot.py" output="screen" />
+
+<node pkg="gps_common" type="gps_to_tf" name="gps_to_tf" output="screen" />
+<node pkg="tf" type="static_transform_publisher" name="Odom_broadcaster" args="0 0 -2.5 0 0 0 /base_link /vlp16 30 "/>
+
+<node pkg="dynamic_obstacle_tracking" type="velodyne_node" name="velodyne_node" output="screen">
+<remap from="/cloud"  to="/velodyne_points"/>
+<param name="frame_id" type="string" value="/odom"/>
+<param name="base_frame_id" type="string" value="/base_link"/>
+<param name="sensor_frame_id" type="string" value="/velodyne_temp"/>
+</node>
 
 
-<!--<node pkg="tf" type="static_transform_publisher" name="Odom_broadcaster" args="0 0 0 0 0 0 /base_link /odom_tf 100" />-->
+<node pkg="dynamic_obstacle_tracking" type="mot.py" name="mot" output="screen" />
+
+
+
 </launch>

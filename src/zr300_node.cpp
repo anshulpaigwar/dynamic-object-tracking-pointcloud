@@ -8,11 +8,11 @@ using namespace datmo;
 
 
 
-    class Sensor: public cloud_segmentation{
+    class ZR300: public cloud_segmentation{
 
     public:
-	    Sensor();
-	    ~Sensor();
+	    ZR300();
+	    ~ZR300();
 	    void init(ros::NodeHandle &nh, ros::NodeHandle &private_nh);
 
 	protected:
@@ -26,11 +26,11 @@ using namespace datmo;
 
 
 
-    Sensor::Sensor(){};
-    Sensor::~Sensor(){};
+    ZR300::ZR300(){};
+    ZR300::~ZR300(){};
 
     //dynamic reconfigure callback
-    void Sensor::dynamic_reconfigure_cb(dynamic_obstacle_tracking::zr300Config &config, uint32_t level)
+    void ZR300::dynamic_reconfigure_cb(dynamic_obstacle_tracking::zr300Config &config, uint32_t level)
     {
         VOXEL_LEAF_SIZE = config.VOXEL_LEAF_SIZE;
         ENABLE_SOR = config.ENABLE_SOR;
@@ -50,7 +50,7 @@ using namespace datmo;
         SEG_MAX_CLUSTER_SIZE = config.SEG_MAX_CLUSTER_SIZE;
     }
 
-    void Sensor::init(ros::NodeHandle &nh, ros::NodeHandle &private_nh){
+    void ZR300::init(ros::NodeHandle &nh, ros::NodeHandle &private_nh){
         ENABLE_VOXELISE = true;
         VOXEL_LEAF_SIZE = 0.15;
         //Statistical outlier parameters
@@ -77,7 +77,12 @@ using namespace datmo;
 
         ENABLE_OCCLUSION_DETECTION  = true;
 
-        cb_type = boost::bind(&Sensor::dynamic_reconfigure_cb, this, _1, _2);
+
+        private_nh.param("frame_id", frame_id,  std::string("/odom"));
+        private_nh.param("base_frame_id", base_frame_id,  std::string("/base_link"));
+        private_nh.param("sensor_frame_id", sensor_frame_id,  std::string("/vlp16"));
+
+        cb_type = boost::bind(&ZR300::dynamic_reconfigure_cb, this, _1, _2);
         server.setCallback(cb_type);
         cloud_segmentation::init(nh,private_nh);
     }
@@ -99,7 +104,7 @@ int main(int argc, char **argv)
   ros::NodeHandle nh;
   ros::NodeHandle private_nh("~");
 
-  Sensor zr300;
+  ZR300 zr300;
   zr300.init(nh,private_nh);
 
 

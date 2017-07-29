@@ -8,11 +8,11 @@ using namespace datmo;
 
 
 
-    class Sensor: public cloud_segmentation{
+    class Velodyne: public cloud_segmentation{
 
     public:
-	    Sensor();
-	    ~Sensor();
+	    Velodyne();
+	    ~Velodyne();
 	    void init(ros::NodeHandle &nh, ros::NodeHandle &private_nh);
 
 	protected:
@@ -26,11 +26,11 @@ using namespace datmo;
 
 
 
-    Sensor::Sensor(){};
-    Sensor::~Sensor(){};
+    Velodyne::Velodyne(){};
+    Velodyne::~Velodyne(){};
 
     //dynamic reconfigure callback
-    void Sensor::dynamic_reconfigure_cb(dynamic_obstacle_tracking::velodyneConfig &config, uint32_t level)
+    void Velodyne::dynamic_reconfigure_cb(dynamic_obstacle_tracking::velodyneConfig &config, uint32_t level)
     {
         ENABLE_OCCLUSION_DETECTION = config.ENABLE_OCCLUSION_DETECTION;
         PASS_X_MIN = config.PASS_X_MIN;
@@ -46,7 +46,7 @@ using namespace datmo;
         SEG_MAX_CLUSTER_SIZE = config.SEG_MAX_CLUSTER_SIZE;
     }
 
-    void Sensor::init(ros::NodeHandle &nh, ros::NodeHandle &private_nh){
+    void Velodyne::init(ros::NodeHandle &nh, ros::NodeHandle &private_nh){
 
         PASS_X_MIN = 0.0; /**< minimum value of x */
         PASS_X_MAX = 20.0; ///< maximum value of x
@@ -66,9 +66,14 @@ using namespace datmo;
         ENABLE_GROUND_REMOVAL  = true;
         ENABLE_VOXELISE = false;
         ENABLE_SOR = false;
-        ENABLE_OCCLUSION_DETECTION  = true;
+        ENABLE_OCCLUSION_DETECTION  = false;
 
-        cb_type = boost::bind(&Sensor::dynamic_reconfigure_cb, this, _1, _2);
+        private_nh.param("frame_id", frame_id,  std::string("/odom"));
+        private_nh.param("base_frame_id", base_frame_id,  std::string("/base_link"));
+        private_nh.param("sensor_frame_id", sensor_frame_id,  std::string("/vlp16"));
+
+
+        cb_type = boost::bind(&Velodyne::dynamic_reconfigure_cb, this, _1, _2);
         server.setCallback(cb_type);
         cloud_segmentation::init(nh,private_nh);
     }
@@ -90,7 +95,7 @@ int main(int argc, char **argv)
   ros::NodeHandle nh;
   ros::NodeHandle private_nh("~");
 
-  Sensor velodyne;
+  Velodyne velodyne;
   velodyne.init(nh,private_nh);
 
 

@@ -1,4 +1,3 @@
-/** @file */
 
 #include <dynamic_obstacle_tracking/dynamic_obstacle_tracking.hpp>
 
@@ -12,15 +11,23 @@ cloud_segmentation::~cloud_segmentation(){};
 void cloud_segmentation::init(ros::NodeHandle &nh, ros::NodeHandle &private_nh){
 
     cloud_transformed = pcl::PointCloud<pcl::PointXYZ>::Ptr (new pcl::PointCloud<pcl::PointXYZ>);
-    sub = nh.subscribe ("/Sensor1/pc_Sensor1", 1, &cloud_segmentation::cloud_cb,this);
+    ref_obj_cloud = pcl::PointCloud<pcl::PointXYZ>::Ptr (new pcl::PointCloud<pcl::PointXYZ> ());
+    filtered_dynamic_cloud = pcl::PointCloud<pcl::PointXYZRGB>::Ptr (new pcl::PointCloud<pcl::PointXYZRGB> ());
+    classified_cloud = pcl::PointCloud<pcl::PointXYZRGB>::Ptr (new pcl::PointCloud<pcl::PointXYZRGB> ());
+    occuluded_cloud = pcl::PointCloud<pcl::PointXYZRGB>::Ptr (new pcl::PointCloud<pcl::PointXYZRGB> ());
+    new_discovered_cloud = pcl::PointCloud<pcl::PointXYZRGB>::Ptr (new pcl::PointCloud<pcl::PointXYZRGB> ());
 
-    pub = nh.advertise<sensor_msgs::PointCloud2> ("transformed_points", 1);
-    pub_2 = nh.advertise<sensor_msgs::PointCloud2> ("cluster_point", 1);
-    //marker_pub = nh.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 1);
-    centroids_pub = nh.advertise< geometry_msgs::PoseArray >("/object_centroids", 1, true);
     odom_transform_matrix = Eigen::Affine3d::Identity();
     icp_transform_matrix = Eigen::Affine3f::Identity();
 
+
+
+    sub = nh.subscribe ("/cloud", 1, &cloud_segmentation::cloud_cb,this);
+
+    pub = nh.advertise<sensor_msgs::PointCloud2> ("/transformed_points", 1);
+    pub_2 = nh.advertise<sensor_msgs::PointCloud2> ("/dynamic_points", 1);
+    //marker_pub = nh.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 1);
+    centroids_pub = nh.advertise< geometry_msgs::PoseArray >("/object_centroids", 1, true);
     counter = 0;
 
 }
@@ -30,14 +37,13 @@ void cloud_segmentation::init(ros::NodeHandle &nh, ros::NodeHandle &private_nh){
 
 void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_msg){
 
-    //std::cout <<octree_window <<"," <<xmin <<","<<xmax <<","<<ymin <<","<<ymax <<'\n';
+
     pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ> ());
-    pcl::PointCloud<pcl::PointXYZ>::Ptr obj_cloud (new pcl::PointCloud<pcl::PointXYZ> ());
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr filtered_dynamic_cloud (new pcl::PointCloud<pcl::PointXYZRGB> ());
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr occuluded_cloud (new pcl::PointCloud<pcl::PointXYZRGB> ());
-    pcl::PointCloud<pcl::PointXYZRGB>::Ptr new_discovered_cloud (new pcl::PointCloud<pcl::PointXYZRGB> ());
-    //pcl::PointCloud<pcl::PointXYZ>::Ptr dynamic_cloud (new pcl::PointCloud<pcl::PointXYZ> ());
     pcl::PointCloud<pcl::PointXYZ>::Ptr dynamic_cloud (new pcl::PointCloud<pcl::PointXYZ> ());
+    //pcl::PointCloud<pcl::PointXYZ>::Ptr obj_cloud (new pcl::PointCloud<pcl::PointXYZ> ());
+    obj_cloud = pcl::PointCloud<pcl::PointXYZ>::Ptr (new pcl::PointCloud<pcl::PointXYZ> ());
+
+
 
     //std::vector<Float3> centroids;
     pcl::PointCloud<pcl::PointXYZ> centroids;
@@ -46,9 +52,17 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 
     // important ---> Convert to PCL data type from ros msg type    to pcl/PointCloud<T>  and not the pcl/PointCloud2
     pcl::fromROSMsg (*cloud_msg, *cloud);
-
+    //std::cout << cloud->header.frame_id << '\n';
     // transform the point clould
     cloud_transform(cloud, cloud_transformed);
+
+    cloud->clear();
+    obj_cloud->clear();
+    ref_obj_cloud->clear();
+    filtered_dynamic_cloud->clear();
+    classified_cloud->clear();
+    occuluded_cloud->clear();
+    new_discovered_cloud->clear();
 
     // filter the cloud to specific dimensions in x y and z directions
     cloud_filter(cloud_transformed,"y",PASS_Y_MIN,PASS_Y_MAX);
@@ -102,33 +116,42 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 
      //find the current transfom wrt world frame (/odom)
     try{
-      listener.lookupTransform("/odom", "/base_link",
-                               ros::Time(0), current_transform);
+      listener.waitForTransform(frame_id, base_frame_id,
+                                ros::Time(0), ros::Duration(3.0));
+      listener.lookupTransform(frame_id, base_frame_id,
+                               ros::Time(0), current_cloud_transform);
     }
     catch (tf::TransformException ex){
       ROS_ERROR("%s",ex.what());
     }
 
 
+     //std::cout << "obj_Clouds" <<obj_cloud->size()<< '\n';
 
     if(counter < OCTREE_WINDOW){
           // save all the object clouds in the vector
           sourceClouds.push_back(obj_cloud);
           // save the corresponding transform in the vector
-  	      sourceTransforms.push_back(current_transform);
+  	      sourceTransforms.push_back(current_cloud_transform);
           counter++;
     }
 
     else if(obj_cloud->size()!= 0){
 
+        //std::cout << "sourceClouds" <<sourceClouds.size()<< '\n';
+
             //............................................intergrate the odometry..........................................//
 
-            prev_obj_cloud = sourceClouds.front();
-            prev_transform = sourceTransforms.front();//transform of pointcloud octree_window times ago
-            last_transform = sourceTransforms.back();// transform of pointcloud  just one previous time step
+            ref_obj_cloud = sourceClouds.front();
+            ref_cloud_transform = sourceTransforms.front();//transform of pointcloud octree_window times ago
+            prev_cloud_transform = sourceTransforms.back();// transform of pointcloud  just one previous time step
+
+
+            //std::cout << "obj_Clouds" <<obj_cloud->size()<< '\n';
+            //std::cout << "reference obj_Clouds" <<ref_obj_cloud->size()<< '\n';
 
         	//relative pose between pointcloud at current time step and octree_window times previous pointcloud
-        	tf::Transform twist = current_transform.inverseTimes(prev_transform);
+        	tf::Transform twist = current_cloud_transform.inverseTimes(ref_cloud_transform);
             //convert TF to Eigen transform matrix
         	tf::transformTFToEigen(twist,odom_transform_matrix );
 
@@ -137,34 +160,40 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
             // cout<< odom_transform_matrix.matrix() <<endl;
 
             //transform previous times object cloud to the current frame of reference
-            pcl::transformPointCloud (*prev_obj_cloud, *prev_obj_cloud, odom_transform_matrix);
+            pcl::transformPointCloud (*ref_obj_cloud, *ref_obj_cloud, odom_transform_matrix);
             // find the new bounding_area polygon coordinates
+
+
             pcl::transformPointCloud (*bounding_area_coord, *bounding_area_coord, odom_transform_matrix);
 
 
 
             //if(ENABLE_ICP){
-                //integrateOdom_ICP(obj_cloud, prev_obj_cloud);
+                //integrateOdom_ICP(obj_cloud, ref_obj_cloud);
             //}
 
 
 
             // transform between pointcloud at current time step and just one previous time step
-            tf::Transform twist2 = current_transform.inverseTimes(last_transform);
+            tf::Transform twist2 = current_cloud_transform.inverseTimes(prev_cloud_transform);
             br.sendTransform(tf::StampedTransform(twist2, ros::Time::now(), "/latest_centroids", "/prev_centroids"));
 
 
 
 
 
-
+            //std::cout << "here1" << '\n';
 
             //........................................Spatial change detection......................................................//
             // concept to understand is for spatial change detection we are comparing current pointcloud with maybe
             // 4-5 timestep previous pointcloud but this is happening at every time we get new data (10hz)so centroids are
             // are being published at every time step so for kalman filter we only need transform current and last time step
+            //
+            //std::cout << "ENABLE_OCCLUSION_DETECTION"<< ENABLE_OCCLUSION_DETECTION << '\n';
+            //std::cout << "ENABLE_VOXELISE"<< ENABLE_VOXELISE << '\n';
 
-            detect_spatial_change(obj_cloud, prev_obj_cloud, dynamic_cloud, occuluded_cloud, OCTREE_RESOLUTION, ENABLE_OCCLUSION_DETECTION  );
+            detect_spatial_change (obj_cloud, ref_obj_cloud, dynamic_cloud, occuluded_cloud, OCTREE_RESOLUTION, ENABLE_OCCLUSION_DETECTION);
+
 
 
 
@@ -241,20 +270,21 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 
 
             // this is for visualistaion
-            *filtered_dynamic_cloud += *occuluded_cloud + *new_discovered_cloud;
+            *classified_cloud += *occuluded_cloud + *new_discovered_cloud;
+            *classified_cloud += *filtered_dynamic_cloud;
 
 
-
+            // std::cout << classified_cloud->size() << '\n';
 
 
             // Convert to ROS data type
             sensor_msgs::PointCloud2 output;
             sensor_msgs::PointCloud2 output_2;
             pcl::toROSMsg(*cloud_transformed, output);
-            pcl::toROSMsg(*filtered_dynamic_cloud, output_2);
+            pcl::toROSMsg(*classified_cloud, output_2);
 
-            output.header.frame_id = "/Sensor1";
-            output_2.header.frame_id = "/Sensor1";
+            output.header.frame_id = base_frame_id;
+            output_2.header.frame_id = base_frame_id;
 
 
             // Publish the data
@@ -266,7 +296,7 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 
             // Go ahead and fill out rviz arrow message
             obj_poses.header.stamp = ros::Time::now();
-            obj_poses.header.frame_id = "/Sensor1";
+            obj_poses.header.frame_id = base_frame_id;
 
 
             // std::cout << "new centroids" << '\n';
@@ -318,7 +348,7 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
             sourceClouds.erase(sourceClouds.begin());
             sourceClouds.push_back(obj_cloud);
             sourceTransforms.erase(sourceTransforms.begin());
-            sourceTransforms.push_back(current_transform);
+            sourceTransforms.push_back(current_cloud_transform);
 
 
     }
@@ -352,12 +382,17 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 void cloud_segmentation::cloud_transform (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud_in, const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out){
 
     tf::StampedTransform TF;
+    ros::Time now = ros::Time::now();
+    //ros::Time(0)
     try{
-      listener.lookupTransform("/Body", "/Sensor1",
-                               ros::Time(0), TF);
+      listener.waitForTransform( sensor_frame_id, base_frame_id,
+                              ros::Time(0), ros::Duration(3.0));
+      listener.lookupTransform( sensor_frame_id, base_frame_id,
+                               ros::Time(0) , TF);
     }
     catch (tf::TransformException ex){
       ROS_ERROR("%s",ex.what());
+      std::cout << "here is the error" << '\n';
       ros::Duration(1.0).sleep();
     //   return;
     }
@@ -409,9 +444,12 @@ void cloud_segmentation::euclideancluster  (const pcl::PointCloud<pcl::PointXYZ>
 
     std::vector<pcl::PointIndices> cluster_indices;
     pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
-    ec.setClusterTolerance (SEG_CLUSTER_TOLERANCE); // 2cm
-    ec.setMinClusterSize (SEG_MIN_CLUSTER_SIZE);
-    ec.setMaxClusterSize (SEG_MAX_CLUSTER_SIZE);
+    ec.setClusterTolerance (0.4); // 2cm
+    ec.setMinClusterSize (20);
+    ec.setMaxClusterSize (4000);
+    // ec.setClusterTolerance (SEG_CLUSTER_TOLERANCE); // 2cm
+    // ec.setMinClusterSize (SEG_MIN_CLUSTER_SIZE);
+    // ec.setMaxClusterSize (SEG_MAX_CLUSTER_SIZE);
     ec.setSearchMethod (tree);
     ec.setInputCloud (cloud);
     ec.extract (cluster_indices);
@@ -471,7 +509,8 @@ void cloud_segmentation::SOR_filter (const pcl::PointCloud<pcl::PointXYZ>::Ptr& 
 
 
 
-void cloud_segmentation::Ransac_plane (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_in, const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out){
+void cloud_segmentation::
+Ransac_plane (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_in, const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_out){
 
     // coefficients for ground plane
     pcl::ModelCoefficients::Ptr coefficients (new pcl::ModelCoefficients);
@@ -563,7 +602,7 @@ void cloud_segmentation::Ransac_plane (const pcl::PointCloud<pcl::PointXYZ>::Ptr
 
 
 
-void cloud_segmentation::detect_spatial_change (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_now,
+void cloud_segmentation:: detect_spatial_change (const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_now,
                                                 const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud_to_compare,
                                                 const pcl::PointCloud<pcl::PointXYZ>::Ptr& dynamic_cloud,
                                                 const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& occuluded_cloud,
@@ -597,7 +636,8 @@ void cloud_segmentation::detect_spatial_change (const pcl::PointCloud<pcl::Point
     octree.getPointIndicesFromNewVoxels (newPointIdxVector);
 
 
-
+    //std::cout <<"cloud_to_compare"<< cloud_to_compare->size() << '\n';
+    //std::cout << "cloud_now"<<cloud_now->size() << '\n';
 
     //....................Check if the new dectected points(dynamic points) were occuluded in in previous time step.............//
 
@@ -618,7 +658,7 @@ void cloud_segmentation::detect_spatial_change (const pcl::PointCloud<pcl::Point
 
             pt = cloud_now->points[newPointIdxVector[i]];
             //filtered_dynamic_cloud->push_back(pt);
-            if (pt.y < 0.8 && pt.y > -0.8){
+            if ((pt.y < 4) && (pt.y > -4) &&  (pt.x < 10)){
                 dynamic_cloud->push_back(pt);
             }
             else if(!(octree_a.testForOcclusion(pt))){
@@ -646,6 +686,8 @@ void cloud_segmentation::detect_spatial_change (const pcl::PointCloud<pcl::Point
         }
     }
 
+
+
 }
 
 
@@ -654,32 +696,47 @@ void cloud_segmentation::detect_spatial_change (const pcl::PointCloud<pcl::Point
 
 
 
+
+
+// bool cloud_segmentation::is_in_bounding_area(const pcl::PointCloud<pcl::PointXYZ>::Ptr& coord, pcl::PointXYZRGB pt ){
+//     float p21[] = {coord->points[2].x - coord->points[1].x, coord->points[2].y -  coord->points[1].y};
+//     float p41[] = {coord->points[4].x - coord->points[1].x, coord->points[4].y -  coord->points[1].y};
+//
+//     float p21magnitude_squared = SQR(p21[0]) + SQR(p21[1]);
+//     float p41magnitude_squared = SQR(p41[0]) + SQR(p41[1]);
+//     float p[] = {pt.x - coord->points[1].x, pt.y - coord->points[1].y};
+//     float dot_product21 = p[0] * p21[0] + p[1] * p21[1];
+//     float dot_product41 = p[0] * p41[0] + p[1] * p41[1];
+//         if( (0 <= dot_product21) && (dot_product21 <= p21magnitude_squared)){
+//
+//             if( (0 <= dot_product41) &&  (dot_product21 <= p41magnitude_squared)){
+//                 return true;
+//             }
+//             else{
+//                 return false;
+//             }
+//         }
+//         else{
+//             return false;
+//         }
+//
+// }
 
 
 bool cloud_segmentation::is_in_bounding_area(const pcl::PointCloud<pcl::PointXYZ>::Ptr& coord, pcl::PointXYZRGB pt ){
-    float p21[] = {coord->points[2].x - coord->points[1].x, coord->points[2].y -  coord->points[1].y};
-    float p41[] = {coord->points[4].x - coord->points[1].x, coord->points[4].y -  coord->points[1].y};
+    // vector<Point> points = polygon.getPoints();
+    int i, j, nvert = coord->size();
+    bool c = false;
 
-    float p21magnitude_squared = SQR(p21[0]) + SQR(p21[1]);
-    float p41magnitude_squared = SQR(p41[0]) + SQR(p41[1]);
-    float p[] = {pt.x - coord->points[1].x, pt.y - coord->points[1].y};
-    float dot_product21 = p[0] * p21[0] + p[1] * p21[1];
-    float dot_product41 = p[0] * p41[0] + p[1] * p41[1];
-        if( (0 <= dot_product21) && (dot_product21 <= p21magnitude_squared)){
+    for(i = 0, j = nvert - 1; i < nvert; j = i++) {
+      if( ( (coord->points[i].y > pt.y ) != (coord->points[j].y > pt.y) ) &&
+          (pt.x <= (coord->points[j].x - coord->points[i].x) * (pt.y - coord->points[i].y) / (coord->points[j].y - coord->points[i].y) + coord->points[i].x)
+        )
+        c = !c;
+    }
 
-            if( (0 <= dot_product41) &&  (dot_product21 <= p41magnitude_squared)){
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-        else{
-            return false;
-        }
-
+    return c;
 }
-
 
 
 
@@ -754,11 +811,11 @@ void cloud_segmentation::integrateOdom (std::vector<Float3>& prev_centroids){
 
 
 
-void cloud_segmentation::integrateOdom_ICP (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& obj_cloud, const pcl::PointCloud<pcl::PointXYZ>::Ptr& prev_obj_cloud ){
+void cloud_segmentation::integrateOdom_ICP (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& obj_cloud, const pcl::PointCloud<pcl::PointXYZ>::Ptr& ref_obj_cloud ){
 
     pcl::PointCloud<pcl::PointXYZ>::Ptr Final (new pcl::PointCloud<pcl::PointXYZ> ());
     pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
-    icp.setInputSource(prev_obj_cloud);
+    icp.setInputSource(ref_obj_cloud);
     icp.setInputTarget(obj_cloud);
 
 
@@ -776,7 +833,7 @@ void cloud_segmentation::integrateOdom_ICP (const pcl::PointCloud<pcl::PointXYZ>
 
     icp.align(*Final);
     //std::cout << "has converged:" << icp.hasConverged() << " score: " <<icp.getFitnessScore() << std::endl;
-    *prev_obj_cloud = *Final;
+    *ref_obj_cloud = *Final;
 
     // Obtain the transformation that aligned cloud_source to cloud_source_registered and store it into affine3f transform object
     // icp_transform_matrix.matrix() = icp.getFinalTransformation ();
@@ -789,7 +846,7 @@ void cloud_segmentation::integrateOdom_ICP (const pcl::PointCloud<pcl::PointXYZ>
 
 void cloud_segmentation::integrateOdom (pcl::PointCloud<pcl::PointXYZ> &last_centroids){
 
-    tf::Transform twist = current_transform.inverseTimes(last_transform);
+    tf::Transform twist = current_cloud_transform.inverseTimes(prev_cloud_transform);
 
     br.sendTransform(tf::StampedTransform(twist, ros::Time::now(), "/latest_centroids", "/prev_centroids"));
 

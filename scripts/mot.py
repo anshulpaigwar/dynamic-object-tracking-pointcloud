@@ -60,7 +60,7 @@ class tracked_object:
 													[0,  0, 1, dt],
 													[0,  0, 0,  1]])
 		# process noise matrix
-		q = Q_discrete_white_noise(dim=2, dt=dt, var = 0.2) # orignal value 200
+		q = Q_discrete_white_noise(dim=2, dt=dt, var = 2) # orignal value 200
 		self.kf.Q = block_diag(q, q)
 		# measurement funtion
 		self.kf.H = np.array([[1, 0, 0, 0],
@@ -101,7 +101,7 @@ class Mot:
 	'''Multi object tracker class'''
 
 	marker = Marker()
-	marker.header.frame_id = "/camera_depth_optical_frame"
+	marker.header.frame_id = "/base_link"
 
 	marker.ns = "mot_ojects"
 	# marker.id = 1
@@ -125,9 +125,9 @@ class Mot:
 		# self.velocity_pub = rospy.Publisher("/velocity_viz", Point, queue_size = 10)
 		self.centoid_sub = rospy.Subscriber("/object_centroids", PoseArray, self.centroid_callback, queue_size = 10)
 		self.tracked_objects = []
-		self.distance_threshold = 1.0
-		self.youth_threshold = 4
-		self.strikes_threshold = 3
+		self.distance_threshold = 1
+		self.youth_threshold = 3
+		self.strikes_threshold = 4
 		self.newDataAvailable = False
 
 
@@ -145,14 +145,14 @@ class Mot:
 
 
 
-		# try:
-		# 	now = rospy.Time.now()
- 	# 		self.listener.waitForTransform("/latest_centroids", "/prev_centroids", now, rospy.Duration(4.0))
-		# 	(trans,rot) = self.listener.lookupTransform('/latest_centroids', '/prev_centroids', now)
-		# except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
-		# 	print "waiting for tf"
-		#
-		# self.trans_matrix = self.transformer.fromTranslationRotation(trans, rot)
+		try:
+			now = rospy.Time.now()
+ 			self.listener.waitForTransform("/latest_centroids", "/prev_centroids", now, rospy.Duration(4.0))
+			(trans,rot) = self.listener.lookupTransform('/latest_centroids', '/prev_centroids', now)
+		except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
+			print "waiting for tf"
+
+		self.trans_matrix = self.transformer.fromTranslationRotation(trans, rot)
 		# print self.trans_matrix
 
 
@@ -180,21 +180,15 @@ class Mot:
 				self.tracked_objects.append(tracked_object(i.position.x, i.position.y, i.position.z))
 			return
 
-
-
-
-		# print "tracked centroids"
-		# for i in self.tracked_objects:
-		# 	x_vel = i.kf.x[1][0]
-		# 	y_vel = i.kf.x[3][0]
-		# 	norm_vel = math.sqrt(x_vel**2 + y_vel**2)
-		# 	print i.x, i.y, i.youth, i.strikes, norm_vel
+		# print "latest centroids"
+		# for i in self.latest_objects:
+		# 	print i.position.x, i.position.y, i.position.z
 
 
 		# separate out the centroids from tracked objects and and the new objects ros message lists and convert them to numpy arrays
-		# tracked_centroids_coord = np.matrix([(i.x, i.y, i.z, 1) for i in self.tracked_objects])
-		# #
-		# tracked_centroids_coord_odom = self.trans_matrix * tracked_centroids_coord.T
+		tracked_centroids_coord = np.matrix([(i.x, i.y, i.z, 1) for i in self.tracked_objects])
+		#
+		tracked_centroids_coord_odom = self.trans_matrix * tracked_centroids_coord.T
 
 
 
@@ -204,12 +198,12 @@ class Mot:
 		# print tracked_centroids_coord
 
 
-		# for  index in range(len(self.tracked_objects)):
-		# 	# print "index: %d index" % index
-		# 	# print tracked_centroids_coord_odom[0,index],tracked_centroids_coord_odom[1,index],tracked_centroids_coord_odom[2,index]
-		# 	self.tracked_objects[index].x = tracked_centroids_coord_odom[0,index]
-		# 	self.tracked_objects[index].y = tracked_centroids_coord_odom[1,index]
-		# 	self.tracked_objects[index].z = tracked_centroids_coord_odom[2,index]
+		for  index in range(len(self.tracked_objects)):
+			# print "index: %d index" % index
+			# print tracked_centroids_coord_odom[0,index],tracked_centroids_coord_odom[1,index],tracked_centroids_coord_odom[2,index]
+			self.tracked_objects[index].x = tracked_centroids_coord_odom[0,index]
+			self.tracked_objects[index].y = tracked_centroids_coord_odom[1,index]
+			self.tracked_objects[index].z = tracked_centroids_coord_odom[2,index]
 
 
 
@@ -248,6 +242,9 @@ class Mot:
 				self.tracked_objects[pairs[index,0]].x = float(self.tracked_objects[pairs[index,0]].kf.x[0])
 				self.tracked_objects[pairs[index,0]].y = float(self.tracked_objects[pairs[index,0]].kf.x[2])
 
+				#if the match is found then make the strikes zero
+				self.tracked_objects[pairs[index,0]].strikes = 0
+
 				if self.tracked_objects[pairs[index,0]].youth < self.youth_threshold:
 					self.tracked_objects[pairs[index,0]].youth += 1
 				else:
@@ -272,6 +269,13 @@ class Mot:
 		if len(new_trackers_to_start) !=0:
 			for x in np.nditer(new_trackers_to_start):
 				self.tracked_objects.append(tracked_object(latest_centroids[x,0],latest_centroids[x,1], latest_centroids[x,2]))
+
+		# print "tracked centroids"
+		# for i in self.tracked_objects:
+		# 	x_vel = i.kf.x[1][0]
+		# 	y_vel = i.kf.x[3][0]
+		# 	norm_vel = math.sqrt(x_vel**2 + y_vel**2)
+		# 	print i.x, i.y, i.youth, i.strikes, norm_vel
 
 
 def main():

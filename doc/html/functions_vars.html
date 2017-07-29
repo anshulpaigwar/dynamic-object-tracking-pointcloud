@@ -77,7 +77,8 @@ $(function() {
 
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>cb_type
-: <a class="el" href="classSensor.html#af6f13b558862028f47a169529610041d">Sensor</a>
+: <a class="el" href="classVelodyne.html#aba02cf51ec41e7289dc2df2511d421ce">Velodyne</a>
+, <a class="el" href="classZR300.html#ad68d353c780b751ba511b67f9b475b01">ZR300</a>
 </li>
 <li>centoid_sub
 : <a class="el" href="classmot_1_1Mot.html#a806b7698802e61046a4fce8890f5c52b">mot.Mot</a>
@@ -85,8 +86,8 @@ $(function() {
 <li>centroids_pub
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#a287579b3989262f060341ebca1ed53b2">datmo::cloud_segmentation</a>
 </li>
-<li>cloud_classified
-: <a class="el" href="classdatmo_1_1cloud__segmentation.html#a42f9f6610cf798f8ac26c0c5500ccf02">datmo::cloud_segmentation</a>
+<li>classified_cloud
+: <a class="el" href="classdatmo_1_1cloud__segmentation.html#a5d51c3fb6f6206ce1e625bd3536414a0">datmo::cloud_segmentation</a>
 </li>
 <li>cloud_transformed
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#a00e99233257fe5a28a039eef13dbc65b">datmo::cloud_segmentation</a>
@@ -97,8 +98,8 @@ $(function() {
 <li>counter
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#a56499171fe846acfb2a73a5134261a91">datmo::cloud_segmentation</a>
 </li>
-<li>current_transform
-: <a class="el" href="classdatmo_1_1cloud__segmentation.html#aeccad720664cddc17f8cfd9db29c1dad">datmo::cloud_segmentation</a>
+<li>current_cloud_transform
+: <a class="el" href="classdatmo_1_1cloud__segmentation.html#a2c01dc948f63510a421297e7cc6a29e5">datmo::cloud_segmentation</a>
 </li>
 </ul>
 
@@ -130,6 +131,9 @@ $(function() {
 
 
 <h3><a id="index_f"></a>- f -</h3><ul>
+<li>filtered_dynamic_cloud
+: <a class="el" href="classdatmo_1_1cloud__segmentation.html#a57c83961f5b33aa5655c679789f36387">datmo::cloud_segmentation</a>
+</li>
 <li>frame_id
 : <a class="el" href="classmot_1_1Mot.html#adddddf34ffd1d5e93a4ab67a79416531">mot.Mot</a>
 </li>
@@ -163,9 +167,6 @@ $(function() {
 <li>last_centroids
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#a576b87bb01fef0d14ba862f08ca8e2ba">datmo::cloud_segmentation</a>
 </li>
-<li>last_transform
-: <a class="el" href="classdatmo_1_1cloud__segmentation.html#a2401065698d70527fff7a9d1bb491630">datmo::cloud_segmentation</a>
-</li>
 <li>latest_header
 : <a class="el" href="classmot_1_1Mot.html#a0454aadfd7e1cfba0ac43bbd57052758">mot.Mot</a>
 </li>
@@ -183,16 +184,13 @@ $(function() {
 <li>marker
 : <a class="el" href="classmot_1_1Mot.html#afa88ed1870c8848b4368fe59d12c9f7f">mot.Mot</a>
 </li>
-<li>marker_array
-: <a class="el" href="classdatmo_1_1cloud__segmentation.html#ab5f26252358065a0341ffd790c68334e">datmo::cloud_segmentation</a>
-</li>
-<li>marker_pub
-: <a class="el" href="classdatmo_1_1cloud__segmentation.html#ad9e1760efffadbd3e46ed2f9eeb6b017">datmo::cloud_segmentation</a>
-</li>
 </ul>
 
 
 <h3><a id="index_n"></a>- n -</h3><ul>
+<li>new_discovered_cloud
+: <a class="el" href="classdatmo_1_1cloud__segmentation.html#ac9374ddec382dc6dab33b34542a7b21d">datmo::cloud_segmentation</a>
+</li>
 <li>newDataAvailable
 : <a class="el" href="classmot_1_1Mot.html#a09b9273b0c9ac16aca96e09a9a8286ee">mot.Mot</a>
 </li>
@@ -203,14 +201,17 @@ $(function() {
 
 
 <h3><a id="index_o"></a>- o -</h3><ul>
+<li>obj_cloud
+: <a class="el" href="classdatmo_1_1cloud__segmentation.html#ad946a48ab59bf9f48338f9ef0702181c">datmo::cloud_segmentation</a>
+</li>
+<li>occuluded_cloud
+: <a class="el" href="classdatmo_1_1cloud__segmentation.html#a2f85f1a51b2e90dbce996d90cb3e0155">datmo::cloud_segmentation</a>
+</li>
 <li>OCTREE_RESOLUTION
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#aba086f9f8e05f18c02c042c057854a06">datmo::cloud_segmentation</a>
 </li>
 <li>OCTREE_WINDOW
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#ada1c6bd7f69249c5317cbe95969498e4">datmo::cloud_segmentation</a>
-</li>
-<li>odom
-: <a class="el" href="classdatmo_1_1cloud__segmentation.html#a2d267feed8b54b1eb2dffb9aed780082">datmo::cloud_segmentation</a>
 </li>
 <li>odom_transform_matrix
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#a9f47c2e7cba42121779e2772a052f58b">datmo::cloud_segmentation</a>
@@ -237,17 +238,24 @@ $(function() {
 <li>PASS_Z_MIN
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#acb71ade7e486ad1cafe15c441903f3e0">datmo::cloud_segmentation</a>
 </li>
-<li>prev_obj_cloud
-: <a class="el" href="classdatmo_1_1cloud__segmentation.html#aa1ea3bcb86aff4916200ff899a4198c4">datmo::cloud_segmentation</a>
-</li>
-<li>prev_transform
-: <a class="el" href="classdatmo_1_1cloud__segmentation.html#a89069ad666b67686b58c6072a9cd84e7">datmo::cloud_segmentation</a>
+<li>prev_cloud_transform
+: <a class="el" href="classdatmo_1_1cloud__segmentation.html#af664f016cfef835a3cfc303675c0a5ec">datmo::cloud_segmentation</a>
 </li>
 <li>pub
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#a01955e35ed0d12b9da4d4d9afb1007e3">datmo::cloud_segmentation</a>
 </li>
 <li>pub_2
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#a0e1bf18752add68fc2df89e212750d91">datmo::cloud_segmentation</a>
+</li>
+</ul>
+
+
+<h3><a id="index_r"></a>- r -</h3><ul>
+<li>ref_cloud_transform
+: <a class="el" href="classdatmo_1_1cloud__segmentation.html#a8ab8642656cda3d94db8d9c2e4613644">datmo::cloud_segmentation</a>
+</li>
+<li>ref_obj_cloud
+: <a class="el" href="classdatmo_1_1cloud__segmentation.html#a4f4926a401828fc5226665963a2212cf">datmo::cloud_segmentation</a>
 </li>
 </ul>
 
@@ -263,7 +271,8 @@ $(function() {
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#acf7cfcaf0ab08a2afffcc2b47048bc81">datmo::cloud_segmentation</a>
 </li>
 <li>server
-: <a class="el" href="classSensor.html#a3e4e922879e1a2e7921c685b00a2f0d3">Sensor</a>
+: <a class="el" href="classVelodyne.html#ae3c8869e849b22dad034e50dfbfccc1d">Velodyne</a>
+, <a class="el" href="classZR300.html#afe2acfe42f2153ef3a488367ffdfcca0">ZR300</a>
 </li>
 <li>SOR_MEAN_K
 : <a class="el" href="classdatmo_1_1cloud__segmentation.html#abb5b1262c14e68886e01e0230c530b07">datmo::cloud_segmentation</a>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['w',['w',['../classmot_1_1Mot.html#a792c086f8f01b7974e53dda4d88dd27d',1,'mot::Mot']]]
+  ['voxel_5fleaf_5fsize',['VOXEL_LEAF_SIZE',['../classdatmo_1_1cloud__segmentation.html#af6f1f8553f2a18176ae84b78ddea07c9',1,'datmo::cloud_segmentation']]]
 ];

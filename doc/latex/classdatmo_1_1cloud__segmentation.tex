@@ -23,35 +23,37 @@ void \hyperlink{classdatmo_1_1cloud__segmentation_a9ad8d99df49f5b55a920d477c4dcc
 \begin{DoxyCompactItemize}
 \item 
 ros\+::\+Publisher \hyperlink{classdatmo_1_1cloud__segmentation_a01955e35ed0d12b9da4d4d9afb1007e3}{pub}
-\item 
+\begin{DoxyCompactList}\small\item\em publish point cloud after transforming it to base\+\_\+link on topic /transformed\+\_\+points \end{DoxyCompactList}\item 
 ros\+::\+Publisher \hyperlink{classdatmo_1_1cloud__segmentation_a0e1bf18752add68fc2df89e212750d91}{pub\+\_\+2}
-\item 
-ros\+::\+Publisher \hyperlink{classdatmo_1_1cloud__segmentation_ad9e1760efffadbd3e46ed2f9eeb6b017}{marker\+\_\+pub}
-\item 
+\begin{DoxyCompactList}\small\item\em Publish pointcloud with dynamic obstacles on topic /dynamic\+\_\+points. \end{DoxyCompactList}\item 
 ros\+::\+Publisher \hyperlink{classdatmo_1_1cloud__segmentation_a287579b3989262f060341ebca1ed53b2}{centroids\+\_\+pub}
-\item 
+\begin{DoxyCompactList}\small\item\em Publish geometry\+\_\+msgs\+::\+Pose\+Array centroids of dynamic obstacles on topic /object\+\_\+centroids. \end{DoxyCompactList}\item 
 ros\+::\+Subscriber \hyperlink{classdatmo_1_1cloud__segmentation_a72e340852b66e150cb7f0e25214b7439}{sub}
-\item 
-visualization\+\_\+msgs\+::\+Marker\+Array \hyperlink{classdatmo_1_1cloud__segmentation_ab5f26252358065a0341ffd790c68334e}{marker\+\_\+array}
-\item 
-nav\+\_\+msgs\+::\+Odometry \hyperlink{classdatmo_1_1cloud__segmentation_a2d267feed8b54b1eb2dffb9aed780082}{odom}
-\item 
+\begin{DoxyCompactList}\small\item\em subscribes sensor\+\_\+msgs\+::\+Point\+Cloud2 from topic /cloud \end{DoxyCompactList}\item 
 tf\+::\+Transform\+Listener \hyperlink{classdatmo_1_1cloud__segmentation_abf9b807df25f63ea330b165a9f2e4be1}{listener}
-\item 
+\begin{DoxyCompactList}\small\item\em A TF listener. \end{DoxyCompactList}\item 
 tf\+::\+Transform\+Broadcaster \hyperlink{classdatmo_1_1cloud__segmentation_aa2712034cbe68df4d19b0fcf87f9b465}{br}
-\item 
-tf\+::\+Stamped\+Transform \hyperlink{classdatmo_1_1cloud__segmentation_a89069ad666b67686b58c6072a9cd84e7}{prev\+\_\+transform}
-\item 
-tf\+::\+Stamped\+Transform \hyperlink{classdatmo_1_1cloud__segmentation_aeccad720664cddc17f8cfd9db29c1dad}{current\+\_\+transform}
-\item 
-tf\+::\+Stamped\+Transform \hyperlink{classdatmo_1_1cloud__segmentation_a2401065698d70527fff7a9d1bb491630}{last\+\_\+transform}
-\item 
+\begin{DoxyCompactList}\small\item\em TF brodcaster to broadcast relative transfom between current pointcloud and prev Point\+Cloud. \end{DoxyCompactList}\item 
+tf\+::\+Stamped\+Transform \hyperlink{classdatmo_1_1cloud__segmentation_a2c01dc948f63510a421297e7cc6a29e5}{current\+\_\+cloud\+\_\+transform}
+\begin{DoxyCompactList}\small\item\em Container to store transform of latest pointcloud wrt /odom. \end{DoxyCompactList}\item 
+tf\+::\+Stamped\+Transform \hyperlink{classdatmo_1_1cloud__segmentation_a8ab8642656cda3d94db8d9c2e4613644}{ref\+\_\+cloud\+\_\+transform}
+\begin{DoxyCompactList}\small\item\em Container to store transform of reference pointcloud wrt /odom. \end{DoxyCompactList}\item 
+tf\+::\+Stamped\+Transform \hyperlink{classdatmo_1_1cloud__segmentation_af664f016cfef835a3cfc303675c0a5ec}{prev\+\_\+cloud\+\_\+transform}
+\begin{DoxyCompactList}\small\item\em Container to store transform of previous pointcloud wrt /odom. \end{DoxyCompactList}\item 
 pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \hyperlink{classdatmo_1_1cloud__segmentation_a00e99233257fe5a28a039eef13dbc65b}{cloud\+\_\+transformed}
-\item 
-pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \hyperlink{classdatmo_1_1cloud__segmentation_aa1ea3bcb86aff4916200ff899a4198c4}{prev\+\_\+obj\+\_\+cloud}
-\item 
-pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$ \hyperlink{classdatmo_1_1cloud__segmentation_a42f9f6610cf798f8ac26c0c5500ccf02}{cloud\+\_\+classified}
-\item 
+\begin{DoxyCompactList}\small\item\em container to store current pointcloud after transforming it to /base\+\_\+link frame from /sensor frame \end{DoxyCompactList}\item 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \hyperlink{classdatmo_1_1cloud__segmentation_ad946a48ab59bf9f48338f9ef0702181c}{obj\+\_\+cloud}
+\begin{DoxyCompactList}\small\item\em container to store pointcloud having both static and dynamic objects \end{DoxyCompactList}\item 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \hyperlink{classdatmo_1_1cloud__segmentation_a4f4926a401828fc5226665963a2212cf}{ref\+\_\+obj\+\_\+cloud}
+\begin{DoxyCompactList}\small\item\em container to store object cloud to be used as reference for comparing with object cloud at current time step for octree based spatial change detection \end{DoxyCompactList}\item 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr \hyperlink{classdatmo_1_1cloud__segmentation_a2f85f1a51b2e90dbce996d90cb3e0155}{occuluded\+\_\+cloud}
+\begin{DoxyCompactList}\small\item\em container to store the points at current timestep that are in the areas which were occuluded in reference object cloud. (Green in colour) \end{DoxyCompactList}\item 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr \hyperlink{classdatmo_1_1cloud__segmentation_ac9374ddec382dc6dab33b34542a7b21d}{new\+\_\+discovered\+\_\+cloud}
+\begin{DoxyCompactList}\small\item\em Container to store points at current timestep that are in the areas which are newly discovered. (Blue in colour) \end{DoxyCompactList}\item 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr \hyperlink{classdatmo_1_1cloud__segmentation_a57c83961f5b33aa5655c679789f36387}{filtered\+\_\+dynamic\+\_\+cloud}
+\begin{DoxyCompactList}\small\item\em Container to store filtered dynamic cloud (Red in colour) = dynamic\+\_\+cloud -\/ occuluded\+\_\+cloud -\/ new\+\_\+discovered\+\_\+cloud. \end{DoxyCompactList}\item 
+pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr \hyperlink{classdatmo_1_1cloud__segmentation_a5d51c3fb6f6206ce1e625bd3536414a0}{classified\+\_\+cloud}
+\begin{DoxyCompactList}\small\item\em Container to store final classified cloud = filtered\+\_\+dynamic\+\_\+cloud(\+Red) + occuluded\+\_\+cloud(\+Green) + new\+\_\+discovered\+\_\+cloud(\+Blue) \end{DoxyCompactList}\item 
 vector$<$ tf\+::\+Stamped\+Transform $>$ \hyperlink{classdatmo_1_1cloud__segmentation_a24a81e37b2eff06482f65b09e39af9e4}{source\+Transforms}
 \item 
 vector$<$ pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr, Eigen\+::aligned\+\_\+allocator$<$ pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr $>$ $>$ \hyperlink{classdatmo_1_1cloud__segmentation_abcf359aaf4f17128e961473692d9c473}{source\+Clouds}
@@ -77,25 +79,25 @@ float \hyperlink{classdatmo_1_1cloud__segmentation_af6f1f8553f2a18176ae84b78ddea
 bool \hyperlink{classdatmo_1_1cloud__segmentation_ae54c11225658974ed8a37a03815aab0e}{E\+N\+A\+B\+L\+E\+\_\+\+S\+OR}
 \item 
 float \hyperlink{classdatmo_1_1cloud__segmentation_abb5b1262c14e68886e01e0230c530b07}{S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K}
-\item 
+\begin{DoxyCompactList}\small\item\em number of neighbors to analyze for each point \end{DoxyCompactList}\item 
 float \hyperlink{classdatmo_1_1cloud__segmentation_ae1c32b9f5741dd7d212f2745f8784de0}{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH}
-\item 
+\begin{DoxyCompactList}\small\item\em distance in multiples of std dev after which point is considered an outlier \end{DoxyCompactList}\item 
 float \hyperlink{classdatmo_1_1cloud__segmentation_a503bba212f9c15b767d512771b1559c2}{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+IN}
-\item 
+\begin{DoxyCompactList}\small\item\em minimum value of x \end{DoxyCompactList}\item 
 float \hyperlink{classdatmo_1_1cloud__segmentation_a12f8209c6640d67c23cac18b2d8b7964}{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+AX}
 \begin{DoxyCompactList}\small\item\em maximum value of x \end{DoxyCompactList}\item 
 float \hyperlink{classdatmo_1_1cloud__segmentation_af95645fb925c485f397321d6e07c4574}{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN}
-\item 
+\begin{DoxyCompactList}\small\item\em minimum value of y \end{DoxyCompactList}\item 
 float \hyperlink{classdatmo_1_1cloud__segmentation_abacc76df1e25e42d25c1822c2637fa00}{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX}
-\item 
+\begin{DoxyCompactList}\small\item\em maximum value of y \end{DoxyCompactList}\item 
 float \hyperlink{classdatmo_1_1cloud__segmentation_acb71ade7e486ad1cafe15c441903f3e0}{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN}
-\item 
+\begin{DoxyCompactList}\small\item\em minimum value of z \end{DoxyCompactList}\item 
 float \hyperlink{classdatmo_1_1cloud__segmentation_a05b70936af05654abb9b1924ab593d08}{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX}
-\item 
+\begin{DoxyCompactList}\small\item\em maximum value of z \end{DoxyCompactList}\item 
 int \hyperlink{classdatmo_1_1cloud__segmentation_ada1c6bd7f69249c5317cbe95969498e4}{O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW}
-\item 
+\begin{DoxyCompactList}\small\item\em This parameter defines that current pointcloud will be compared with \char`\"{}\+O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+O\+W\char`\"{} times previous pointcloud for spatial change detection. \end{DoxyCompactList}\item 
 float \hyperlink{classdatmo_1_1cloud__segmentation_aba086f9f8e05f18c02c042c057854a06}{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}
-\item 
+\begin{DoxyCompactList}\small\item\em smallest dimension of octree leaf node \end{DoxyCompactList}\item 
 float \hyperlink{classdatmo_1_1cloud__segmentation_af33add7f3b00fac5be10ffd87eae057f}{S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE}
 \item 
 int \hyperlink{classdatmo_1_1cloud__segmentation_acf7cfcaf0ab08a2afffcc2b47048bc81}{S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}
@@ -119,13 +121,13 @@ void \hyperlink{classdatmo_1_1cloud__segmentation_a168514d0652e6ada8a371604470b9
 \item 
 void \hyperlink{classdatmo_1_1cloud__segmentation_a7506a589048c71ab56a49d6470591ef1}{euclideancluster} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud, float \hyperlink{classdatmo_1_1cloud__segmentation_af33add7f3b00fac5be10ffd87eae057f}{S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE}, int \hyperlink{classdatmo_1_1cloud__segmentation_acf7cfcaf0ab08a2afffcc2b47048bc81}{S\+E\+G\+\_\+\+M\+I\+N\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE}, int \hyperlink{classdatmo_1_1cloud__segmentation_ab2959ad226faeaab4910f42ba91d37cb}{S\+E\+G\+\_\+\+M\+A\+X\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+S\+I\+ZE})
 \item 
-void \hyperlink{classdatmo_1_1cloud__segmentation_a6dcd90f46e590756a42aafd290443fcf}{detect\+\_\+spatial\+\_\+change} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+now, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+to\+\_\+compare, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&dynamic\+\_\+cloud, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr \&occuluded\+\_\+cloud, float \hyperlink{classdatmo_1_1cloud__segmentation_aba086f9f8e05f18c02c042c057854a06}{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}, bool \hyperlink{classdatmo_1_1cloud__segmentation_a5f7ffa75c60af605cc914de7296cddb1}{E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON})
+void \hyperlink{classdatmo_1_1cloud__segmentation_a6dcd90f46e590756a42aafd290443fcf}{detect\+\_\+spatial\+\_\+change} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+now, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&cloud\+\_\+to\+\_\+compare, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&dynamic\+\_\+cloud, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr \&\hyperlink{classdatmo_1_1cloud__segmentation_a2f85f1a51b2e90dbce996d90cb3e0155}{occuluded\+\_\+cloud}, float \hyperlink{classdatmo_1_1cloud__segmentation_aba086f9f8e05f18c02c042c057854a06}{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}, bool \hyperlink{classdatmo_1_1cloud__segmentation_a5f7ffa75c60af605cc914de7296cddb1}{E\+N\+A\+B\+L\+E\+\_\+\+O\+C\+C\+L\+U\+S\+I\+O\+N\+\_\+\+D\+E\+T\+E\+C\+T\+I\+ON})
 \item 
 bool \hyperlink{classdatmo_1_1cloud__segmentation_a5bcf85ac924671c64840ac2087877a5f}{is\+\_\+in\+\_\+bounding\+\_\+area} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&coord, pcl\+::\+Point\+X\+Y\+Z\+R\+GB pt)
 \item 
 void \hyperlink{classdatmo_1_1cloud__segmentation_a77ecff192bbc43fd3182acb675d43350}{mark\+\_\+cluster} (pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+Y\+Z\+R\+GB $>$\+::Ptr cloud\+\_\+cluster, std\+::string ns, int id, float r, float g, float b)
 \item 
-void \hyperlink{classdatmo_1_1cloud__segmentation_a44ccd6481ff32f6325121df0873a5d0d}{integrate\+Odom\+\_\+\+I\+CP} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Const\+Ptr \&obj\+\_\+cloud, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&\hyperlink{classdatmo_1_1cloud__segmentation_aa1ea3bcb86aff4916200ff899a4198c4}{prev\+\_\+obj\+\_\+cloud})
+void \hyperlink{classdatmo_1_1cloud__segmentation_ab2a36cd996f3d1eb002a357008836ef6}{integrate\+Odom\+\_\+\+I\+CP} (const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Const\+Ptr \&\hyperlink{classdatmo_1_1cloud__segmentation_ad946a48ab59bf9f48338f9ef0702181c}{obj\+\_\+cloud}, const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&\hyperlink{classdatmo_1_1cloud__segmentation_a4f4926a401828fc5226665963a2212cf}{ref\+\_\+obj\+\_\+cloud})
 \item 
 void \hyperlink{classdatmo_1_1cloud__segmentation_a40bcbb38bad5059c86e845e84ac113d0}{integrate\+Odom} (pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$ \&\hyperlink{classdatmo_1_1cloud__segmentation_a576b87bb01fef0d14ba862f08ca8e2ba}{last\+\_\+centroids})
 \end{DoxyCompactItemize}
@@ -164,12 +166,30 @@ Callback function get called every time a new point cloud is recieved
 \subsubsection{\texorpdfstring{cloud\+\_\+filter()}{cloud\_filter()}}
 {\footnotesize\ttfamily void cloud\+\_\+segmentation\+::cloud\+\_\+filter (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+in,  }\item[{const string}]{field,  }\item[{float}]{min,  }\item[{float}]{max }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+filters the pointcloud wiithin given dimensions and field 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em cloud\+\_\+in} & \mbox{[}escription\mbox{]} \\
+\hline
+\mbox{\tt in}  & {\em field} & \mbox{[}description\mbox{]} \\
+\hline
+\mbox{\tt in}  & {\em min} & \mbox{[}description\mbox{]} \\
+\hline
+\mbox{\tt in}  & {\em max} & \mbox{[}description\mbox{]} \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a3e3bd9d1b4a99da4bcd81ebac95f83fe}\label{classdatmo_1_1cloud__segmentation_a3e3bd9d1b4a99da4bcd81ebac95f83fe}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!cloud\+\_\+transform@{cloud\+\_\+transform}}
 \index{cloud\+\_\+transform@{cloud\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{cloud\+\_\+transform()}{cloud\_transform()}}
 {\footnotesize\ttfamily void cloud\+\_\+segmentation\+::cloud\+\_\+transform (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Const\+Ptr \&}]{cloud\+\_\+in,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+out }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+Transforms the point cloud from sensor frame to base\+\_\+link 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cloud\+\_\+in} & \mbox{[}description\mbox{]} \\
+\hline
+\mbox{\tt out}  & {\em cloud\+\_\+out} & \mbox{[}description\mbox{]} \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a6dcd90f46e590756a42aafd290443fcf}\label{classdatmo_1_1cloud__segmentation_a6dcd90f46e590756a42aafd290443fcf}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!detect\+\_\+spatial\+\_\+change@{detect\+\_\+spatial\+\_\+change}}
 \index{detect\+\_\+spatial\+\_\+change@{detect\+\_\+spatial\+\_\+change}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
@@ -194,11 +214,11 @@ Callback function get called every time a new point cloud is recieved
 \subsubsection{\texorpdfstring{integrate\+Odom()}{integrateOdom()}}
 {\footnotesize\ttfamily void datmo\+::cloud\+\_\+segmentation\+::integrate\+Odom (\begin{DoxyParamCaption}\item[{pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$ \&}]{last\+\_\+centroids }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
-\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a44ccd6481ff32f6325121df0873a5d0d}\label{classdatmo_1_1cloud__segmentation_a44ccd6481ff32f6325121df0873a5d0d}} 
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ab2a36cd996f3d1eb002a357008836ef6}\label{classdatmo_1_1cloud__segmentation_ab2a36cd996f3d1eb002a357008836ef6}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!integrate\+Odom\+\_\+\+I\+CP@{integrate\+Odom\+\_\+\+I\+CP}}
 \index{integrate\+Odom\+\_\+\+I\+CP@{integrate\+Odom\+\_\+\+I\+CP}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{integrate\+Odom\+\_\+\+I\+C\+P()}{integrateOdom\_ICP()}}
-{\footnotesize\ttfamily void datmo\+::cloud\+\_\+segmentation\+::integrate\+Odom\+\_\+\+I\+CP (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Const\+Ptr \&}]{obj\+\_\+cloud,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{prev\+\_\+obj\+\_\+cloud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void datmo\+::cloud\+\_\+segmentation\+::integrate\+Odom\+\_\+\+I\+CP (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Const\+Ptr \&}]{obj\+\_\+cloud,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{ref\+\_\+obj\+\_\+cloud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a5bcf85ac924671c64840ac2087877a5f}\label{classdatmo_1_1cloud__segmentation_a5bcf85ac924671c64840ac2087877a5f}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!is\+\_\+in\+\_\+bounding\+\_\+area@{is\+\_\+in\+\_\+bounding\+\_\+area}}
@@ -234,12 +254,32 @@ distance from ransac plane \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_
 \subsubsection{\texorpdfstring{S\+O\+R\+\_\+filter()}{SOR\_filter()}}
 {\footnotesize\ttfamily void cloud\+\_\+segmentation\+::\+S\+O\+R\+\_\+filter (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+in,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+out,  }\item[{float}]{S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K,  }\item[{float}]{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+S\+OR filter is required for \hyperlink{classZR300}{Z\+R300} pointcloud data and is disables for \hyperlink{classVelodyne}{Velodyne} pointcloud 
+\begin{DoxyParams}{Parameters}
+{\em cloud\+\_\+in} & \mbox{[}description\mbox{]} \\
+\hline
+{\em cloud\+\_\+out} & \mbox{[}description\mbox{]} \\
+\hline
+{\em S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K} & \mbox{[}description\mbox{]} \\
+\hline
+{\em S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH} & \mbox{[}description\mbox{]} \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_acb0e7e196b28d7d62fe73d7437e629dc}\label{classdatmo_1_1cloud__segmentation_acb0e7e196b28d7d62fe73d7437e629dc}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!Voxel\+\_\+filter@{Voxel\+\_\+filter}}
 \index{Voxel\+\_\+filter@{Voxel\+\_\+filter}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{Voxel\+\_\+filter()}{Voxel\_filter()}}
 {\footnotesize\ttfamily void cloud\+\_\+segmentation\+::\+Voxel\+\_\+filter (\begin{DoxyParamCaption}\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+in,  }\item[{const pcl\+::\+Point\+Cloud$<$ pcl\+::\+Point\+X\+YZ $>$\+::Ptr \&}]{cloud\+\_\+out,  }\item[{float}]{V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
+\mbox{[}Voxel\+\_\+filter description\mbox{]} 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cloud\+\_\+in} & \mbox{[}description\mbox{]} \\
+\hline
+\mbox{\tt out}  & {\em cloud\+\_\+out} & \mbox{[}description\mbox{]} \\
+\hline
+\mbox{\tt in}  & {\em V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE} & \mbox{[}description\mbox{]} \\
+\hline
+\end{DoxyParams}
 
 
 \subsection{Member Data Documentation}
@@ -249,17 +289,29 @@ distance from ransac plane \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_
 \subsubsection{\texorpdfstring{br}{br}}
 {\footnotesize\ttfamily tf\+::\+Transform\+Broadcaster datmo\+::cloud\+\_\+segmentation\+::br\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+TF brodcaster to broadcast relative transfom between current pointcloud and prev Point\+Cloud. 
+
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a287579b3989262f060341ebca1ed53b2}\label{classdatmo_1_1cloud__segmentation_a287579b3989262f060341ebca1ed53b2}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!centroids\+\_\+pub@{centroids\+\_\+pub}}
 \index{centroids\+\_\+pub@{centroids\+\_\+pub}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{centroids\+\_\+pub}{centroids\_pub}}
 {\footnotesize\ttfamily ros\+::\+Publisher datmo\+::cloud\+\_\+segmentation\+::centroids\+\_\+pub\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a42f9f6610cf798f8ac26c0c5500ccf02}\label{classdatmo_1_1cloud__segmentation_a42f9f6610cf798f8ac26c0c5500ccf02}} 
-\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!cloud\+\_\+classified@{cloud\+\_\+classified}}
-\index{cloud\+\_\+classified@{cloud\+\_\+classified}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
-\subsubsection{\texorpdfstring{cloud\+\_\+classified}{cloud\_classified}}
-{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+Y\+Z\+R\+GB$>$ datmo\+::cloud\+\_\+segmentation\+::cloud\+\_\+classified\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+Publish geometry\+\_\+msgs\+::\+Pose\+Array centroids of dynamic obstacles on topic /object\+\_\+centroids. 
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a5d51c3fb6f6206ce1e625bd3536414a0}\label{classdatmo_1_1cloud__segmentation_a5d51c3fb6f6206ce1e625bd3536414a0}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!classified\+\_\+cloud@{classified\+\_\+cloud}}
+\index{classified\+\_\+cloud@{classified\+\_\+cloud}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{classified\+\_\+cloud}{classified\_cloud}}
+{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+Y\+Z\+R\+GB$>$\+::Ptr datmo\+::cloud\+\_\+segmentation\+::classified\+\_\+cloud\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Container to store final classified cloud = filtered\+\_\+dynamic\+\_\+cloud(\+Red) + occuluded\+\_\+cloud(\+Green) + new\+\_\+discovered\+\_\+cloud(\+Blue) 
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a00e99233257fe5a28a039eef13dbc65b}\label{classdatmo_1_1cloud__segmentation_a00e99233257fe5a28a039eef13dbc65b}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!cloud\+\_\+transformed@{cloud\+\_\+transformed}}
@@ -267,17 +319,25 @@ distance from ransac plane \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_
 \subsubsection{\texorpdfstring{cloud\+\_\+transformed}{cloud\_transformed}}
 {\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+YZ$>$\+:: Ptr datmo\+::cloud\+\_\+segmentation\+::cloud\+\_\+transformed\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+container to store current pointcloud after transforming it to /base\+\_\+link frame from /sensor frame 
+
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a56499171fe846acfb2a73a5134261a91}\label{classdatmo_1_1cloud__segmentation_a56499171fe846acfb2a73a5134261a91}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!counter@{counter}}
 \index{counter@{counter}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{counter}{counter}}
 {\footnotesize\ttfamily int datmo\+::cloud\+\_\+segmentation\+::counter\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_aeccad720664cddc17f8cfd9db29c1dad}\label{classdatmo_1_1cloud__segmentation_aeccad720664cddc17f8cfd9db29c1dad}} 
-\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!current\+\_\+transform@{current\+\_\+transform}}
-\index{current\+\_\+transform@{current\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
-\subsubsection{\texorpdfstring{current\+\_\+transform}{current\_transform}}
-{\footnotesize\ttfamily tf\+::\+Stamped\+Transform datmo\+::cloud\+\_\+segmentation\+::current\+\_\+transform\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a2c01dc948f63510a421297e7cc6a29e5}\label{classdatmo_1_1cloud__segmentation_a2c01dc948f63510a421297e7cc6a29e5}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!current\+\_\+cloud\+\_\+transform@{current\+\_\+cloud\+\_\+transform}}
+\index{current\+\_\+cloud\+\_\+transform@{current\+\_\+cloud\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{current\+\_\+cloud\+\_\+transform}{current\_cloud\_transform}}
+{\footnotesize\ttfamily tf\+::\+Stamped\+Transform datmo\+::cloud\+\_\+segmentation\+::current\+\_\+cloud\+\_\+transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Container to store transform of latest pointcloud wrt /odom. 
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a03474f362047eb23fbcc53e5ce943148}\label{classdatmo_1_1cloud__segmentation_a03474f362047eb23fbcc53e5ce943148}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!E\+N\+A\+B\+L\+E\+\_\+\+G\+R\+O\+U\+N\+D\+\_\+\+R\+E\+M\+O\+V\+AL@{E\+N\+A\+B\+L\+E\+\_\+\+G\+R\+O\+U\+N\+D\+\_\+\+R\+E\+M\+O\+V\+AL}}
@@ -309,6 +369,16 @@ distance from ransac plane \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_
 \subsubsection{\texorpdfstring{E\+N\+A\+B\+L\+E\+\_\+\+V\+O\+X\+E\+L\+I\+SE}{ENABLE\_VOXELISE}}
 {\footnotesize\ttfamily bool datmo\+::cloud\+\_\+segmentation\+::\+E\+N\+A\+B\+L\+E\+\_\+\+V\+O\+X\+E\+L\+I\+SE\hspace{0.3cm}{\ttfamily [protected]}}
 
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a57c83961f5b33aa5655c679789f36387}\label{classdatmo_1_1cloud__segmentation_a57c83961f5b33aa5655c679789f36387}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!filtered\+\_\+dynamic\+\_\+cloud@{filtered\+\_\+dynamic\+\_\+cloud}}
+\index{filtered\+\_\+dynamic\+\_\+cloud@{filtered\+\_\+dynamic\+\_\+cloud}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{filtered\+\_\+dynamic\+\_\+cloud}{filtered\_dynamic\_cloud}}
+{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+Y\+Z\+R\+GB$>$\+::Ptr datmo\+::cloud\+\_\+segmentation\+::filtered\+\_\+dynamic\+\_\+cloud\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Container to store filtered dynamic cloud (Red in colour) = dynamic\+\_\+cloud -\/ occuluded\+\_\+cloud -\/ new\+\_\+discovered\+\_\+cloud. 
+
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ac7762960a72df80afdf8bedd59335ddc}\label{classdatmo_1_1cloud__segmentation_ac7762960a72df80afdf8bedd59335ddc}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!icp\+\_\+transform\+\_\+matrix@{icp\+\_\+transform\+\_\+matrix}}
 \index{icp\+\_\+transform\+\_\+matrix@{icp\+\_\+transform\+\_\+matrix}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
@@ -321,29 +391,45 @@ distance from ransac plane \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_
 \subsubsection{\texorpdfstring{last\+\_\+centroids}{last\_centroids}}
 {\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+YZ$>$ datmo\+::cloud\+\_\+segmentation\+::last\+\_\+centroids\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a2401065698d70527fff7a9d1bb491630}\label{classdatmo_1_1cloud__segmentation_a2401065698d70527fff7a9d1bb491630}} 
-\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!last\+\_\+transform@{last\+\_\+transform}}
-\index{last\+\_\+transform@{last\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
-\subsubsection{\texorpdfstring{last\+\_\+transform}{last\_transform}}
-{\footnotesize\ttfamily tf\+::\+Stamped\+Transform datmo\+::cloud\+\_\+segmentation\+::last\+\_\+transform\hspace{0.3cm}{\ttfamily [protected]}}
-
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abf9b807df25f63ea330b165a9f2e4be1}\label{classdatmo_1_1cloud__segmentation_abf9b807df25f63ea330b165a9f2e4be1}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!listener@{listener}}
 \index{listener@{listener}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{listener}{listener}}
 {\footnotesize\ttfamily tf\+::\+Transform\+Listener datmo\+::cloud\+\_\+segmentation\+::listener\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ab5f26252358065a0341ffd790c68334e}\label{classdatmo_1_1cloud__segmentation_ab5f26252358065a0341ffd790c68334e}} 
-\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!marker\+\_\+array@{marker\+\_\+array}}
-\index{marker\+\_\+array@{marker\+\_\+array}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
-\subsubsection{\texorpdfstring{marker\+\_\+array}{marker\_array}}
-{\footnotesize\ttfamily visualization\+\_\+msgs\+::\+Marker\+Array datmo\+::cloud\+\_\+segmentation\+::marker\+\_\+array\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ad9e1760efffadbd3e46ed2f9eeb6b017}\label{classdatmo_1_1cloud__segmentation_ad9e1760efffadbd3e46ed2f9eeb6b017}} 
-\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!marker\+\_\+pub@{marker\+\_\+pub}}
-\index{marker\+\_\+pub@{marker\+\_\+pub}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
-\subsubsection{\texorpdfstring{marker\+\_\+pub}{marker\_pub}}
-{\footnotesize\ttfamily ros\+::\+Publisher datmo\+::cloud\+\_\+segmentation\+::marker\+\_\+pub\hspace{0.3cm}{\ttfamily [protected]}}
+
+A TF listener. 
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ac9374ddec382dc6dab33b34542a7b21d}\label{classdatmo_1_1cloud__segmentation_ac9374ddec382dc6dab33b34542a7b21d}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!new\+\_\+discovered\+\_\+cloud@{new\+\_\+discovered\+\_\+cloud}}
+\index{new\+\_\+discovered\+\_\+cloud@{new\+\_\+discovered\+\_\+cloud}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{new\+\_\+discovered\+\_\+cloud}{new\_discovered\_cloud}}
+{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+Y\+Z\+R\+GB$>$\+::Ptr datmo\+::cloud\+\_\+segmentation\+::new\+\_\+discovered\+\_\+cloud\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Container to store points at current timestep that are in the areas which are newly discovered. (Blue in colour) 
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ad946a48ab59bf9f48338f9ef0702181c}\label{classdatmo_1_1cloud__segmentation_ad946a48ab59bf9f48338f9ef0702181c}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!obj\+\_\+cloud@{obj\+\_\+cloud}}
+\index{obj\+\_\+cloud@{obj\+\_\+cloud}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{obj\+\_\+cloud}{obj\_cloud}}
+{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+YZ$>$\+::Ptr datmo\+::cloud\+\_\+segmentation\+::obj\+\_\+cloud\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+container to store pointcloud having both static and dynamic objects 
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a2f85f1a51b2e90dbce996d90cb3e0155}\label{classdatmo_1_1cloud__segmentation_a2f85f1a51b2e90dbce996d90cb3e0155}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!occuluded\+\_\+cloud@{occuluded\+\_\+cloud}}
+\index{occuluded\+\_\+cloud@{occuluded\+\_\+cloud}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{occuluded\+\_\+cloud}{occuluded\_cloud}}
+{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+Y\+Z\+R\+GB$>$\+::Ptr datmo\+::cloud\+\_\+segmentation\+::occuluded\+\_\+cloud\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+container to store the points at current timestep that are in the areas which were occuluded in reference object cloud. (Green in colour) 
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_aba086f9f8e05f18c02c042c057854a06}\label{classdatmo_1_1cloud__segmentation_aba086f9f8e05f18c02c042c057854a06}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON@{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}}
@@ -351,17 +437,19 @@ distance from ransac plane \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_
 \subsubsection{\texorpdfstring{O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON}{OCTREE\_RESOLUTION}}
 {\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+O\+C\+T\+R\+E\+E\+\_\+\+R\+E\+S\+O\+L\+U\+T\+I\+ON\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+smallest dimension of octree leaf node 
+
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ada1c6bd7f69249c5317cbe95969498e4}\label{classdatmo_1_1cloud__segmentation_ada1c6bd7f69249c5317cbe95969498e4}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW@{O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW}}
 \index{O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW@{O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW}{OCTREE\_WINDOW}}
 {\footnotesize\ttfamily int datmo\+::cloud\+\_\+segmentation\+::\+O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+OW\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a2d267feed8b54b1eb2dffb9aed780082}\label{classdatmo_1_1cloud__segmentation_a2d267feed8b54b1eb2dffb9aed780082}} 
-\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!odom@{odom}}
-\index{odom@{odom}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
-\subsubsection{\texorpdfstring{odom}{odom}}
-{\footnotesize\ttfamily nav\+\_\+msgs\+::\+Odometry datmo\+::cloud\+\_\+segmentation\+::odom\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+This parameter defines that current pointcloud will be compared with \char`\"{}\+O\+C\+T\+R\+E\+E\+\_\+\+W\+I\+N\+D\+O\+W\char`\"{} times previous pointcloud for spatial change detection. 
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a9f47c2e7cba42121779e2772a052f58b}\label{classdatmo_1_1cloud__segmentation_a9f47c2e7cba42121779e2772a052f58b}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!odom\+\_\+transform\+\_\+matrix@{odom\+\_\+transform\+\_\+matrix}}
@@ -385,11 +473,19 @@ maximum value of x
 \subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+IN}{PASS\_X\_MIN}}
 {\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+X\+\_\+\+M\+IN\hspace{0.3cm}{\ttfamily [protected]}}
 
-minimum value of x \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abacc76df1e25e42d25c1822c2637fa00}\label{classdatmo_1_1cloud__segmentation_abacc76df1e25e42d25c1822c2637fa00}} 
+
+
+minimum value of x 
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abacc76df1e25e42d25c1822c2637fa00}\label{classdatmo_1_1cloud__segmentation_abacc76df1e25e42d25c1822c2637fa00}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX@{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX}}
 \index{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX@{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX}{PASS\_Y\_MAX}}
 {\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+AX\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+maximum value of y 
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_af95645fb925c485f397321d6e07c4574}\label{classdatmo_1_1cloud__segmentation_af95645fb925c485f397321d6e07c4574}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN@{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN}}
@@ -397,11 +493,19 @@ minimum value of x \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abacc76d
 \subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN}{PASS\_Y\_MIN}}
 {\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+Y\+\_\+\+M\+IN\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+minimum value of y 
+
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a05b70936af05654abb9b1924ab593d08}\label{classdatmo_1_1cloud__segmentation_a05b70936af05654abb9b1924ab593d08}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX@{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX}}
 \index{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX@{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX}{PASS\_Z\_MAX}}
 {\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+AX\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+maximum value of z 
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_acb71ade7e486ad1cafe15c441903f3e0}\label{classdatmo_1_1cloud__segmentation_acb71ade7e486ad1cafe15c441903f3e0}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN@{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN}}
@@ -409,17 +513,19 @@ minimum value of x \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abacc76d
 \subsubsection{\texorpdfstring{P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN}{PASS\_Z\_MIN}}
 {\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+P\+A\+S\+S\+\_\+\+Z\+\_\+\+M\+IN\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_aa1ea3bcb86aff4916200ff899a4198c4}\label{classdatmo_1_1cloud__segmentation_aa1ea3bcb86aff4916200ff899a4198c4}} 
-\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!prev\+\_\+obj\+\_\+cloud@{prev\+\_\+obj\+\_\+cloud}}
-\index{prev\+\_\+obj\+\_\+cloud@{prev\+\_\+obj\+\_\+cloud}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
-\subsubsection{\texorpdfstring{prev\+\_\+obj\+\_\+cloud}{prev\_obj\_cloud}}
-{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+YZ$>$\+:: Ptr datmo\+::cloud\+\_\+segmentation\+::prev\+\_\+obj\+\_\+cloud\hspace{0.3cm}{\ttfamily [protected]}}
 
-\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a89069ad666b67686b58c6072a9cd84e7}\label{classdatmo_1_1cloud__segmentation_a89069ad666b67686b58c6072a9cd84e7}} 
-\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!prev\+\_\+transform@{prev\+\_\+transform}}
-\index{prev\+\_\+transform@{prev\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
-\subsubsection{\texorpdfstring{prev\+\_\+transform}{prev\_transform}}
-{\footnotesize\ttfamily tf\+::\+Stamped\+Transform datmo\+::cloud\+\_\+segmentation\+::prev\+\_\+transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+minimum value of z 
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_af664f016cfef835a3cfc303675c0a5ec}\label{classdatmo_1_1cloud__segmentation_af664f016cfef835a3cfc303675c0a5ec}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!prev\+\_\+cloud\+\_\+transform@{prev\+\_\+cloud\+\_\+transform}}
+\index{prev\+\_\+cloud\+\_\+transform@{prev\+\_\+cloud\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{prev\+\_\+cloud\+\_\+transform}{prev\_cloud\_transform}}
+{\footnotesize\ttfamily tf\+::\+Stamped\+Transform datmo\+::cloud\+\_\+segmentation\+::prev\+\_\+cloud\+\_\+transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Container to store transform of previous pointcloud wrt /odom. 
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a01955e35ed0d12b9da4d4d9afb1007e3}\label{classdatmo_1_1cloud__segmentation_a01955e35ed0d12b9da4d4d9afb1007e3}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!pub@{pub}}
@@ -427,11 +533,39 @@ minimum value of x \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abacc76d
 \subsubsection{\texorpdfstring{pub}{pub}}
 {\footnotesize\ttfamily ros\+::\+Publisher datmo\+::cloud\+\_\+segmentation\+::pub\hspace{0.3cm}{\ttfamily [protected]}}
 
-publish point cloud after transforming it to base\+\_\+link \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a0e1bf18752add68fc2df89e212750d91}\label{classdatmo_1_1cloud__segmentation_a0e1bf18752add68fc2df89e212750d91}} 
+
+
+publish point cloud after transforming it to base\+\_\+link on topic /transformed\+\_\+points 
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a0e1bf18752add68fc2df89e212750d91}\label{classdatmo_1_1cloud__segmentation_a0e1bf18752add68fc2df89e212750d91}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!pub\+\_\+2@{pub\+\_\+2}}
 \index{pub\+\_\+2@{pub\+\_\+2}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{pub\+\_\+2}{pub\_2}}
 {\footnotesize\ttfamily ros\+::\+Publisher datmo\+::cloud\+\_\+segmentation\+::pub\+\_\+2\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Publish pointcloud with dynamic obstacles on topic /dynamic\+\_\+points. 
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a8ab8642656cda3d94db8d9c2e4613644}\label{classdatmo_1_1cloud__segmentation_a8ab8642656cda3d94db8d9c2e4613644}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!ref\+\_\+cloud\+\_\+transform@{ref\+\_\+cloud\+\_\+transform}}
+\index{ref\+\_\+cloud\+\_\+transform@{ref\+\_\+cloud\+\_\+transform}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{ref\+\_\+cloud\+\_\+transform}{ref\_cloud\_transform}}
+{\footnotesize\ttfamily tf\+::\+Stamped\+Transform datmo\+::cloud\+\_\+segmentation\+::ref\+\_\+cloud\+\_\+transform\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Container to store transform of reference pointcloud wrt /odom. 
+
+\mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_a4f4926a401828fc5226665963a2212cf}\label{classdatmo_1_1cloud__segmentation_a4f4926a401828fc5226665963a2212cf}} 
+\index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!ref\+\_\+obj\+\_\+cloud@{ref\+\_\+obj\+\_\+cloud}}
+\index{ref\+\_\+obj\+\_\+cloud@{ref\+\_\+obj\+\_\+cloud}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
+\subsubsection{\texorpdfstring{ref\+\_\+obj\+\_\+cloud}{ref\_obj\_cloud}}
+{\footnotesize\ttfamily pcl\+::\+Point\+Cloud$<$pcl\+::\+Point\+X\+YZ$>$\+:: Ptr datmo\+::cloud\+\_\+segmentation\+::ref\+\_\+obj\+\_\+cloud\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+container to store object cloud to be used as reference for comparing with object cloud at current time step for octree based spatial change detection 
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_af33add7f3b00fac5be10ffd87eae057f}\label{classdatmo_1_1cloud__segmentation_af33add7f3b00fac5be10ffd87eae057f}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE@{S\+E\+G\+\_\+\+C\+L\+U\+S\+T\+E\+R\+\_\+\+T\+O\+L\+E\+R\+A\+N\+CE}}
@@ -457,11 +591,19 @@ publish point cloud after transforming it to base\+\_\+link \mbox{\Hypertarget{c
 \subsubsection{\texorpdfstring{S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K}{SOR\_MEAN\_K}}
 {\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+S\+O\+R\+\_\+\+M\+E\+A\+N\+\_\+K\hspace{0.3cm}{\ttfamily [protected]}}
 
+
+
+number of neighbors to analyze for each point 
+
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_ae1c32b9f5741dd7d212f2745f8784de0}\label{classdatmo_1_1cloud__segmentation_ae1c32b9f5741dd7d212f2745f8784de0}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH@{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH}}
 \index{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH@{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH}{SOR\_STD\_DEV\_MUL\_THRESH}}
 {\footnotesize\ttfamily float datmo\+::cloud\+\_\+segmentation\+::\+S\+O\+R\+\_\+\+S\+T\+D\+\_\+\+D\+E\+V\+\_\+\+M\+U\+L\+\_\+\+T\+H\+R\+E\+SH\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+distance in multiples of std dev after which point is considered an outlier 
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_abcf359aaf4f17128e961473692d9c473}\label{classdatmo_1_1cloud__segmentation_abcf359aaf4f17128e961473692d9c473}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!source\+Clouds@{source\+Clouds}}
@@ -480,6 +622,10 @@ publish point cloud after transforming it to base\+\_\+link \mbox{\Hypertarget{c
 \index{sub@{sub}!datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}}
 \subsubsection{\texorpdfstring{sub}{sub}}
 {\footnotesize\ttfamily ros\+::\+Subscriber datmo\+::cloud\+\_\+segmentation\+::sub\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+subscribes sensor\+\_\+msgs\+::\+Point\+Cloud2 from topic /cloud 
 
 \mbox{\Hypertarget{classdatmo_1_1cloud__segmentation_af6f1f8553f2a18176ae84b78ddea07c9}\label{classdatmo_1_1cloud__segmentation_af6f1f8553f2a18176ae84b78ddea07c9}} 
 \index{datmo\+::cloud\+\_\+segmentation@{datmo\+::cloud\+\_\+segmentation}!V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE@{V\+O\+X\+E\+L\+\_\+\+L\+E\+A\+F\+\_\+\+S\+I\+ZE}}
