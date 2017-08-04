@@ -66,13 +66,13 @@ class tracked_object:
 		self.kf.H = np.array([[1, 0, 0, 0],
 													[0, 0, 1, 0]])
 		# measurement noise matrix
-		self.kf.R = np.array([[0.1, 0.],
-													[0., 0.1]])   #orignal values .2
+		self.kf.R = np.array([[0.05, 0.],
+													[0., 0.05]])   #orignal values .2
 		self.kf.x = np.array([[self.x, 0, self.y, 0]]).T ######it is z, not y for the time being
 		# self.kf.P = np.eye(4) * 100.
-		self.kf.P = np.array([[2,  0, 0,  0],
+		self.kf.P = np.array([[1,  0, 0,  0], #######original value 2
 													[0, 4, 0,  0],
-													[0,  0, 2,  0],
+													[0,  0, 1,  0],
 													[0,  0, 0, 4]])
 		# can be added later
 		#self.frame
@@ -127,7 +127,7 @@ class Mot:
 		self.tracked_objects = []
 		self.distance_threshold = 1
 		self.youth_threshold = 3
-		self.strikes_threshold = 4
+		self.strikes_threshold = 3
 		self.newDataAvailable = False
 
 

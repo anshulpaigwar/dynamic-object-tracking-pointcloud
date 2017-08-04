@@ -106,7 +106,7 @@ include_directories(
 
 generate_dynamic_reconfigure_options(
    cfg/velodyne.cfg
-   #cfg/PclParams.cfg
+   cfg/zr300.cfg
  )
 
 ###################################
@@ -149,6 +149,10 @@ target_link_libraries(dynamic_obstacle_tracking ${catkin_LIBRARIES})
 
 add_executable(velodyne_node src/velodyne_node.cpp )
 target_link_libraries(velodyne_node dynamic_obstacle_tracking ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+
+
+add_executable(zr300_node src/zr300_node.cpp )
+target_link_libraries(zr300_node dynamic_obstacle_tracking ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
 
 ## Declare a C++ executable

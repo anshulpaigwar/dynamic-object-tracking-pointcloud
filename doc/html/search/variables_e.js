@@ -3,6 +3,7 @@ var searchData=
   ['seg_5fcluster_5ftolerance',['SEG_CLUSTER_TOLERANCE',['../classdatmo_1_1cloud__segmentation.html#af33add7f3b00fac5be10ffd87eae057f',1,'datmo::cloud_segmentation']]],
   ['seg_5fmax_5fcluster_5fsize',['SEG_MAX_CLUSTER_SIZE',['../classdatmo_1_1cloud__segmentation.html#ab2959ad226faeaab4910f42ba91d37cb',1,'datmo::cloud_segmentation']]],
   ['seg_5fmin_5fcluster_5fsize',['SEG_MIN_CLUSTER_SIZE',['../classdatmo_1_1cloud__segmentation.html#acf7cfcaf0ab08a2afffcc2b47048bc81',1,'datmo::cloud_segmentation']]],
+  ['sensor_5fframe_5fid',['sensor_frame_id',['../classdatmo_1_1cloud__segmentation.html#a53785ef8494de0fd1efed824562f3368',1,'datmo::cloud_segmentation']]],
   ['server',['server',['../classVelodyne.html#ae3c8869e849b22dad034e50dfbfccc1d',1,'Velodyne::server()'],['../classZR300.html#afe2acfe42f2153ef3a488367ffdfcca0',1,'ZR300::server()']]],
   ['sor_5fmean_5fk',['SOR_MEAN_K',['../classdatmo_1_1cloud__segmentation.html#abb5b1262c14e68886e01e0230c530b07',1,'datmo::cloud_segmentation']]],
   ['sor_5fstd_5fdev_5fmul_5fthresh',['SOR_STD_DEV_MUL_THRESH',['../classdatmo_1_1cloud__segmentation.html#ae1c32b9f5741dd7d212f2745f8784de0',1,'datmo::cloud_segmentation']]],

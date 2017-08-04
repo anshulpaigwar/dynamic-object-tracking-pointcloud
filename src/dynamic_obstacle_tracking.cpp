@@ -2,6 +2,118 @@
 #include <dynamic_obstacle_tracking/dynamic_obstacle_tracking.hpp>
 
 using namespace datmo;
+using namespace pcl::octree;
+
+
+
+// template< typename PointT >
+// class OcclusionDetection: public pcl::octree::OctreePointCloudAdjacency<PointT>{
+
+template< typename PointT,
+        typename LeafContainerT = OctreePointCloudAdjacencyContainer <PointT>,
+        typename BranchContainerT = OctreeContainerEmpty >
+class OcclusionDetection: public pcl::octree::OctreePointCloudAdjacency<PointT, LeafContainerT, BranchContainerT>{
+
+public:
+
+    OcclusionDetection(const double resolution_arg);
+    ~OcclusionDetection(){};
+
+    //
+    //template< typename LeafContainerT, typename BranchContainerT>
+    float testForOcclusion2 (const PointT& point_arg, const pcl::PointXYZ& camera_pos)
+    //bool testForOcclusion2 (const PointT& point_arg, const pcl::PointXYZ& camera_pos)
+       {
+         OctreeKey key;
+         this->genOctreeKeyforPoint (point_arg, key);
+         // This code follows the method in Octree::PointCloud
+         Eigen::Vector3f sensor(camera_pos.x,
+                                camera_pos.y,
+                                camera_pos.z);
+
+        Eigen::Vector3f leaf_centroid(static_cast<float> ((static_cast<double> (key.x) + 0.5f) * this->resolution_ + this->min_x_),
+                                       static_cast<float> ((static_cast<double> (key.y) + 0.5f) * this->resolution_ + this->min_y_),
+                                       static_cast<float> ((static_cast<double> (key.z) + 0.5f) * this->resolution_ + this->min_z_));
+         Eigen::Vector3f direction = sensor - leaf_centroid;
+
+        float norm = direction.norm ();
+        direction.normalize ();
+         float precision = 1.0f;
+         const float step_size = static_cast<const float> (resolution_) * precision;
+         const int nsteps = std::max (1, static_cast<int> (norm / step_size));
+
+         OctreeKey prev_key = key;
+         // Walk along the line segment with small steps.
+         Eigen::Vector3f p = leaf_centroid;
+         PointT octree_p;
+         for (int i = 0; i < nsteps; ++i)
+         {
+           //Start at the leaf voxel, and move back towards sensor.
+           p += (direction * step_size);
+
+           octree_p.x = p.x ();
+           octree_p.y = p.y ();
+           octree_p.z = p.z ();
+           //  std::cout << octree_p<< "\n";
+           OctreeKey key;
+           this->genOctreeKeyforPoint (octree_p, key);
+
+           // Not a new key, still the same voxel (starts at self).
+           if ((key == prev_key))
+             continue;
+
+           prev_key = key;
+
+           LeafContainerT *leaf = this->findLeaf (key);
+           //If the voxel is occupied, there is a possible occlusion
+           if (leaf)
+           {
+            float occlusion_distance = sqrt(SQR(leaf_centroid.x()-p.x()) + SQR(leaf_centroid.y()-p.y()) + SQR(leaf_centroid.z()-p.z()));
+            //return true;
+            return occlusion_distance;
+
+           }
+         }
+
+         //If we didn't run into a voxel on the way to this camera, it can't be occluded.
+         //return false;
+         return -1;
+
+       }
+
+private:
+    float resolution_;
+
+};
+
+
+template< typename PointT,
+        typename LeafContainerT,
+        typename BranchContainerT  >
+OcclusionDetection<PointT, LeafContainerT, BranchContainerT>::OcclusionDetection (const double resolution_arg)
+: OctreePointCloudAdjacency<PointT, LeafContainerT, BranchContainerT > (resolution_arg)
+ {
+     resolution_ = resolution_arg;
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 cloud_segmentation::cloud_segmentation(){};
 cloud_segmentation::~cloud_segmentation(){};
@@ -26,6 +138,7 @@ void cloud_segmentation::init(ros::NodeHandle &nh, ros::NodeHandle &private_nh){
 
     pub = nh.advertise<sensor_msgs::PointCloud2> ("/transformed_points", 1);
     pub_2 = nh.advertise<sensor_msgs::PointCloud2> ("/dynamic_points", 1);
+    pub_3 = nh.advertise<sensor_msgs::PointCloud2> ("/obj_cloud", 1);
     //marker_pub = nh.advertise<visualization_msgs::MarkerArray>("visualization_marker_array", 1);
     centroids_pub = nh.advertise< geometry_msgs::PoseArray >("/object_centroids", 1, true);
     counter = 0;
@@ -168,10 +281,9 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
 
 
 
-            //if(ENABLE_ICP){
-                //integrateOdom_ICP(obj_cloud, ref_obj_cloud);
-            //}
-
+            if(ENABLE_ICP){
+                integrateOdom_ICP(obj_cloud, ref_obj_cloud);
+            }
 
 
             // transform between pointcloud at current time step and just one previous time step
@@ -280,16 +392,22 @@ void cloud_segmentation::cloud_cb(const sensor_msgs::PointCloud2ConstPtr& cloud_
             // Convert to ROS data type
             sensor_msgs::PointCloud2 output;
             sensor_msgs::PointCloud2 output_2;
+            //sensor_msgs::PointCloud2 output_3;
             pcl::toROSMsg(*cloud_transformed, output);
             pcl::toROSMsg(*classified_cloud, output_2);
+            //pcl::toROSMsg(*obj_cloud, output_3);
+            // pcl::toROSMsg(*obj_cloud, output);
+            // pcl::toROSMsg(*ref_obj_cloud, output_2);
 
             output.header.frame_id = base_frame_id;
             output_2.header.frame_id = base_frame_id;
+            //output_3.header.frame_id = base_frame_id;
 
 
             // Publish the data
             pub.publish (output);
             pub_2.publish (output_2);
+            //pub_3.publish (output_3);
 
             geometry_msgs::PoseArray obj_poses;
             geometry_msgs::Pose obj_pose;
@@ -385,10 +503,14 @@ void cloud_segmentation::cloud_transform (const pcl::PointCloud<pcl::PointXYZ>::
     ros::Time now = ros::Time::now();
     //ros::Time(0)
     try{
-      listener.waitForTransform( sensor_frame_id, base_frame_id,
+      listener.waitForTransform(    base_frame_id, sensor_frame_id,
                               ros::Time(0), ros::Duration(3.0));
-      listener.lookupTransform( sensor_frame_id, base_frame_id,
+      listener.lookupTransform(    base_frame_id, sensor_frame_id,
                                ros::Time(0) , TF);
+    //   listener.waitForTransform(   sensor_frame_id, base_frame_id,
+    //                           ros::Time(0), ros::Duration(3.0));
+    //   listener.lookupTransform(   sensor_frame_id, base_frame_id,
+    //                            ros::Time(0) , TF);
     }
     catch (tf::TransformException ex){
       ROS_ERROR("%s",ex.what());
@@ -615,6 +737,11 @@ void cloud_segmentation:: detect_spatial_change (const pcl::PointCloud<pcl::Poin
 
     pcl::PointXYZRGB point;
     pcl::PointXYZ pt;
+    pcl::PointXYZ camera_pos;
+
+    camera_pos.x = 0;
+    camera_pos.y = 0;
+    camera_pos.z = 0;
 
     // Instantiate octree-based point cloud change detection class
     pcl::octree::OctreePointCloudChangeDetector<pcl::PointXYZ> octree (OCTREE_RESOLUTION);
@@ -645,8 +772,40 @@ void cloud_segmentation:: detect_spatial_change (const pcl::PointCloud<pcl::Poin
 
     if(ENABLE_OCCLUSION_DETECTION){
 
+        // // Instantiate octree-based point cloud adjacency class
+        // pcl::octree::OctreePointCloudAdjacency<pcl::PointXYZ> octree_a (OCTREE_RESOLUTION);
+        //
+        // // Add points from prev cloud to octreeobj_cloud
+        // octree_a.setInputCloud (cloud_to_compare);
+        // octree_a.addPointsFromInputCloud ();
+        //
+        // // check if dynamic points were occuluded
+        //
+        // for (size_t i = 0; i < newPointIdxVector.size (); ++i){
+        //
+        //     pt = cloud_now->points[newPointIdxVector[i]];
+        //     //filtered_dynamic_cloud->push_back(pt);
+        //     // if ((pt.y < 4) && (pt.y > -4) &&  (pt.x < 10)){
+        //     //     dynamic_cloud->push_back(pt);
+        //     // }
+        //     // else
+        //     if(!(octree_a.testForOcclusion(pt))){
+        //         dynamic_cloud->push_back(pt);
+        //     }
+        //     else{
+        //         point.x = pt.x;
+        //         point.y = pt.y;
+        //         point.z = pt.z;
+        //         point.r = 0;
+        //         point.g = 255;
+        //         point.b = 0;
+        //         occuluded_cloud->push_back(point);
+        //     }
+        // }
+
+
         // Instantiate octree-based point cloud adjacency class
-        pcl::octree::OctreePointCloudAdjacency<pcl::PointXYZ> octree_a (OCTREE_RESOLUTION);
+        OcclusionDetection<pcl::PointXYZ> octree_a (OCTREE_RESOLUTION);
 
         // Add points from prev cloud to octreeobj_cloud
         octree_a.setInputCloud (cloud_to_compare);
@@ -658,10 +817,10 @@ void cloud_segmentation:: detect_spatial_change (const pcl::PointCloud<pcl::Poin
 
             pt = cloud_now->points[newPointIdxVector[i]];
             //filtered_dynamic_cloud->push_back(pt);
-            if ((pt.y < 4) && (pt.y > -4) &&  (pt.x < 10)){
-                dynamic_cloud->push_back(pt);
-            }
-            else if(!(octree_a.testForOcclusion(pt))){
+            // if ((pt.y < 4) && (pt.y > -4) &&  (pt.x < 10)){
+            //     dynamic_cloud->push_back(pt);
+            // }
+            if((octree_a.testForOcclusion2(pt,camera_pos) < 2)){
                 dynamic_cloud->push_back(pt);
             }
             else{
@@ -674,6 +833,7 @@ void cloud_segmentation:: detect_spatial_change (const pcl::PointCloud<pcl::Poin
                 occuluded_cloud->push_back(point);
             }
         }
+
 
     }
 
@@ -744,6 +904,35 @@ bool cloud_segmentation::is_in_bounding_area(const pcl::PointCloud<pcl::PointXYZ
 
 
 
+void cloud_segmentation::integrateOdom_ICP (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& obj_cloud, const pcl::PointCloud<pcl::PointXYZ>::Ptr& ref_obj_cloud ){
+
+    pcl::PointCloud<pcl::PointXYZ>::Ptr Final (new pcl::PointCloud<pcl::PointXYZ> ());
+    pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
+    icp.setInputSource(ref_obj_cloud);
+    icp.setInputTarget(obj_cloud);
+
+
+
+
+    //Set the max correspondence distance to 5cm (e.g., correspondences with higher distances will be ignored)
+    icp.setMaxCorrespondenceDistance (0.5);
+    //
+    // Set the maximum number of iterations (criterion 1)
+    icp.setMaximumIterations (10);
+    // Set the transformation epsilon (criterion 2)
+    // icp.setTransformationEpsilon (1e-8);
+
+    // Set the euclidean distance difference epsilon (criterion 3)
+    //icp.setEuclideanFitnessEpsilon (1);
+
+    icp.align(*Final);
+    //std::cout << "has converged:" << icp.hasConverged() << " score: " <<icp.getFitnessScore() << std::endl;
+    *ref_obj_cloud = *Final;
+
+    // Obtain the transformation that aligned cloud_source to cloud_source_registered and store it into affine3f transform object
+    // icp_transform_matrix.matrix() = icp.getFinalTransformation ();
+    // std::cout << icp.getFinalTransformation ()<< '\n';
+}
 
 
 
@@ -811,34 +1000,6 @@ void cloud_segmentation::integrateOdom (std::vector<Float3>& prev_centroids){
 
 
 
-void cloud_segmentation::integrateOdom_ICP (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& obj_cloud, const pcl::PointCloud<pcl::PointXYZ>::Ptr& ref_obj_cloud ){
-
-    pcl::PointCloud<pcl::PointXYZ>::Ptr Final (new pcl::PointCloud<pcl::PointXYZ> ());
-    pcl::IterativeClosestPoint<pcl::PointXYZ, pcl::PointXYZ> icp;
-    icp.setInputSource(ref_obj_cloud);
-    icp.setInputTarget(obj_cloud);
-
-
-
-
-    // Set the max correspondence distance to 5cm (e.g., correspondences with higher distances will be ignored)
-    //icp.setMaxCorrespondenceDistance (0.05);
-    // Set the maximum number of iterations (criterion 1)
-    icp.setMaximumIterations (10);
-    // Set the transformation epsilon (criterion 2)
-    // icp.setTransformationEpsilon (1e-8);
-
-    // Set the euclidean distance difference epsilon (criterion 3)
-    //icp.setEuclideanFitnessEpsilon (1);
-
-    icp.align(*Final);
-    //std::cout << "has converged:" << icp.hasConverged() << " score: " <<icp.getFitnessScore() << std::endl;
-    *ref_obj_cloud = *Final;
-
-    // Obtain the transformation that aligned cloud_source to cloud_source_registered and store it into affine3f transform object
-    // icp_transform_matrix.matrix() = icp.getFinalTransformation ();
-    // std::cout << icp.getFinalTransformation ()<< '\n';
-}
 
 
 

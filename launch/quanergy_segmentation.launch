@@ -24,4 +24,5 @@
 
 
 <node pkg="tf" type="static_transform_publisher" name="Odom_broadcaster" args="0 0 0 0 0 0 /base_link /Body 100" />
+<node pkg="dynamic_obstacle_tracking" type="mot.py" name="mot" output="screen" />
 </launch>

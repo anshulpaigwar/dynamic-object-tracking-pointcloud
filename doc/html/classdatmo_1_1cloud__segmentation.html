@@ -102,6 +102,9 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a0e1bf18752add68fc2df89e212750d91"><td class="memItemLeft" align="right" valign="top">ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a0e1bf18752add68fc2df89e212750d91">pub_2</a></td></tr>
 <tr class="memdesc:a0e1bf18752add68fc2df89e212750d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish pointcloud with dynamic obstacles on topic /dynamic_points.  <a href="#a0e1bf18752add68fc2df89e212750d91">More...</a><br /></td></tr>
 <tr class="separator:a0e1bf18752add68fc2df89e212750d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac80cc51227bec21bcac68f80a9b4fc47"><td class="memItemLeft" align="right" valign="top">ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#ac80cc51227bec21bcac68f80a9b4fc47">pub_3</a></td></tr>
+<tr class="memdesc:ac80cc51227bec21bcac68f80a9b4fc47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish pointcloud with dynamic obstacles on topic /dynamic_points.  <a href="#ac80cc51227bec21bcac68f80a9b4fc47">More...</a><br /></td></tr>
+<tr class="separator:ac80cc51227bec21bcac68f80a9b4fc47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a287579b3989262f060341ebca1ed53b2"><td class="memItemLeft" align="right" valign="top">ros::Publisher&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a287579b3989262f060341ebca1ed53b2">centroids_pub</a></td></tr>
 <tr class="memdesc:a287579b3989262f060341ebca1ed53b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish geometry_msgs::PoseArray centroids of dynamic obstacles on topic /object_centroids.  <a href="#a287579b3989262f060341ebca1ed53b2">More...</a><br /></td></tr>
 <tr class="separator:a287579b3989262f060341ebca1ed53b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,29 +147,41 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a5d51c3fb6f6206ce1e625bd3536414a0"><td class="memItemLeft" align="right" valign="top">pcl::PointCloud&lt; pcl::PointXYZRGB &gt;::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a5d51c3fb6f6206ce1e625bd3536414a0">classified_cloud</a></td></tr>
 <tr class="memdesc:a5d51c3fb6f6206ce1e625bd3536414a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container to store final classified cloud = filtered_dynamic_cloud(Red) + occuluded_cloud(Green) + new_discovered_cloud(Blue)  <a href="#a5d51c3fb6f6206ce1e625bd3536414a0">More...</a><br /></td></tr>
 <tr class="separator:a5d51c3fb6f6206ce1e625bd3536414a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24a81e37b2eff06482f65b09e39af9e4"><td class="memItemLeft" align="right" valign="top">vector&lt; tf::StampedTransform &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a24a81e37b2eff06482f65b09e39af9e4">sourceTransforms</a></td></tr>
-<tr class="separator:a24a81e37b2eff06482f65b09e39af9e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcf359aaf4f17128e961473692d9c473"><td class="memItemLeft" align="right" valign="top">vector&lt; pcl::PointCloud&lt; pcl::PointXYZ &gt;::Ptr, Eigen::aligned_allocator&lt; pcl::PointCloud&lt; pcl::PointXYZ &gt;::Ptr &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#abcf359aaf4f17128e961473692d9c473">sourceClouds</a></td></tr>
+<tr class="memdesc:abcf359aaf4f17128e961473692d9c473"><td class="mdescLeft">&#160;</td><td class="mdescRight">vector to store the "OCTREE_WINDOW" number of obj_cloud in the memory  <a href="#abcf359aaf4f17128e961473692d9c473">More...</a><br /></td></tr>
 <tr class="separator:abcf359aaf4f17128e961473692d9c473"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a576b87bb01fef0d14ba862f08ca8e2ba"><td class="memItemLeft" align="right" valign="top">pcl::PointCloud&lt; pcl::PointXYZ &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a576b87bb01fef0d14ba862f08ca8e2ba">last_centroids</a></td></tr>
-<tr class="separator:a576b87bb01fef0d14ba862f08ca8e2ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24a81e37b2eff06482f65b09e39af9e4"><td class="memItemLeft" align="right" valign="top">vector&lt; tf::StampedTransform &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a24a81e37b2eff06482f65b09e39af9e4">sourceTransforms</a></td></tr>
+<tr class="memdesc:a24a81e37b2eff06482f65b09e39af9e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector to store corresponding Transforms of each PointCloud in sourceClouds /odom to /base_link.  <a href="#a24a81e37b2eff06482f65b09e39af9e4">More...</a><br /></td></tr>
+<tr class="separator:a24a81e37b2eff06482f65b09e39af9e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f47c2e7cba42121779e2772a052f58b"><td class="memItemLeft" align="right" valign="top">Eigen::Affine3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a9f47c2e7cba42121779e2772a052f58b">odom_transform_matrix</a></td></tr>
+<tr class="memdesc:a9f47c2e7cba42121779e2772a052f58b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container to store relative transform between obj_cloud and ref_obj_cloud.  <a href="#a9f47c2e7cba42121779e2772a052f58b">More...</a><br /></td></tr>
 <tr class="separator:a9f47c2e7cba42121779e2772a052f58b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7762960a72df80afdf8bedd59335ddc"><td class="memItemLeft" align="right" valign="top">Eigen::Affine3f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#ac7762960a72df80afdf8bedd59335ddc">icp_transform_matrix</a></td></tr>
 <tr class="separator:ac7762960a72df80afdf8bedd59335ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56499171fe846acfb2a73a5134261a91"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a56499171fe846acfb2a73a5134261a91">counter</a></td></tr>
 <tr class="separator:a56499171fe846acfb2a73a5134261a91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16ce63fc6e22bab22c377d9049923119"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a16ce63fc6e22bab22c377d9049923119">frame_id</a></td></tr>
+<tr class="separator:a16ce63fc6e22bab22c377d9049923119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a744619077c95172db4c19f45dcd9f30c"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a744619077c95172db4c19f45dcd9f30c">base_frame_id</a></td></tr>
+<tr class="separator:a744619077c95172db4c19f45dcd9f30c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53785ef8494de0fd1efed824562f3368"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a53785ef8494de0fd1efed824562f3368">sensor_frame_id</a></td></tr>
+<tr class="separator:a53785ef8494de0fd1efed824562f3368"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a71c4d63aacea33f4c1b172e1ff723163"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a71c4d63aacea33f4c1b172e1ff723163">ENABLE_ICP</a></td></tr>
+<tr class="memdesc:a71c4d63aacea33f4c1b172e1ff723163"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable use of ICP to better match obj_cloud with ref_obj_cloud : Default it is disabled bcoz of bad results.  <a href="#a71c4d63aacea33f4c1b172e1ff723163">More...</a><br /></td></tr>
 <tr class="separator:a71c4d63aacea33f4c1b172e1ff723163"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03474f362047eb23fbcc53e5ce943148"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a03474f362047eb23fbcc53e5ce943148">ENABLE_GROUND_REMOVAL</a></td></tr>
+<tr class="memdesc:a03474f362047eb23fbcc53e5ce943148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable use of ransac plane fitting to remove ground points : Default it is disabled for <a class="el" href="classZR300.html">ZR300</a> and enabled for <a class="el" href="classVelodyne.html">Velodyne</a>.  <a href="#a03474f362047eb23fbcc53e5ce943148">More...</a><br /></td></tr>
 <tr class="separator:a03474f362047eb23fbcc53e5ce943148"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3af9f5d3b0072cba61c14cff25965cb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#aa3af9f5d3b0072cba61c14cff25965cb">ENABLE_VOXELISE</a></td></tr>
+<tr class="memdesc:aa3af9f5d3b0072cba61c14cff25965cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable voxel filter: Default it is enable for <a class="el" href="classZR300.html">ZR300</a> and disabled for <a class="el" href="classVelodyne.html">Velodyne</a>.  <a href="#aa3af9f5d3b0072cba61c14cff25965cb">More...</a><br /></td></tr>
 <tr class="separator:aa3af9f5d3b0072cba61c14cff25965cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f7ffa75c60af605cc914de7296cddb1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a5f7ffa75c60af605cc914de7296cddb1">ENABLE_OCCLUSION_DETECTION</a></td></tr>
+<tr class="memdesc:a5f7ffa75c60af605cc914de7296cddb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable Occlusion detection so as to prevent false dynamic obstacles detection due to shadow : Default it is enabled for <a class="el" href="classZR300.html">ZR300</a> and enabled for <a class="el" href="classVelodyne.html">Velodyne</a>.  <a href="#a5f7ffa75c60af605cc914de7296cddb1">More...</a><br /></td></tr>
 <tr class="separator:a5f7ffa75c60af605cc914de7296cddb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6f1f8553f2a18176ae84b78ddea07c9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#af6f1f8553f2a18176ae84b78ddea07c9">VOXEL_LEAF_SIZE</a></td></tr>
 <tr class="separator:af6f1f8553f2a18176ae84b78ddea07c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae54c11225658974ed8a37a03815aab0e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#ae54c11225658974ed8a37a03815aab0e">ENABLE_SOR</a></td></tr>
+<tr class="memdesc:ae54c11225658974ed8a37a03815aab0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable Statistical Outlier removal filter: Default it is enable for <a class="el" href="classZR300.html">ZR300</a> and disabled for <a class="el" href="classVelodyne.html">Velodyne</a>.  <a href="#ae54c11225658974ed8a37a03815aab0e">More...</a><br /></td></tr>
 <tr class="separator:ae54c11225658974ed8a37a03815aab0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb5b1262c14e68886e01e0230c530b07"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#abb5b1262c14e68886e01e0230c530b07">SOR_MEAN_K</a></td></tr>
 <tr class="memdesc:abb5b1262c14e68886e01e0230c530b07"><td class="mdescLeft">&#160;</td><td class="mdescRight">number of neighbors to analyze for each point  <a href="#abb5b1262c14e68886e01e0230c530b07">More...</a><br /></td></tr>
@@ -175,22 +190,22 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:ae1c32b9f5741dd7d212f2745f8784de0"><td class="mdescLeft">&#160;</td><td class="mdescRight">distance in multiples of std dev after which point is considered an outlier  <a href="#ae1c32b9f5741dd7d212f2745f8784de0">More...</a><br /></td></tr>
 <tr class="separator:ae1c32b9f5741dd7d212f2745f8784de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a503bba212f9c15b767d512771b1559c2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a503bba212f9c15b767d512771b1559c2">PASS_X_MIN</a></td></tr>
-<tr class="memdesc:a503bba212f9c15b767d512771b1559c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">minimum value of x  <a href="#a503bba212f9c15b767d512771b1559c2">More...</a><br /></td></tr>
+<tr class="memdesc:a503bba212f9c15b767d512771b1559c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">minimum value in x direction  <a href="#a503bba212f9c15b767d512771b1559c2">More...</a><br /></td></tr>
 <tr class="separator:a503bba212f9c15b767d512771b1559c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12f8209c6640d67c23cac18b2d8b7964"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a12f8209c6640d67c23cac18b2d8b7964">PASS_X_MAX</a></td></tr>
-<tr class="memdesc:a12f8209c6640d67c23cac18b2d8b7964"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum value of x  <a href="#a12f8209c6640d67c23cac18b2d8b7964">More...</a><br /></td></tr>
+<tr class="memdesc:a12f8209c6640d67c23cac18b2d8b7964"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum value in x direction  <a href="#a12f8209c6640d67c23cac18b2d8b7964">More...</a><br /></td></tr>
 <tr class="separator:a12f8209c6640d67c23cac18b2d8b7964"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af95645fb925c485f397321d6e07c4574"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#af95645fb925c485f397321d6e07c4574">PASS_Y_MIN</a></td></tr>
-<tr class="memdesc:af95645fb925c485f397321d6e07c4574"><td class="mdescLeft">&#160;</td><td class="mdescRight">minimum value of y  <a href="#af95645fb925c485f397321d6e07c4574">More...</a><br /></td></tr>
+<tr class="memdesc:af95645fb925c485f397321d6e07c4574"><td class="mdescLeft">&#160;</td><td class="mdescRight">minimum value in y direction  <a href="#af95645fb925c485f397321d6e07c4574">More...</a><br /></td></tr>
 <tr class="separator:af95645fb925c485f397321d6e07c4574"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abacc76df1e25e42d25c1822c2637fa00"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#abacc76df1e25e42d25c1822c2637fa00">PASS_Y_MAX</a></td></tr>
-<tr class="memdesc:abacc76df1e25e42d25c1822c2637fa00"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum value of y  <a href="#abacc76df1e25e42d25c1822c2637fa00">More...</a><br /></td></tr>
+<tr class="memdesc:abacc76df1e25e42d25c1822c2637fa00"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum value in y direction  <a href="#abacc76df1e25e42d25c1822c2637fa00">More...</a><br /></td></tr>
 <tr class="separator:abacc76df1e25e42d25c1822c2637fa00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb71ade7e486ad1cafe15c441903f3e0"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#acb71ade7e486ad1cafe15c441903f3e0">PASS_Z_MIN</a></td></tr>
-<tr class="memdesc:acb71ade7e486ad1cafe15c441903f3e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">minimum value of z  <a href="#acb71ade7e486ad1cafe15c441903f3e0">More...</a><br /></td></tr>
+<tr class="memdesc:acb71ade7e486ad1cafe15c441903f3e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">minimum value in z direction  <a href="#acb71ade7e486ad1cafe15c441903f3e0">More...</a><br /></td></tr>
 <tr class="separator:acb71ade7e486ad1cafe15c441903f3e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05b70936af05654abb9b1924ab593d08"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a05b70936af05654abb9b1924ab593d08">PASS_Z_MAX</a></td></tr>
-<tr class="memdesc:a05b70936af05654abb9b1924ab593d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum value of z  <a href="#a05b70936af05654abb9b1924ab593d08">More...</a><br /></td></tr>
+<tr class="memdesc:a05b70936af05654abb9b1924ab593d08"><td class="mdescLeft">&#160;</td><td class="mdescRight">maximum value in z direction  <a href="#a05b70936af05654abb9b1924ab593d08">More...</a><br /></td></tr>
 <tr class="separator:a05b70936af05654abb9b1924ab593d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada1c6bd7f69249c5317cbe95969498e4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#ada1c6bd7f69249c5317cbe95969498e4">OCTREE_WINDOW</a></td></tr>
 <tr class="memdesc:ada1c6bd7f69249c5317cbe95969498e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This parameter defines that current pointcloud will be compared with "OCTREE_WINDOW" times previous pointcloud for spatial change detection.  <a href="#ada1c6bd7f69249c5317cbe95969498e4">More...</a><br /></td></tr>
@@ -199,10 +214,13 @@ Protected Attributes</h2></td></tr>
 <tr class="memdesc:aba086f9f8e05f18c02c042c057854a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">smallest dimension of octree leaf node  <a href="#aba086f9f8e05f18c02c042c057854a06">More...</a><br /></td></tr>
 <tr class="separator:aba086f9f8e05f18c02c042c057854a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af33add7f3b00fac5be10ffd87eae057f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#af33add7f3b00fac5be10ffd87eae057f">SEG_CLUSTER_TOLERANCE</a></td></tr>
+<tr class="memdesc:af33add7f3b00fac5be10ffd87eae057f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum distance between two points to be included in same cluster.  <a href="#af33add7f3b00fac5be10ffd87eae057f">More...</a><br /></td></tr>
 <tr class="separator:af33add7f3b00fac5be10ffd87eae057f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf7cfcaf0ab08a2afffcc2b47048bc81"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#acf7cfcaf0ab08a2afffcc2b47048bc81">SEG_MIN_CLUSTER_SIZE</a></td></tr>
+<tr class="memdesc:acf7cfcaf0ab08a2afffcc2b47048bc81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Minimum number of points that should be present within a cluster.  <a href="#acf7cfcaf0ab08a2afffcc2b47048bc81">More...</a><br /></td></tr>
 <tr class="separator:acf7cfcaf0ab08a2afffcc2b47048bc81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2959ad226faeaab4910f42ba91d37cb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#ab2959ad226faeaab4910f42ba91d37cb">SEG_MAX_CLUSTER_SIZE</a></td></tr>
+<tr class="memdesc:ab2959ad226faeaab4910f42ba91d37cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number points to be included in same cluster.  <a href="#ab2959ad226faeaab4910f42ba91d37cb">More...</a><br /></td></tr>
 <tr class="separator:ab2959ad226faeaab4910f42ba91d37cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
@@ -225,12 +243,8 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a6dcd90f46e590756a42aafd290443fcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bcf85ac924671c64840ac2087877a5f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a5bcf85ac924671c64840ac2087877a5f">is_in_bounding_area</a> (const pcl::PointCloud&lt; pcl::PointXYZ &gt;::Ptr &amp;coord, pcl::PointXYZRGB pt)</td></tr>
 <tr class="separator:a5bcf85ac924671c64840ac2087877a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77ecff192bbc43fd3182acb675d43350"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a77ecff192bbc43fd3182acb675d43350">mark_cluster</a> (pcl::PointCloud&lt; pcl::PointXYZRGB &gt;::Ptr cloud_cluster, std::string ns, int id, float r, float g, float b)</td></tr>
-<tr class="separator:a77ecff192bbc43fd3182acb675d43350"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2a36cd996f3d1eb002a357008836ef6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#ab2a36cd996f3d1eb002a357008836ef6">integrateOdom_ICP</a> (const pcl::PointCloud&lt; pcl::PointXYZ &gt;::ConstPtr &amp;<a class="el" href="classdatmo_1_1cloud__segmentation.html#ad946a48ab59bf9f48338f9ef0702181c">obj_cloud</a>, const pcl::PointCloud&lt; pcl::PointXYZ &gt;::Ptr &amp;<a class="el" href="classdatmo_1_1cloud__segmentation.html#a4f4926a401828fc5226665963a2212cf">ref_obj_cloud</a>)</td></tr>
-<tr class="separator:ab2a36cd996f3d1eb002a357008836ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40bcbb38bad5059c86e845e84ac113d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a40bcbb38bad5059c86e845e84ac113d0">integrateOdom</a> (pcl::PointCloud&lt; pcl::PointXYZ &gt; &amp;<a class="el" href="classdatmo_1_1cloud__segmentation.html#a576b87bb01fef0d14ba862f08ca8e2ba">last_centroids</a>)</td></tr>
-<tr class="separator:a40bcbb38bad5059c86e845e84ac113d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2386bd377507c5e1029f73285d8e7251"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdatmo_1_1cloud__segmentation.html#a2386bd377507c5e1029f73285d8e7251">integrateOdom_ICP</a> (const pcl::PointCloud&lt; pcl::PointXYZ &gt;::ConstPtr &amp;<a class="el" href="classdatmo_1_1cloud__segmentation.html#ad946a48ab59bf9f48338f9ef0702181c">obj_cloud</a>, const pcl::PointCloud&lt; pcl::PointXYZ &gt;::Ptr &amp;<a class="el" href="classdatmo_1_1cloud__segmentation.html#a4f4926a401828fc5226665963a2212cf">ref_obj_cloud</a>)</td></tr>
+<tr class="separator:a2386bd377507c5e1029f73285d8e7251"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7624176c1ff33d2fa3930bf9eef89c19"></a>
@@ -347,10 +361,10 @@ Private Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>filters the pointcloud wiithin given dimensions and field </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">cloud_in</td><td>[escription] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">field</td><td>[description] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">min</td><td>[description] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">max</td><td>[description] </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">cloud_in</td><td>ponitcloud to be filtered </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">field</td><td>axis name ("x" or "y" or "z") </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">min</td><td>minimum value of points in given field </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">max</td><td>maximum value of points in given field </td></tr>
   </table>
   </dd>
 </dl>
@@ -390,10 +404,10 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Transforms the point cloud from sensor frame to base_link </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Transforms the point cloud from sensor_frame_id to base_link This function contains a TF listener </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cloud_in</td><td>[description] </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">cloud_out</td><td>[description] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cloud_in</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cloud_out</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -457,6 +471,21 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function is core for classifying between dynamic and static objects. We used Octree based spatial change detection to find dynamic points more information follow link: <a href="http://pointclouds.org/documentation/tutorials/octree_change.php">http://pointclouds.org/documentation/tutorials/octree_change.php</a> We compare the object cloud(obj_cloud) at current time step with object cloud "octree_window" times previous object cloud (ref_obj_cloud) We are trying to find the new octree leaf that are created in current obj_cloud that were not present previously.</p>
+<p>Since the vehicle is moving Previous object cloud first has to be transformed to the frame of object cloud at current time step before pluging into this function</p>
+<p>OCTREE_WINDOW and OCTREE_RESOLUTION parameter can be used for tweaking dynamic object detection For Example: <a class="el" href="classVelodyne.html">Velodyne</a> data is published at 10 HZ, Keeping OCTREE_WINDOW = 5 and OCTREE_RESOLUTION = 0.4 means that and object would be detected as dynamic if it has moved minimum of 0.4m distancein half sec.</p>
+<p>zr300 data is published at 30 Hz , Keeping OCTREE_WINDOW = 15 and OCTREE_RESOLUTION = 0.4 means that and object would be detected as dynamic if it has moved minimum of 0.4m distancein half sec.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cloud_now</td><td>[description] </td></tr>
+    <tr><td class="paramname">cloud_to_compare</td><td>[description] </td></tr>
+    <tr><td class="paramname">dynamic_cloud</td><td>[description] </td></tr>
+    <tr><td class="paramname">occuluded_cloud</td><td>[description] </td></tr>
+    <tr><td class="paramname">OCTREE_RESOLUTION</td><td>[description] </td></tr>
+    <tr><td class="paramname">ENABLE_OCCLUSION_DETECTION</td><td>Enables occlusion detection </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -505,6 +534,16 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function uses euclidean clustering algorithm to remove outliers. i.e remove random points or very small set of clusters. for more information please follow the link:http://pointclouds.org/documentation/tutorials/cluster_extraction.php</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">cloud</td><td>The input PointCloud is replaced by filtered PointCloud </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SEG_CLUSTER_TOLERANCE</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SEG_MIN_CLUSTER_SIZE</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SEG_MAX_CLUSTER_SIZE</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -536,8 +575,8 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a40bcbb38bad5059c86e845e84ac113d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40bcbb38bad5059c86e845e84ac113d0">&#9670;&nbsp;</a></span>integrateOdom()</h2>
+<a id="a2386bd377507c5e1029f73285d8e7251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2386bd377507c5e1029f73285d8e7251">&#9670;&nbsp;</a></span>integrateOdom_ICP()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -546,33 +585,7 @@ Private Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void datmo::cloud_segmentation::integrateOdom </td>
-          <td>(</td>
-          <td class="paramtype">pcl::PointCloud&lt; pcl::PointXYZ &gt; &amp;&#160;</td>
-          <td class="paramname"><em>last_centroids</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab2a36cd996f3d1eb002a357008836ef6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2a36cd996f3d1eb002a357008836ef6">&#9670;&nbsp;</a></span>integrateOdom_ICP()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void datmo::cloud_segmentation::integrateOdom_ICP </td>
+          <td class="memname">void cloud_segmentation::integrateOdom_ICP </td>
           <td>(</td>
           <td class="paramtype">const pcl::PointCloud&lt; pcl::PointXYZ &gt;::ConstPtr &amp;&#160;</td>
           <td class="paramname"><em>obj_cloud</em>, </td>
@@ -631,74 +644,18 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>[is_in_bounding_area description] </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Since our vehicle is moving we keep exploring new areas. The points those detected in these new areas are classified as dynamic by Spatial change detection algorithm because these points did not existed in previous time step i.e in reference cloud.</p>
+<p>Lets say coordinates of our bounding area is (PASS_X_MIN, PASS_Y_MAX) (PASS_X_MAX, PASS_Y_MAX) (PASS_X_MAX, PASS_Y_MIN) (PASS_X_MIN, PASS_Y_MIN) as the vehicle moves forward we tranform this bounding area backwards accoridingly.</p>
+<p>Now every point that is detected as dynamic is checked if it lies in the bounding area. If not then it is classified as new detected point.</p>
+<p>To check whether the point lies within the polygon a ray casting algorithim is used.</p>
+<p>for more information to know about the algorithm follow link: <a href="http://www.geeksforgeeks.org/how-to-check-if-a-given-point-lies-inside-a-polygon/">http://www.geeksforgeeks.org/how-to-check-if-a-given-point-lies-inside-a-polygon/</a> </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">coord</td><td>[description] </td></tr>
-    <tr><td class="paramname">pt</td><td>[description] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">coord</td><td>PointCloud containing 4 points extreme co-ordinates of bounding area. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pt</td><td>point to be checked if it lies within bounding area </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>[description] </dd></dl>
-
-</div>
-</div>
-<a id="a77ecff192bbc43fd3182acb675d43350"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77ecff192bbc43fd3182acb675d43350">&#9670;&nbsp;</a></span>mark_cluster()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void datmo::cloud_segmentation::mark_cluster </td>
-          <td>(</td>
-          <td class="paramtype">pcl::PointCloud&lt; pcl::PointXYZRGB &gt;::Ptr&#160;</td>
-          <td class="paramname"><em>cloud_cluster</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>ns</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>r</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>g</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>b</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true/false </dd></dl>
 
 </div>
 </div>
@@ -735,6 +692,18 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function uses Ransac plane fitting algorithm to find all the points within a point cloud that support a plane model in our case we aim to find a Ground plane and remove all the points belonging to Ground so that we are only left with points belonging to obstacles. For more information follow link: <a href="http://pointclouds.org/documentation/tutorials/planar_segmentation.php">http://pointclouds.org/documentation/tutorials/planar_segmentation.php</a></p>
+<p>In this function we filter out the point cloud above certain height so that the most dominating plane to be fit by Ransac is Ground Plane. Since the we have large number of data points using Ransac to fit all of them would be computationally expensive so we only try fit plane to point in surrounding area of our vehicle here x(0m to 30m) y(-15m to 15m) and z(less than 0.5m). Accuracy and computational time can be changed by tweaking these parameters.</p>
+<p>Also for further reducing computational time we randomly choose 500 points and fit Ransac plane to them only....!</p>
+<p>For <a class="el" href="classZR300.html">ZR300</a> point cloud generated do not contain much points on ground hence Ransac_plane fitting is not neccessary. Putting a simple cap on height and neglecting all the point below that suffice our purpose. So Ground plane estimation is disabled by default.</p>
+<p>For Pointclouds generated by <a class="el" href="classVelodyne.html">Velodyne</a> Lidars significant number of point s fall on ground plane and hence properly removing them is neccessary hence Ground Plane estimation is enabled by default.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cloud_in</td><td>PointCloud in which ground plane is to be estimated </td></tr>
+    <tr><td class="paramname">cloud_out</td><td>PointCloud containing only obstacles (after removing ground points from original PointCloud) </td></tr>
+  </table>
+  </dd>
+</dl>
 <p>distance from ransac plane </p>
 
 </div>
@@ -784,12 +753,12 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>SOR filter is required for <a class="el" href="classZR300.html">ZR300</a> pointcloud data and is disables for <a class="el" href="classVelodyne.html">Velodyne</a> pointcloud </p><dl class="params"><dt>Parameters</dt><dd>
+<p>StatisticalOutlierRemoval filter is used to remove sparse points generated due to noise for more information follow the link: <a href="http://pointclouds.org/documentation/tutorials/statistical_outlier.php">http://pointclouds.org/documentation/tutorials/statistical_outlier.php</a> SOR filter is required for <a class="el" href="classZR300.html">ZR300</a> pointcloud data and is disables for <a class="el" href="classVelodyne.html">Velodyne</a> pointcloud </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cloud_in</td><td>[description] </td></tr>
-    <tr><td class="paramname">cloud_out</td><td>[description] </td></tr>
-    <tr><td class="paramname">SOR_MEAN_K</td><td>[description] </td></tr>
-    <tr><td class="paramname">SOR_STD_DEV_MUL_THRESH</td><td>[description] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cloud_in</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cloud_out</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SOR_MEAN_K</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">SOR_STD_DEV_MUL_THRESH</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -835,11 +804,11 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>[Voxel_filter description] </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This function downsamples a PointCloud that is, reduce the number of points – a point cloud dataset, using a voxelized grid approach For more information follow the link <a href="http://pointclouds.org/documentation/tutorials/voxel_grid.php">http://pointclouds.org/documentation/tutorials/voxel_grid.php</a> Also it removes any nan values in pointcloud This filter is neccessary for the dense PointCloud generated by stereo camera like ZED stereo camera and RGBD camera like <a class="el" href="classZR300.html">ZR300</a> PointCloud generated by 3D Lidars like <a class="el" href="classVelodyne.html">Velodyne</a> and Quanergy are very sparse and hence is disable for them by default. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">cloud_in</td><td>[description] </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">cloud_out</td><td>[description] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">VOXEL_LEAF_SIZE</td><td>[description] </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">cloud_in</td><td></td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">cloud_out</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">VOXEL_LEAF_SIZE</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -847,6 +816,28 @@ Private Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a744619077c95172db4c19f45dcd9f30c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a744619077c95172db4c19f45dcd9f30c">&#9670;&nbsp;</a></span>base_frame_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string datmo::cloud_segmentation::base_frame_id</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aa2712034cbe68df4d19b0fcf87f9b465"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa2712034cbe68df4d19b0fcf87f9b465">&#9670;&nbsp;</a></span>br</h2>
 
@@ -1009,6 +1000,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Enable use of ransac plane fitting to remove ground points : Default it is disabled for <a class="el" href="classZR300.html">ZR300</a> and enabled for <a class="el" href="classVelodyne.html">Velodyne</a>. </p>
+
 </div>
 </div>
 <a id="a71c4d63aacea33f4c1b172e1ff723163"></a>
@@ -1030,6 +1023,8 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Enable use of ICP to better match obj_cloud with ref_obj_cloud : Default it is disabled bcoz of bad results. </p>
 
 </div>
 </div>
@@ -1053,6 +1048,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Enable Occlusion detection so as to prevent false dynamic obstacles detection due to shadow : Default it is enabled for <a class="el" href="classZR300.html">ZR300</a> and enabled for <a class="el" href="classVelodyne.html">Velodyne</a>. </p>
+
 </div>
 </div>
 <a id="ae54c11225658974ed8a37a03815aab0e"></a>
@@ -1075,6 +1072,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Enable Statistical Outlier removal filter: Default it is enable for <a class="el" href="classZR300.html">ZR300</a> and disabled for <a class="el" href="classVelodyne.html">Velodyne</a>. </p>
+
 </div>
 </div>
 <a id="aa3af9f5d3b0072cba61c14cff25965cb"></a>
@@ -1096,6 +1095,8 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Enable voxel filter: Default it is enable for <a class="el" href="classZR300.html">ZR300</a> and disabled for <a class="el" href="classVelodyne.html">Velodyne</a>. </p>
 
 </div>
 </div>
@@ -1123,8 +1124,8 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac7762960a72df80afdf8bedd59335ddc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7762960a72df80afdf8bedd59335ddc">&#9670;&nbsp;</a></span>icp_transform_matrix</h2>
+<a id="a16ce63fc6e22bab22c377d9049923119"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16ce63fc6e22bab22c377d9049923119">&#9670;&nbsp;</a></span>frame_id</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1133,7 +1134,7 @@ Private Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::Affine3f datmo::cloud_segmentation::icp_transform_matrix</td>
+          <td class="memname">string datmo::cloud_segmentation::frame_id</td>
         </tr>
       </table>
   </td>
@@ -1145,8 +1146,8 @@ Private Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a576b87bb01fef0d14ba862f08ca8e2ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a576b87bb01fef0d14ba862f08ca8e2ba">&#9670;&nbsp;</a></span>last_centroids</h2>
+<a id="ac7762960a72df80afdf8bedd59335ddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7762960a72df80afdf8bedd59335ddc">&#9670;&nbsp;</a></span>icp_transform_matrix</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1155,7 +1156,7 @@ Private Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">pcl::PointCloud&lt;pcl::PointXYZ&gt; datmo::cloud_segmentation::last_centroids</td>
+          <td class="memname">Eigen::Affine3f datmo::cloud_segmentation::icp_transform_matrix</td>
         </tr>
       </table>
   </td>
@@ -1331,6 +1332,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Container to store relative transform between obj_cloud and ref_obj_cloud. </p>
+
 </div>
 </div>
 <a id="a12f8209c6640d67c23cac18b2d8b7964"></a>
@@ -1353,7 +1356,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>maximum value of x </p>
+<p>maximum value in x direction </p>
 
 </div>
 </div>
@@ -1377,7 +1380,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>minimum value of x </p>
+<p>minimum value in x direction </p>
 
 </div>
 </div>
@@ -1401,7 +1404,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>maximum value of y </p>
+<p>maximum value in y direction </p>
 
 </div>
 </div>
@@ -1425,7 +1428,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>minimum value of y </p>
+<p>minimum value in y direction </p>
 
 </div>
 </div>
@@ -1449,7 +1452,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>maximum value of z </p>
+<p>maximum value in z direction </p>
 
 </div>
 </div>
@@ -1473,7 +1476,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>minimum value of z </p>
+<p>minimum value in z direction </p>
 
 </div>
 </div>
@@ -1536,6 +1539,30 @@ Private Member Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">ros::Publisher datmo::cloud_segmentation::pub_2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Publish pointcloud with dynamic obstacles on topic /dynamic_points. </p>
+
+</div>
+</div>
+<a id="ac80cc51227bec21bcac68f80a9b4fc47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac80cc51227bec21bcac68f80a9b4fc47">&#9670;&nbsp;</a></span>pub_3</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ros::Publisher datmo::cloud_segmentation::pub_3</td>
         </tr>
       </table>
   </td>
@@ -1617,6 +1644,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Maximum distance between two points to be included in same cluster. </p>
+
 </div>
 </div>
 <a id="ab2959ad226faeaab4910f42ba91d37cb"></a>
@@ -1639,6 +1668,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Maximum number points to be included in same cluster. </p>
+
 </div>
 </div>
 <a id="acf7cfcaf0ab08a2afffcc2b47048bc81"></a>
@@ -1652,6 +1683,30 @@ Private Member Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">int datmo::cloud_segmentation::SEG_MIN_CLUSTER_SIZE</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Minimum number of points that should be present within a cluster. </p>
+
+</div>
+</div>
+<a id="a53785ef8494de0fd1efed824562f3368"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53785ef8494de0fd1efed824562f3368">&#9670;&nbsp;</a></span>sensor_frame_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string datmo::cloud_segmentation::sensor_frame_id</td>
         </tr>
       </table>
   </td>
@@ -1731,6 +1786,8 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>vector to store the "OCTREE_WINDOW" number of obj_cloud in the memory </p>
+
 </div>
 </div>
 <a id="a24a81e37b2eff06482f65b09e39af9e4"></a>
@@ -1752,6 +1809,8 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Vector to store corresponding Transforms of each PointCloud in sourceClouds /odom to /base_link. </p>
 
 </div>
 </div>

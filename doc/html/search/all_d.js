@@ -9,5 +9,6 @@ var searchData=
   ['pi',['PI',['../dynamic__obstacle__tracking_8hpp.html#a598a3330b3c21701223ee0ca14316eca',1,'dynamic_obstacle_tracking.hpp']]],
   ['prev_5fcloud_5ftransform',['prev_cloud_transform',['../classdatmo_1_1cloud__segmentation.html#af664f016cfef835a3cfc303675c0a5ec',1,'datmo::cloud_segmentation']]],
   ['pub',['pub',['../classdatmo_1_1cloud__segmentation.html#a01955e35ed0d12b9da4d4d9afb1007e3',1,'datmo::cloud_segmentation']]],
-  ['pub_5f2',['pub_2',['../classdatmo_1_1cloud__segmentation.html#a0e1bf18752add68fc2df89e212750d91',1,'datmo::cloud_segmentation']]]
+  ['pub_5f2',['pub_2',['../classdatmo_1_1cloud__segmentation.html#a0e1bf18752add68fc2df89e212750d91',1,'datmo::cloud_segmentation']]],
+  ['pub_5f3',['pub_3',['../classdatmo_1_1cloud__segmentation.html#ac80cc51227bec21bcac68f80a9b4fc47',1,'datmo::cloud_segmentation']]]
 ];

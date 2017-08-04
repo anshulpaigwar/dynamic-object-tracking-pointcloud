@@ -8,5 +8,6 @@ var searchData=
   ['pass_5fz_5fmin',['PASS_Z_MIN',['../classdatmo_1_1cloud__segmentation.html#acb71ade7e486ad1cafe15c441903f3e0',1,'datmo::cloud_segmentation']]],
   ['prev_5fcloud_5ftransform',['prev_cloud_transform',['../classdatmo_1_1cloud__segmentation.html#af664f016cfef835a3cfc303675c0a5ec',1,'datmo::cloud_segmentation']]],
   ['pub',['pub',['../classdatmo_1_1cloud__segmentation.html#a01955e35ed0d12b9da4d4d9afb1007e3',1,'datmo::cloud_segmentation']]],
-  ['pub_5f2',['pub_2',['../classdatmo_1_1cloud__segmentation.html#a0e1bf18752add68fc2df89e212750d91',1,'datmo::cloud_segmentation']]]
+  ['pub_5f2',['pub_2',['../classdatmo_1_1cloud__segmentation.html#a0e1bf18752add68fc2df89e212750d91',1,'datmo::cloud_segmentation']]],
+  ['pub_5f3',['pub_3',['../classdatmo_1_1cloud__segmentation.html#ac80cc51227bec21bcac68f80a9b4fc47',1,'datmo::cloud_segmentation']]]
 ];

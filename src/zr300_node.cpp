@@ -80,7 +80,7 @@ using namespace datmo;
 
         private_nh.param("frame_id", frame_id,  std::string("/odom"));
         private_nh.param("base_frame_id", base_frame_id,  std::string("/base_link"));
-        private_nh.param("sensor_frame_id", sensor_frame_id,  std::string("/vlp16"));
+        private_nh.param("sensor_frame_id", sensor_frame_id,  std::string("/camera_depth_optical_frame"));
 
         cb_type = boost::bind(&ZR300::dynamic_reconfigure_cb, this, _1, _2);
         server.setCallback(cb_type);
